@@ -25,9 +25,9 @@ void Inspector::Draw() {
 	if (this->entity == NULL)
 		return;
 	
-	ofSetColor(ofColor::red);
+	ofSetColor(ofColor::blue);
 	ofDrawLine(this->entity->transform.Position(), this->entity->transform.Position() + this->entity->transform.Up() * 100 * this->entity->transform.Scale().x);
-	ofSetColor(ofColor::green);
+	ofSetColor(ofColor::red);
 	ofDrawLine(this->entity->transform.Position(), this->entity->transform.Position() + this->entity->transform.Right() * 100 * this->entity->transform.Scale().y);
 	gui.draw();
 }
