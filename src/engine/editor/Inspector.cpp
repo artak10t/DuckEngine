@@ -28,6 +28,6 @@ void Inspector::Draw() {
 	ofSetColor(ofColor::red);
 	ofDrawLine(this->entity->transform.Position(), this->entity->transform.Position() + this->entity->transform.Up() * 100 * this->entity->transform.Scale().x);
 	ofSetColor(ofColor::green);
-	ofDrawLine(this->entity->transform.Position(), this->entity->transform.Position() + this->entity->transform.Right() * 100 * this->entity->transform.Scale().x);
+	ofDrawLine(this->entity->transform.Position(), this->entity->transform.Position() + this->entity->transform.Right() * 100 * this->entity->transform.Scale().y);
 	gui.draw();
 }
