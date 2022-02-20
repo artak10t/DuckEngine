@@ -10,6 +10,7 @@ void ofApp::setup() {
 	object->name = "Triangle";
 	object->transform.Position(glm::vec3(ofGetWindowWidth() / 2.0, ofGetWindowHeight() / 2.0, 0));
 	object->AddComponent<Draggable>();
+	object->transform.Rotation(35);
 	Entities.push_back(object);
 
 	inspector.Inspect(object);
@@ -24,10 +25,10 @@ void ofApp::update() {
 }
 
 void ofApp::draw() {
-	inspector.Draw();
-
 	for (int i = 0; i < Entities.size(); i++)
 		Entities[i]->Draw();
+
+	inspector.Draw();
 }
 
 void ofApp::keyPressed(int key) {

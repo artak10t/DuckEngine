@@ -9,6 +9,9 @@ public:
 	Transform();
 	Transform(glm::vec3 Position, float Rotation, glm::vec3 Scale);
 
+	glm::vec3 Up();
+	glm::vec3 Right();
+
 	glm::vec3 Position();
 	void Position(glm::vec3 position);
 	float Rotation();

@@ -16,6 +16,18 @@ Transform::Transform(glm::vec3 position, float rotation, glm::vec3 scale) {
 	calcMatrix4();
 }
 
+glm::vec3 Transform::Up() {
+	glm::mat4 rotate = glm::rotate(glm::mat4(1.0), glm::radians(this->rotation), glm::vec3(0, 0, 1));
+	glm::vec3 v = rotate * glm::vec4(0, -1, 0, 1);
+	return v;
+}
+
+glm::vec3 Transform::Right() {
+	glm::mat4 rotate = glm::rotate(glm::mat4(1.0), glm::radians(this->rotation), glm::vec3(0, 0, 1));
+	glm::vec3 v = rotate * glm::vec4(1, 0, 0, 1);
+	return v;
+}
+
 glm::vec3 Transform::Position() {
 	return this->position;
 }
