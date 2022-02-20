@@ -52,6 +52,9 @@
     <ClCompile Include="src\engine\editor\Inspector.cpp">
       <Filter>src\engine\editor</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\components\Controller.cpp">
+      <Filter>src\engine\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="src\engine\editor\Inspector.h">
       <Filter>src\engine\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\components\Controller.h">
+      <Filter>src\engine\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
