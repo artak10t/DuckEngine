@@ -10,9 +10,15 @@ void Controller::Update() {
 		entity->transform.Position(entity->transform.Position() - entity->transform.Up() * relativeVelocity);
 
 	if (rightTurn)
-		entity->transform.Rotation(entity->transform.Rotation() + relativeRotationVelocity);
+		if(backward)
+			entity->transform.Rotation(entity->transform.Rotation() - relativeRotationVelocity);
+		else
+			entity->transform.Rotation(entity->transform.Rotation() + relativeRotationVelocity);
 	else if(leftTurn)
-		entity->transform.Rotation(entity->transform.Rotation() - relativeRotationVelocity);
+		if(backward)
+			entity->transform.Rotation(entity->transform.Rotation() + relativeRotationVelocity);
+		else
+			entity->transform.Rotation(entity->transform.Rotation() - relativeRotationVelocity);
 }
 
 void Controller::KeyPressed(int key) {
