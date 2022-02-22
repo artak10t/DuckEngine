@@ -183,7 +183,7 @@
     <ClCompile Include="src\engine\components\Controller.cpp" />
     <ClCompile Include="src\engine\components\Draggable.cpp" />
     <ClCompile Include="src\engine\editor\Inspector.cpp" />
-    <ClCompile Include="src\engine\Mesh.cpp" />
+    <ClCompile Include="src\engine\components\Mesh.cpp" />
     <ClCompile Include="src\engine\Entity.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
@@ -203,7 +203,7 @@
     <ClInclude Include="src\engine\components\Controller.h" />
     <ClInclude Include="src\engine\editor\Inspector.h" />
     <ClInclude Include="src\engine\components\Draggable.h" />
-    <ClInclude Include="src\engine\Mesh.h" />
+    <ClInclude Include="src\engine\components\Mesh.h" />
     <ClInclude Include="src\engine\Entity.h" />
     <ClInclude Include="src\engine\Component.h" />
     <ClInclude Include="src\ofApp.h" />

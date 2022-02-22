@@ -10,6 +10,7 @@ public:
 	Component() { entity = nullptr; }
 	virtual void Start() {}
 	virtual void Update() {}
+	virtual void Draw() {}
 	virtual void KeyPressed(int key) {}
 	virtual void KeyReleased(int key) {}
 	virtual void MouseMoved(int x, int y) {}
@@ -19,4 +20,6 @@ public:
 	virtual void MouseEntered(int x, int y) {}
 	virtual void MouseExited(int x, int y) {}
 	virtual void WindowResized(int w, int h) {}
+
+	virtual ~Component() {}
 };

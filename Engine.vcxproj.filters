@@ -40,9 +40,6 @@
     <ClCompile Include="src\engine\Entity.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\Mesh.cpp">
-      <Filter>src\engine</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\Transform.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
@@ -53,6 +50,9 @@
       <Filter>src\engine\editor</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\components\Controller.cpp">
+      <Filter>src\engine\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\components\Mesh.cpp">
       <Filter>src\engine\components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,9 +125,6 @@
     <ClInclude Include="src\engine\Entity.h">
       <Filter>src\engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\Mesh.h">
-      <Filter>src\engine</Filter>
-    </ClInclude>
     <ClInclude Include="src\engine\Transform.h">
       <Filter>src\engine</Filter>
     </ClInclude>
@@ -138,6 +135,9 @@
       <Filter>src\engine\editor</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\components\Controller.h">
+      <Filter>src\engine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\components\Mesh.h">
       <Filter>src\engine\components</Filter>
     </ClInclude>
   </ItemGroup>

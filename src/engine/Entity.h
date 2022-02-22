@@ -3,7 +3,6 @@
 #include <ofGraphics.h>
 #include <typeinfo>
 #include "Transform.h"
-#include "Mesh.h"
 #include "Component.h"
 
 class Entity
@@ -11,24 +10,24 @@ class Entity
 public:
 	Entity();
 
-	//Templates need to be in header or be explicitly instantiated
-#pragma region components
 	template<typename T> void AddComponent() {
 		T* component = new T();
 		component->entity = this;
 		for (int i = 0; i < components.size(); i++) {
-			if (typeid(*components[i]) == typeid(component))
+			if (typeid(*components[i]) == typeid(*component))
 				return;
 		}
 
 		components.push_back(component);
 	}
 
-	template<typename T> Component* GetComponent() {
+	template<typename T> T* GetComponent() {
 		for (int i = 0; i < components.size(); i++) {
 			if (typeid(*components[i]) == typeid(T))
-				return components[i];
+				return dynamic_cast<T*>(components[i]);
 		}
+
+		return nullptr;
 	}
 
 	template<typename T> void RemoveComponent() {
@@ -44,11 +43,10 @@ public:
 		for (int i = 0; i < components.size(); i++)
 			delete components[i];
 	}
-#pragma endregion
 
-	void Start();
-	void Update();
-	void Draw();
+	virtual void Start();
+	virtual void Update();
+	virtual void Draw();
 	virtual void KeyPressed(int key);
 	virtual void KeyReleased(int key);
 	virtual void MouseMoved(int x, int y);
@@ -62,7 +60,6 @@ public:
 	std::string name;
 	bool isActive;
 	Transform transform;
-	Mesh mesh;
 
 private:
 	std::vector<Component*> components;

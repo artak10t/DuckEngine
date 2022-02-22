@@ -56,9 +56,9 @@ void Transform::Scale(glm::vec3 scale) {
 }
 
 void Transform::calcMatrix4() {
-	glm::mat4 translate = glm::translate(glm::mat4(1.0), glm::vec3(this->position));
+	glm::mat4 translate = glm::translate(glm::mat4(1.0), this->position);
 	glm::mat4 rotate = glm::rotate(glm::mat4(1.0), glm::radians(this->rotation), glm::vec3(0, 0, 1));
-	glm::mat4 scale = glm::scale(glm::mat4(1.0), glm::vec3(this->scale));
+	glm::mat4 scale = glm::scale(glm::mat4(1.0), this->scale);
 
 	glm::mat4 matrix4 = translate * rotate * scale;
 	this->matrix4 = matrix4;

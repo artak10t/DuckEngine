@@ -1,6 +1,7 @@
 #include "ofApp.h"
 #include "./engine/components/Draggable.h"
 #include "./engine/components/Controller.h"
+#include "./engine/components/Mesh.h"
 
 void ofApp::setup() {
 	//Editor
@@ -10,8 +11,10 @@ void ofApp::setup() {
 	Entity* object = new Entity();
 	object->name = "Triangle";
 	object->transform.Position(glm::vec3(ofGetWindowWidth() / 2.0, ofGetWindowHeight() / 2.0, 0));
+	object->AddComponent<Mesh>();
 	object->AddComponent<Draggable>();
 	object->AddComponent<Controller>();
+
 	Entities.push_back(object);
 
 	inspector.Inspect(object);
