@@ -11,8 +11,11 @@ class Inspector
 		void Draw();
 
 	private:
+		void DrawSpaceAxis();
+
 		Entity* entity;
 		ofxPanel gui;
+		ofxToggle localSpace;
 		ofxToggle isActive;
 		ofParameterGroup position;
 		ofParameter<float> positionX;

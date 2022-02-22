@@ -11,7 +11,8 @@ void Inspector::Inspect(Entity* entity) {
 	}
 	this->entity = entity;
 	gui.setName(entity->name);
-	gui.add(isActive.setup("IsActive", entity->isActive));
+	gui.add(localSpace.setup("Local Space", false));
+	gui.add(isActive.setup("Is Active", entity->isActive));
 
 	position.setName("Position");
 	position.add(positionX.set("X", entity->transform.Position().x));
@@ -25,9 +26,21 @@ void Inspector::Draw() {
 	if (this->entity == NULL)
 		return;
 	
-	ofSetColor(ofColor::blue);
-	ofDrawLine(this->entity->transform.Position(), this->entity->transform.Position() + this->entity->transform.Up() * 100 * this->entity->transform.Scale().x);
-	ofSetColor(ofColor::red);
-	ofDrawLine(this->entity->transform.Position(), this->entity->transform.Position() + this->entity->transform.Right() * 100 * this->entity->transform.Scale().y);
+	DrawSpaceAxis();
+
 	gui.draw();
+}
+
+void Inspector::DrawSpaceAxis() {
+	if (localSpace) {
+		ofSetColor(ofColor::blue);
+		ofDrawLine(this->entity->transform.Position(), this->entity->transform.Position() + this->entity->transform.Up() * 100 * this->entity->transform.Scale().x);
+		ofSetColor(ofColor::red);
+		ofDrawLine(this->entity->transform.Position(), this->entity->transform.Position() + this->entity->transform.Right() * 100 * this->entity->transform.Scale().y);
+	} else {
+		ofSetColor(ofColor::blue);
+		ofDrawLine(this->entity->transform.Position(), this->entity->transform.Position() + glm::vec3(0, -1, 0) * 100 * this->entity->transform.Scale().x);
+		ofSetColor(ofColor::red);
+		ofDrawLine(this->entity->transform.Position(), this->entity->transform.Position() + glm::vec3(1, 0, 0) * 100 * this->entity->transform.Scale().y);
+	}
 }
