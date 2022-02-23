@@ -13,7 +13,7 @@ void Mesh::Draw() {
 	ofSetColor(color);
 	ofFill();
 	ofPushMatrix();
-	ofMultMatrix(entity->transform.matrix4);
+	ofMultMatrix(entity->transform.Matrix4());
 	//CHANGE IN FUTURE
 	ofDrawTriangle(vertices[0], vertices[1], vertices[2]);
 	ofPopMatrix();

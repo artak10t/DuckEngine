@@ -10,7 +10,7 @@ void ofApp::setup() {
 	//Need to separate into Scene class
 	Entity* object = new Entity();
 	object->name = "Triangle";
-	object->transform.Position(glm::vec3(ofGetWindowWidth() / 2.0, ofGetWindowHeight() / 2.0, 0));
+	object->transform.position = glm::vec3(ofGetWindowWidth() / 2.0, ofGetWindowHeight() / 2.0, 0);
 	object->AddComponent<Mesh>();
 	object->AddComponent<Draggable>();
 	object->AddComponent<Controller>();

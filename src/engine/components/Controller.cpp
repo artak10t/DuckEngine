@@ -5,20 +5,20 @@ void Controller::Update() {
 	float relativeRotationVelocity = ofGetLastFrameTime() * rotationVelocity;
 
 	if (forward)
-		entity->transform.Position(entity->transform.Position() + entity->transform.Up() * relativeVelocity);
+		entity->transform.position = entity->transform.position + entity->transform.Up() * relativeVelocity;
 	else if(backward)
-		entity->transform.Position(entity->transform.Position() - entity->transform.Up() * relativeVelocity);
+		entity->transform.position = entity->transform.position - entity->transform.Up() * relativeVelocity;
 
 	if (rightTurn)
 		if(backward)
-			entity->transform.Rotation(entity->transform.Rotation() - relativeRotationVelocity);
+			entity->transform.rotation = entity->transform.rotation - relativeRotationVelocity;
 		else
-			entity->transform.Rotation(entity->transform.Rotation() + relativeRotationVelocity);
+			entity->transform.rotation = entity->transform.rotation + relativeRotationVelocity;
 	else if(leftTurn)
 		if(backward)
-			entity->transform.Rotation(entity->transform.Rotation() + relativeRotationVelocity);
+			entity->transform.rotation = entity->transform.rotation + relativeRotationVelocity;
 		else
-			entity->transform.Rotation(entity->transform.Rotation() - relativeRotationVelocity);
+			entity->transform.rotation = entity->transform.rotation - relativeRotationVelocity;
 }
 
 void Controller::KeyPressed(int key) {

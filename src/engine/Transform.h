@@ -7,25 +7,20 @@ class Transform
 {
 public:
 	Transform();
-	Transform(glm::vec3 Position, float Rotation, glm::vec3 Scale);
+	Transform(glm::vec3 position, float rotation, glm::vec3 scale);
+	glm::mat4 Matrix4();
 
 	glm::vec3 Up();
 	glm::vec3 Right();
 
-	glm::vec3 Position();
-	void Position(glm::vec3 position);
-	float Rotation();
-	void Rotation(float rotation);
-	glm::vec3 Scale();
-	void Scale(glm::vec3 scale);
-
-	glm::mat4 matrix4;
-
-private:
-	void calcMatrix4();
-
 	glm::vec3 position;
 	float rotation;
 	glm::vec3 scale;
+
+private:
+	glm::mat4 matrix4_cached;
+	glm::vec3 last_position;
+	float last_rotation;
+	glm::vec3 last_scale;
 };
 
