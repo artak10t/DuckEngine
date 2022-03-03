@@ -9,6 +9,7 @@ public:
 	virtual void Start() {}
 	virtual void Update() {}
 	virtual void Draw() {}
+	virtual void OnDestroy() {}
 	virtual void KeyPressed(int key) {}
 	virtual void KeyReleased(int key) {}
 	virtual void MouseMoved(int x, int y) {}

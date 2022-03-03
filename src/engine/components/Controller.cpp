@@ -31,6 +31,9 @@ void Controller::KeyPressed(int key) {
 		rightTurn = true;
 	else if (key == 'a')
 		leftTurn = true;
+
+	if (key == 'k')
+		gameObject->Destroy();
 }
 
 void Controller::KeyReleased(int key) {

@@ -9,14 +9,7 @@ class Entity
 {
 public:
 	Entity();
-
-	static void Instantiate(Entity* gameObject) {
-		gameObjects.push_back(gameObject);
-	}
-
-	static void Destroy(Entity* gameObject) {
-
-	}
+	void Destroy();
 
 	template<typename T> T* AddComponent() {
 		T* component = new T(this);
@@ -47,14 +40,10 @@ public:
 		}
 	}
 
-	void RemoveAllComponents() {
-		for (int i = 0; i < components.size(); i++)
-			delete components[i];
-	}
-
 	virtual void Start();
 	virtual void Update();
 	virtual void Draw();
+	virtual void OnDestroy();
 	virtual void KeyPressed(int key);
 	virtual void KeyReleased(int key);
 	virtual void MouseMoved(int x, int y);
@@ -70,6 +59,9 @@ public:
 	Transform transform;
 
 	static std::vector<Entity*> gameObjects;
+
+	~Entity();
 private:
+	unsigned int instanceId;
 	std::vector<Component*> components;
 };
