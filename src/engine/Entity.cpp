@@ -1,4 +1,5 @@
 #include "Entity.h"
+std::vector<Entity*> Entity::gameObjects = {};
 
 Entity::Entity() {
 	transform = Transform();

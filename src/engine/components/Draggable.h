@@ -9,6 +9,8 @@
 class Draggable : public Component
 {
 public:
+	using Component::Component;
+
 	void Start();
 	void MouseDragged(int x, int y, int button);
 	void MousePressed(int x, int y, int button);

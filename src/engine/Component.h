@@ -5,9 +5,7 @@ class Entity;
 class Component
 {
 public:
-	Entity* entity;
-
-	Component() { entity = nullptr; }
+	Component(Entity* gameObject) { this->gameObject = gameObject; }
 	virtual void Start() {}
 	virtual void Update() {}
 	virtual void Draw() {}
@@ -20,6 +18,8 @@ public:
 	virtual void MouseEntered(int x, int y) {}
 	virtual void MouseExited(int x, int y) {}
 	virtual void WindowResized(int w, int h) {}
+	Entity* gameObject;
 
 	virtual ~Component() {}
+protected:
 };

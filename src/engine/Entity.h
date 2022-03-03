@@ -10,15 +10,23 @@ class Entity
 public:
 	Entity();
 
-	template<typename T> void AddComponent() {
-		T* component = new T();
-		component->entity = this;
+	static void Instantiate(Entity* gameObject) {
+		gameObjects.push_back(gameObject);
+	}
+
+	static void Destroy(Entity* gameObject) {
+
+	}
+
+	template<typename T> T* AddComponent() {
+		T* component = new T(this);
 		for (int i = 0; i < components.size(); i++) {
 			if (typeid(*components[i]) == typeid(*component))
-				return;
+				return nullptr;
 		}
 
 		components.push_back(component);
+		return dynamic_cast<T*>(component);
 	}
 
 	template<typename T> T* GetComponent() {
@@ -61,6 +69,7 @@ public:
 	bool isActive;
 	Transform transform;
 
+	static std::vector<Entity*> gameObjects;
 private:
 	std::vector<Component*> components;
 };

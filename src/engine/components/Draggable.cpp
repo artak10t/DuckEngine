@@ -1,19 +1,19 @@
 #include "Draggable.h"
 
 void Draggable::Start() {
-	mesh = entity->GetComponent<Mesh>();
+	mesh = gameObject->GetComponent<Mesh>();
 }
 
 void Draggable::MouseDragged(int x, int y, int button) {
 	if (dragging)
-		entity->transform.position = glm::vec3(x, y, 0) - delta;
+		gameObject->transform.position = glm::vec3(x, y, 0) - delta;
 }
 
 void Draggable::MousePressed(int x, int y, int button) {
 	if (button == 0) {
 		if (inside(glm::vec3(x, y, 0))) {
 			dragging = true;
-			delta = glm::vec3(x, y, 0) - entity->transform.position;
+			delta = glm::vec3(x, y, 0) - gameObject->transform.position;
 		}
 	}
 }
@@ -24,7 +24,7 @@ void Draggable::MouseReleased(int x, int y, int button) {
 }
 
 bool Draggable::inside(glm::vec3 point) {
-	glm::vec3 p = glm::inverse(entity->transform.Matrix4()) * glm::vec4(point, 1);
+	glm::vec3 p = glm::inverse(gameObject->transform.Matrix4()) * glm::vec4(point, 1);
 
 	glm::vec3 v1 = glm::normalize(mesh->vertices[0] - p);
 	glm::vec3 v2 = glm::normalize(mesh->vertices[1] - p);

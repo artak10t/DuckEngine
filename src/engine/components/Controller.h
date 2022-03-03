@@ -6,18 +6,20 @@
 
 class Controller : public Component
 {
-	public:
-		float velocity = 300;
-		float rotationVelocity = 100;
+public:
+	using Component::Component;
 
-		void Update();
-		void KeyPressed(int key);
-		void KeyReleased(int key);
+	float velocity = 300;
+	float rotationVelocity = 100;
 
-	private:
-		bool forward = false;
-		bool backward = false;
-		bool leftTurn = false;
-		bool rightTurn = false;
+	void Update();
+	void KeyPressed(int key);
+	void KeyReleased(int key);
+
+private:
+	bool forward = false;
+	bool backward = false;
+	bool leftTurn = false;
+	bool rightTurn = false;
 };
 

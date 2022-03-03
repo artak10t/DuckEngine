@@ -7,6 +7,8 @@
 class Mesh : public Component
 {
 public:
+	using Component::Component;
+
 	void Start();
 	void Draw();
 

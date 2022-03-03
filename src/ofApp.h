@@ -23,7 +23,6 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
-	std::vector<Entity*> Entities;
 	Inspector inspector;
 
 	~ofApp();
