@@ -1,4 +1,6 @@
 #include "Controller.h"
+#include "../components/Mesh.h"
+#include "../components/Controller.h"
 
 void Controller::Update() {
 	float relativeVelocity = ofGetLastFrameTime() * velocity;
@@ -34,6 +36,14 @@ void Controller::KeyPressed(int key) {
 
 	if (key == 'k')
 		gameObject->Destroy();
+
+	if (key == 'f') {
+		Entity* o = new Entity();
+		o->name = "B";
+		o->transform.position = gameObject->transform.position;
+		o->AddComponent<Mesh>();
+		o->AddComponent<Controller>();
+	}
 }
 
 void Controller::KeyReleased(int key) {

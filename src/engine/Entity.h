@@ -19,6 +19,7 @@ public:
 		}
 
 		components.push_back(component);
+		components[components.size() - 1]->Start();
 		return dynamic_cast<T*>(component);
 	}
 
@@ -40,7 +41,6 @@ public:
 		}
 	}
 
-	virtual void Start();
 	virtual void Update();
 	virtual void Draw();
 	virtual void OnDestroy();
