@@ -23,6 +23,7 @@ void Controller::Update() {
 			gameObject->transform.rotation = gameObject->transform.rotation - relativeRotationVelocity;
 }
 
+Transform* cached;
 void Controller::KeyPressed(int key) {
 	if (key == 'w')
 		forward = true;
@@ -36,6 +37,17 @@ void Controller::KeyPressed(int key) {
 
 	if (key == 'k')
 		gameObject->Destroy();
+
+	if (key == 'c' && gameObject->name == "b" && gameObject->transform.parent) {
+		cached = gameObject->transform.parent;
+		gameObject->transform.parent = NULL;
+	}
+	else if (key == 'c' && gameObject->name == "b" && !gameObject->transform.parent) {
+		gameObject->transform.parent = cached;
+	}
+
+	if (key == 'h')
+		gameObject->transform.localPosition += glm::vec3(10, 0, 0);
 
 	if (key == 'f') {
 		Entity* o = new Entity();
