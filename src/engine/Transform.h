@@ -2,22 +2,23 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+using namespace glm;
 
 class Transform
 {
 public:
 	Transform();
-	Transform(glm::vec3 position, float rotation, glm::vec3 scale);
-	glm::mat4 Matrix4();
-	glm::vec3 Up();
-	glm::vec3 Right();
+	Transform(vec3 position, float rotation, vec3 scale);
+	mat4 Matrix4();
+	vec3 Up();
+	vec3 Right();
 
 	Transform* parent;
-	glm::vec3 position;
+	vec3 position;
 	float rotation;
-	glm::vec3 scale;
-	glm::vec3 localPosition;
+	vec3 scale;
+	vec3 localPosition;
 	float localRotation;
-	glm::vec3 localScale;
+	vec3 localScale;
 };
 

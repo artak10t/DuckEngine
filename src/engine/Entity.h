@@ -9,6 +9,8 @@ class Entity
 {
 public:
 	Entity();
+	Entity(std::string name);
+	Entity(std::string name, glm::vec3 position, float rotation, glm::vec3 scale);
 	void Destroy();
 
 	template<typename T> T* AddComponent() {

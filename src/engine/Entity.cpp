@@ -9,6 +9,22 @@ Entity::Entity() {
 	Entity::gameObjects.push_back(this);
 }
 
+Entity::Entity(std::string name) {
+	transform = Transform();
+	this->name = name;
+	isActive = true;
+	instanceId = gameObjects.size();
+	Entity::gameObjects.push_back(this);
+}
+
+Entity::Entity(std::string name, glm::vec3 position, float rotation, glm::vec3 scale) {
+	transform = Transform(position, rotation, scale);
+	this->name = name;
+	isActive = true;
+	instanceId = gameObjects.size();
+	Entity::gameObjects.push_back(this);
+}
+
 Entity::~Entity() {
 	for (int i = 0; i < components.size(); i++)
 		delete components[i];

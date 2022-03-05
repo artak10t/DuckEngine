@@ -47,7 +47,7 @@ void Controller::KeyPressed(int key) {
 	}
 
 	if (key == 'h')
-		gameObject->transform.localPosition += glm::vec3(10, 0, 0);
+		gameObject->transform.localPosition += vec3(10, 0, 0);
 
 	if (key == 'f') {
 		Entity* o = new Entity();

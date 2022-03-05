@@ -1,4 +1,6 @@
 #pragma once
+#include <glm/glm.hpp>
+using namespace glm;
 
 class Entity;
 
@@ -19,8 +21,8 @@ public:
 	virtual void MouseEntered(int x, int y) {}
 	virtual void MouseExited(int x, int y) {}
 	virtual void WindowResized(int w, int h) {}
-	Entity* gameObject;
 
 	virtual ~Component() {}
 protected:
+	Entity* gameObject;
 };

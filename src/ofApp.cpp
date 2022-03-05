@@ -8,7 +8,7 @@ void ofApp::setup() {
 
 	Entity* player = new Entity();
 	player->name = "Player";
-	player->transform.position = glm::vec3(ofGetWindowWidth() / 2.0, ofGetWindowHeight() / 2.0, 0);
+	player->transform.position = vec3(ofGetWindowWidth() / 2.0, ofGetWindowHeight() / 2.0, 0);
 	player->AddComponent<Mesh>();
 	player->AddComponent<Controller>();
 	player->AddComponent<Draggable>();

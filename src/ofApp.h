@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "engine/editor/Inspector.h"
 #include "engine/Entity.h"
+using namespace glm;
 
 class ofApp : public ofBaseApp {
 

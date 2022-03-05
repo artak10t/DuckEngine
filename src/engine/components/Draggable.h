@@ -18,8 +18,8 @@ public:
 
 private:
 	Mesh* mesh;
-	glm::vec3 delta;
+	vec3 delta;
 	bool dragging = false;
-	bool inside(glm::vec3 point);
+	bool inside(vec3 point);
 };
 
