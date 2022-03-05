@@ -10,6 +10,7 @@ public:
 	Transform();
 	Transform(vec3 position, float rotation, vec3 scale);
 	mat4 Matrix4();
+	void LookAt(vec3 target);
 	vec3 Up();
 	vec3 Right();
 

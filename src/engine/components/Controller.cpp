@@ -3,6 +3,7 @@
 #include "../components/Controller.h"
 
 void Controller::Update() {
+	gameObject->transform.LookAt(mousePos);
 	float relativeVelocity = ofGetLastFrameTime() * velocity;
 	float relativeRotationVelocity = ofGetLastFrameTime() * rotationVelocity;
 

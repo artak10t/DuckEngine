@@ -1,4 +1,6 @@
 #include "Transform.h"
+#include <iostream>
+#include <math/ofMath.h>
 
 Transform::Transform() {
 	parent = nullptr;
@@ -22,8 +24,7 @@ Transform::Transform(vec3 position, float rotation, vec3 scale) {
 
 mat4 Transform::Matrix4() {
 	mat4 matrix = mat4();
-	if (parent)
-	{
+	if (parent) {
 		mat4 translate4 = translate(mat4(1.0), this->localPosition);
 		mat4 rotate4 = rotate(mat4(1.0), radians(this->localRotation), vec3(0, 0, 1));
 		mat4 scale4 = glm::scale(mat4(1.0), this->localScale);
@@ -41,6 +42,18 @@ mat4 Transform::Matrix4() {
 	}
 
 	return matrix;
+}
+
+void Transform::LookAt(vec3 target) {
+	vec3 relative = target - position;
+	float r = ofRadToDeg(atan2(-relative.y, relative.x));
+	if (r > 90) {
+		r = 450 - r;
+	} 
+	else {
+		r = 90 - r;
+	}
+	rotation = r;
 }
 
 vec3 Transform::Up() {

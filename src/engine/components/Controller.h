@@ -16,6 +16,11 @@ public:
 	void KeyPressed(int key);
 	void KeyReleased(int key);
 
+	vec3 mousePos = vec3(0, 0, 0);
+	void MouseMoved(int x, int y) {
+		mousePos = vec3(x, y, 0);
+	}
+
 private:
 	bool forward = false;
 	bool backward = false;
