@@ -41,18 +41,18 @@ public:
 		}
 	}
 
-	virtual void Update();
-	virtual void Draw();
-	virtual void OnDestroy();
-	virtual void KeyPressed(int key);
-	virtual void KeyReleased(int key);
-	virtual void MouseMoved(int x, int y);
-	virtual void MouseDragged(int x, int y, int button);
-	virtual void MousePressed(int x, int y, int button);
-	virtual void MouseReleased(int x, int y, int button);
-	virtual void MouseEntered(int x, int y);
-	virtual void MouseExited(int x, int y);
-	virtual void WindowResized(int w, int h);
+	void Update();
+	void Draw();
+	void OnDestroy();
+	void KeyPressed(int key);
+	void KeyReleased(int key);
+	void MouseMoved(int x, int y);
+	void MouseDragged(int x, int y, int button);
+	void MousePressed(int x, int y, int button);
+	void MouseReleased(int x, int y, int button);
+	void MouseEntered(int x, int y);
+	void MouseExited(int x, int y);
+	void WindowResized(int w, int h);
 
 	std::string name;
 	bool isActive;

@@ -6,21 +6,12 @@
 void ofApp::setup() {
 	inspector.Setup();
 
-	Entity* o = new Entity();
-	o->name = "o";
-	o->transform.position = glm::vec3(ofGetWindowWidth() / 2.0, ofGetWindowHeight() / 2.0, 0);
-	o->AddComponent<Mesh>();
-	o->AddComponent<Controller>();
-	o->AddComponent<Draggable>();
-
-	Entity* b = new Entity();
-	Mesh* m = b->AddComponent<Mesh>();
-	b->name = "b";
-	b->AddComponent<Controller>();
-	m->color = ofColor::red;
-	m->MakeSmall();
-	b->transform.localPosition = glm::vec3(100, 0, 0);
-	b->transform.parent = &o->transform;
+	Entity* player = new Entity();
+	player->name = "Player";
+	player->transform.position = glm::vec3(ofGetWindowWidth() / 2.0, ofGetWindowHeight() / 2.0, 0);
+	player->AddComponent<Mesh>();
+	player->AddComponent<Controller>();
+	player->AddComponent<Draggable>();
 
 	//inspector.Inspect(object);
 }
