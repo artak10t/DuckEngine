@@ -180,6 +180,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\components\SpriteRenderer.cpp" />
     <ClCompile Include="src\engine\components\Controller.cpp" />
     <ClCompile Include="src\engine\components\Draggable.cpp" />
     <ClCompile Include="src\engine\editor\Inspector.cpp" />

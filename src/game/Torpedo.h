@@ -11,17 +11,17 @@ public:
 	Entity* player;
 	State state = State::Idle;
 	float acceleration = 100;
-	float velocity = 0;
+	float currentVelocity = 0;
 	float maxVelocity = 600;
 	float rotationVelocity = 3;
 
 	void Update() {
 		if (player) {
-			float relativeVelocity = ofGetLastFrameTime() * velocity;
+			float relativeVelocity = ofGetLastFrameTime() * currentVelocity;
 			float relativeRotationVelocity = ofGetLastFrameTime() * rotationVelocity;
 
-			if(velocity < maxVelocity)
-				velocity += acceleration * ofGetLastFrameTime();
+			if(currentVelocity < maxVelocity)
+				currentVelocity += acceleration * ofGetLastFrameTime();
 
 			if (state == State::Rotating)
 				gameObject->transform.LookAt(player->transform.position, ofGetLastFrameTime() * rotationVelocity);

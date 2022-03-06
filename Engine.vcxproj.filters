@@ -55,6 +55,9 @@
     <ClCompile Include="src\engine\components\Mesh.cpp">
       <Filter>src\engine\components</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\components\SpriteRenderer.cpp">
+      <Filter>src\engine\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

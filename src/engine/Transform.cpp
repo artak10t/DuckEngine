@@ -1,6 +1,4 @@
 #include "Transform.h"
-#include <iostream>
-#include <math/ofMath.h>
 
 Transform::Transform() {
 	parent = nullptr;
