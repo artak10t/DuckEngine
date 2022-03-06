@@ -1,6 +1,6 @@
 #include "ofApp.h"
 #include "./game/Player.h"
-#include "./game/Torpedo.h"
+#include "./engine/components/Spawner.h"
 #include "./engine/components/SpriteRenderer.h"
 
 void ofApp::setup() {
@@ -15,16 +15,8 @@ void ofApp::setup() {
 	playerRenderer->scale = vec2(3, 3);
 	playerRenderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 
-	Entity* torpedo = new Entity();
-	torpedo->name = "Torpedo";
-	torpedo->transform.position = vec3(400, 200, 0);
-	Torpedo* torpedoComponent = torpedo->AddComponent<Torpedo>();
-	torpedoComponent->player = player;
-	torpedoComponent->state = State::Following;
-	SpriteRenderer* torpedoRenderer = torpedo->AddComponent<SpriteRenderer>();
-	torpedoRenderer->sprite.load("torpedo.png");
-	torpedoRenderer->scale = vec2(3, 3);
-	torpedoRenderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
+	Entity* spawner = new Entity();
+	spawner->AddComponent<Spawner>()->player = player;
 
 	//inspector.Inspect(object);
 }

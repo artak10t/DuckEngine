@@ -1,3 +1,4 @@
+#pragma once
 #include <graphics/ofImage.h>
 #include <graphics/ofGraphics.h>
 #include "../Component.h"

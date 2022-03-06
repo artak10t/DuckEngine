@@ -8,8 +8,8 @@ class Player : public Component
 public:
     using Component::Component;
 
-    float velocity = 300;
-    float rotationVelocity = 100;
+    float velocity = 500;
+    float rotationVelocity = 200;
 
     void Update() {
 		float relativeVelocity = ofGetLastFrameTime() * velocity;

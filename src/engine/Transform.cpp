@@ -56,6 +56,19 @@ void Transform::LookAt(vec3 target) {
 	rotation = r;
 }
 
+void Transform::LookAt(vec3 target, float deltaTime) {
+	vec3 relative = target - position;
+	float r = ofRadToDeg(atan2(-relative.y, relative.x));
+	if (r > 90) {
+		r = 450 - r;
+	}
+	else {
+		r = 90 - r;
+	}
+
+	rotation = ofLerpDegrees(rotation, r, deltaTime);
+}
+
 vec3 Transform::Up() {
 	mat4 rotate4 = rotate(mat4(1.0), radians(this->rotation), vec3(0, 0, 1));
 	vec3 v = rotate4 * vec4(0, -1, 0, 1);
