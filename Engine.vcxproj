@@ -200,6 +200,8 @@
     <ClCompile Include="src\engine\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\Player.h" />
+    <ClInclude Include="src\engine\components\SpriteRenderer.h" />
     <ClInclude Include="src\engine\components\Spawner.h" />
     <ClInclude Include="src\engine\components\Controller.h" />
     <ClInclude Include="src\engine\editor\Inspector.h" />
@@ -221,6 +223,7 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h" />
     <ClInclude Include="src\engine\Transform.h" />
+    <ClInclude Include="src\game\Torpedo.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

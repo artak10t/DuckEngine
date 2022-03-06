@@ -78,6 +78,9 @@
     <Filter Include="src\engine\components">
       <UniqueIdentifier>{6545ed01-3129-4abc-a426-7c525a212163}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\game">
+      <UniqueIdentifier>{e598dddc-bc11-423e-88d9-cde9249a6a35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ofApp.h">
@@ -142,6 +145,15 @@
     </ClInclude>
     <ClInclude Include="src\engine\components\Spawner.h">
       <Filter>src\engine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\components\SpriteRenderer.h">
+      <Filter>src\engine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\Player.h">
+      <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\Torpedo.h">
+      <Filter>src\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

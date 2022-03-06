@@ -18,6 +18,7 @@ public:
 	Entity();
 	Entity(string name);
 	Entity(string name, vec3 position, float rotation, vec3 scale);
+	static void Clear();
 	void Destroy();
 	void OnDestroy();
 
@@ -62,7 +63,6 @@ public:
 	static void MouseEntered(int x, int y);
 	static void MouseExited(int x, int y);
 	static void WindowResized(int w, int h);
-	static void Clear();
 
 	~Entity();
 private:

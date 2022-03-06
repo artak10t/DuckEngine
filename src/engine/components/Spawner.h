@@ -2,6 +2,7 @@
 #include "../Component.h"
 #include "../Entity.h"
 #include "Mesh.h"
+
 class Spawner : public Component
 {
 public:
@@ -13,7 +14,6 @@ public:
             Entity* o = new Entity();
             o->transform.position = vec3(x, y, 0);
             o->AddComponent<Mesh>();
-            o->AddComponent<Draggable>();
         }
     }
 };

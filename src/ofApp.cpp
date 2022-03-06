@@ -1,21 +1,30 @@
 #include "ofApp.h"
-#include "./engine/components/Draggable.h"
-#include "./engine/components/Controller.h"
-#include "./engine/components/Mesh.h"
-#include "./engine/components/Spawner.h"
+#include "./game/Player.h"
+#include "./game/Torpedo.h"
+#include "./engine/components/SpriteRenderer.h"
 
 void ofApp::setup() {
 	inspector.Setup();
 
-	Entity* manager = new Entity();
-	manager->AddComponent<Spawner>();
-
 	Entity* player = new Entity();
 	player->name = "Player";
 	player->transform.position = vec3(ofGetWindowWidth() / 2.0, ofGetWindowHeight() / 2.0, 0);
-	player->AddComponent<Mesh>();
-	player->AddComponent<Controller>();
-	player->AddComponent<Draggable>();
+	player->AddComponent<Player>();
+	SpriteRenderer* playerRenderer = player->AddComponent<SpriteRenderer>();
+	playerRenderer->sprite.load("player.png");
+	playerRenderer->scale = vec2(3, 3);
+	playerRenderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
+
+	Entity* torpedo = new Entity();
+	torpedo->name = "Torpedo";
+	torpedo->transform.position = vec3(400, 200, 0);
+	Torpedo* torpedoComponent = torpedo->AddComponent<Torpedo>();
+	torpedoComponent->player = player;
+	torpedoComponent->state = State::Following;
+	SpriteRenderer* torpedoRenderer = torpedo->AddComponent<SpriteRenderer>();
+	torpedoRenderer->sprite.load("torpedo.png");
+	torpedoRenderer->scale = vec2(3, 3);
+	torpedoRenderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 
 	//inspector.Inspect(object);
 }
