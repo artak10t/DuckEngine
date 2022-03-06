@@ -1,17 +1,25 @@
 #pragma once
 
-#include <ofGraphics.h>
+#include <iostream>
+#include <vector>
+#include <stack>
 #include <typeinfo>
 #include "Transform.h"
 #include "Component.h"
+using namespace std;
 
 class Entity
 {
 public:
+	string name;
+	bool isActive;
+	Transform transform;
+
 	Entity();
-	Entity(std::string name);
-	Entity(std::string name, glm::vec3 position, float rotation, glm::vec3 scale);
+	Entity(string name);
+	Entity(string name, vec3 position, float rotation, vec3 scale);
 	void Destroy();
+	void OnDestroy();
 
 	template<typename T> T* AddComponent() {
 		T* component = new T(this);
@@ -43,27 +51,25 @@ public:
 		}
 	}
 
-	void Update();
-	void Draw();
-	void OnDestroy();
-	void KeyPressed(int key);
-	void KeyReleased(int key);
-	void MouseMoved(int x, int y);
-	void MouseDragged(int x, int y, int button);
-	void MousePressed(int x, int y, int button);
-	void MouseReleased(int x, int y, int button);
-	void MouseEntered(int x, int y);
-	void MouseExited(int x, int y);
-	void WindowResized(int w, int h);
-
-	std::string name;
-	bool isActive;
-	Transform transform;
-
-	static std::vector<Entity*> gameObjects;
+	static void Update();
+	static void Draw();
+	static void KeyPressed(int key);
+	static void KeyReleased(int key);
+	static void MouseMoved(int x, int y);
+	static void MouseDragged(int x, int y, int button);
+	static void MousePressed(int x, int y, int button);
+	static void MouseReleased(int x, int y, int button);
+	static void MouseEntered(int x, int y);
+	static void MouseExited(int x, int y);
+	static void WindowResized(int w, int h);
+	static void Clear();
 
 	~Entity();
 private:
+	static vector<Entity*> gameObjects;
+	static stack<unsigned int> nullPointers;
+	void instantiate(Entity* entity);
+
 	unsigned int instanceId;
-	std::vector<Component*> components;
+	vector<Component*> components;
 };

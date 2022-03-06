@@ -140,6 +140,9 @@
     <ClInclude Include="src\engine\components\Mesh.h">
       <Filter>src\engine\components</Filter>
     </ClInclude>
+    <ClInclude Include="src\engine\components\Spawner.h">
+      <Filter>src\engine\components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

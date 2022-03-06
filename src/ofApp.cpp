@@ -2,9 +2,13 @@
 #include "./engine/components/Draggable.h"
 #include "./engine/components/Controller.h"
 #include "./engine/components/Mesh.h"
+#include "./engine/components/Spawner.h"
 
 void ofApp::setup() {
 	inspector.Setup();
+
+	Entity* manager = new Entity();
+	manager->AddComponent<Spawner>();
 
 	Entity* player = new Entity();
 	player->name = "Player";
@@ -17,71 +21,49 @@ void ofApp::setup() {
 }
 
 void ofApp::update() {
-	int size = Entity::gameObjects.size();
-	for (int i = 0; i < size; i++)
-		if(Entity::gameObjects[i]) Entity::gameObjects[i]->Update();
+	Entity::Update();
 }
 
 void ofApp::draw() {
-	int size = Entity::gameObjects.size();
-	for (int i = 0; i < size; i++)
-		if (Entity::gameObjects[i]) Entity::gameObjects[i]->Draw();
+	Entity::Draw();
 
-	inspector.Draw();
+	//inspector.Draw();
 }
 
 void ofApp::keyPressed(int key) {
-	int size = Entity::gameObjects.size();
-	for (int i = 0; i < size; i++)
-		if (Entity::gameObjects[i]) Entity::gameObjects[i]->KeyPressed(key);
+	Entity::KeyPressed(key);
 }
 
 void ofApp::keyReleased(int key) {
-	int size = Entity::gameObjects.size();
-	for (int i = 0; i < size; i++)
-		if (Entity::gameObjects[i]) Entity::gameObjects[i]->KeyReleased(key);
+	Entity::KeyReleased(key);
 }
 
 void ofApp::mouseMoved(int x, int y) {
-	int size = Entity::gameObjects.size();
-	for (int i = 0; i < size; i++)
-		if (Entity::gameObjects[i]) Entity::gameObjects[i]->MouseMoved(x, y);
+	Entity::MouseMoved(x, y);
 }
 
 void ofApp::mouseDragged(int x, int y, int button) {
-	int size = Entity::gameObjects.size();
-	for (int i = 0; i < size; i++)
-		if (Entity::gameObjects[i]) Entity::gameObjects[i]->MouseDragged(x, y, button);
+	Entity::MouseDragged(x, y, button);
 }
 
 void ofApp::mousePressed(int x, int y, int button) {
-	int size = Entity::gameObjects.size();
-	for (int i = 0; i < size; i++)
-		if (Entity::gameObjects[i]) Entity::gameObjects[i]->MousePressed(x, y, button);
+	Entity::MousePressed(x, y, button);
 }
 
 void ofApp::mouseReleased(int x, int y, int button) {
-	int size = Entity::gameObjects.size();
-	for (int i = 0; i < size; i++)
-		if (Entity::gameObjects[i]) Entity::gameObjects[i]->MouseReleased(x, y, button);
+	Entity::MouseReleased(x, y, button);
 }
 
 void ofApp::mouseEntered(int x, int y) {
-	int size = Entity::gameObjects.size();
-	for (int i = 0; i < size; i++)
-		if (Entity::gameObjects[i]) Entity::gameObjects[i]->MouseEntered(x, y);
+	Entity::MouseEntered(x, y);
 }
 
 void ofApp::mouseExited(int x, int y) {
-	int size = Entity::gameObjects.size();
-	for (int i = 0; i < size; i++)
-		if (Entity::gameObjects[i]) Entity::gameObjects[i]->MouseExited(x, y);
+	Entity::MouseExited(x, y);
 }
 
 void ofApp::windowResized(int w, int h) {
-	int size = Entity::gameObjects.size();
-	for (int i = 0; i < size; i++)
-		if (Entity::gameObjects[i]) Entity::gameObjects[i]->WindowResized(w, h);
+	Entity::WindowResized(w, h);
 }
 
 void ofApp::gotMessage(ofMessage msg) {
@@ -93,9 +75,5 @@ void ofApp::dragEvent(ofDragInfo dragInfo) {
 }
 
 ofApp::~ofApp() {
-	for (int i = 0; i < Entity::gameObjects.size(); i++) {
-		delete Entity::gameObjects[i];
-	}
-
-	Entity::gameObjects.clear();
+	Entity::Clear();
 }

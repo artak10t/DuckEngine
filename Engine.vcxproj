@@ -200,6 +200,7 @@
     <ClCompile Include="src\engine\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\components\Spawner.h" />
     <ClInclude Include="src\engine\components\Controller.h" />
     <ClInclude Include="src\engine\editor\Inspector.h" />
     <ClInclude Include="src\engine\components\Draggable.h" />

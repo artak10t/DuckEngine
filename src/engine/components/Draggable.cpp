@@ -16,6 +16,12 @@ void Draggable::MousePressed(int x, int y, int button) {
 			delta = vec3(x, y, 0) - gameObject->transform.position;
 		}
 	}
+
+	if (button == 2) {
+		if (inside(vec3(x, y, 0))) {
+			gameObject->Destroy();
+		}
+	}
 }
 
 void Draggable::MouseReleased(int x, int y, int button) {

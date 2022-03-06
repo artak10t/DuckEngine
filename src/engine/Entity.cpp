@@ -1,28 +1,63 @@
 #include "Entity.h"
-std::vector<Entity*> Entity::gameObjects = {};
+vector<Entity*> Entity::gameObjects = {};
+stack<unsigned int> Entity::nullPointers = {};
 
 Entity::Entity() {
 	transform = Transform();
 	name = "New Object";
 	isActive = true;
 	instanceId = gameObjects.size();
-	Entity::gameObjects.push_back(this);
+	instantiate(this);
 }
 
-Entity::Entity(std::string name) {
+Entity::Entity(string name) {
 	transform = Transform();
 	this->name = name;
 	isActive = true;
 	instanceId = gameObjects.size();
-	Entity::gameObjects.push_back(this);
+	instantiate(this);
 }
 
-Entity::Entity(std::string name, glm::vec3 position, float rotation, glm::vec3 scale) {
+Entity::Entity(string name, vec3 position, float rotation, vec3 scale) {
 	transform = Transform(position, rotation, scale);
 	this->name = name;
 	isActive = true;
 	instanceId = gameObjects.size();
-	Entity::gameObjects.push_back(this);
+	instantiate(this);
+}
+
+void Entity::instantiate(Entity* entity) {
+	if (Entity::nullPointers.size() == 0) {
+		Entity::gameObjects.push_back(entity);
+		return;
+	}
+
+	unsigned int p = Entity::nullPointers.top();
+	Entity::nullPointers.pop();
+	entity->instanceId = p;
+	Entity::gameObjects[p] = entity;
+}
+
+void Entity::Clear() {
+	for (int i = 0; i < Entity::gameObjects.size(); i++) {
+		delete Entity::gameObjects[i];
+	}
+
+	Entity::gameObjects.clear();
+}
+
+void Entity::Destroy() {
+	OnDestroy();
+
+	Entity::gameObjects[instanceId] = nullptr;
+	nullPointers.push(instanceId);
+	delete this;
+}
+
+void Entity::OnDestroy() {
+	int sizeComponent = components.size();
+	for (int j = 0; j < sizeComponent; j++)
+		components[j]->OnDestroy();
 }
 
 Entity::~Entity() {
@@ -32,102 +67,145 @@ Entity::~Entity() {
 	components.clear();
 }
 
-void Entity::Destroy() {
-	OnDestroy();
-
-	Entity::gameObjects[instanceId] = nullptr;
-	delete this;
-}
-
 void Entity::Update() {
-	if (!isActive)
-		return;
+	int size = Entity::gameObjects.size();
+	for (int i = 0; i < size; i++)
+		if (Entity::gameObjects[i]) {
+			if (!Entity::gameObjects[i]->isActive)
+				return;
 
-	for (int i = 0; i < components.size(); i++)
-		components[i]->Update();
+			int sizeComponent = Entity::gameObjects[i]->components.size();
+			for (int j = 0; j < sizeComponent; j++)
+				Entity::gameObjects[i]->components[j]->Update();
+		}
 }
 
 void Entity::Draw() {
-	if (!isActive)
-		return;
+	int size = Entity::gameObjects.size();
+	for (int i = 0; i < size; i++)
+		if (Entity::gameObjects[i]) {
+			if (!Entity::gameObjects[i]->isActive)
+				return;
 
-	for (int i = 0; i < components.size(); i++)
-		components[i]->Draw();
-}
-
-void Entity::OnDestroy() {
-	for (int i = 0; i < components.size(); i++)
-		components[i]->OnDestroy();
+			int sizeComponent = Entity::gameObjects[i]->components.size();
+			for (int j = 0; j < sizeComponent; j++)
+				Entity::gameObjects[i]->components[j]->Draw();
+		}
 }
 
 void Entity::KeyPressed(int key) {
-	if (!isActive)
-		return;
+	int size = Entity::gameObjects.size();
+	for (int i = 0; i < size; i++)
+		if (Entity::gameObjects[i]) {
+			if (!Entity::gameObjects[i]->isActive)
+				return;
 
-	for (int i = 0; i < components.size(); i++)
-		components[i]->KeyPressed(key);
+			int sizeComponent = Entity::gameObjects[i]->components.size();
+			for (int j = 0; j < sizeComponent; j++)
+				Entity::gameObjects[i]->components[j]->KeyPressed(key);
+		}
 }
 
 void Entity::KeyReleased(int key) {
-	if (!isActive)
-		return;
+	int size = Entity::gameObjects.size();
+	for (int i = 0; i < size; i++)
+		if (Entity::gameObjects[i]) {
+			if (!Entity::gameObjects[i]->isActive)
+				return;
 
-	for (int i = 0; i < components.size(); i++)
-		components[i]->KeyReleased(key);
+			int sizeComponent = Entity::gameObjects[i]->components.size();
+			for (int j = 0; j < sizeComponent; j++)
+				Entity::gameObjects[i]->components[j]->KeyReleased(key);
+		}
 }
 
 void Entity::MouseMoved(int x, int y) {
-	if (!isActive)
-		return;
+	int size = Entity::gameObjects.size();
+	for (int i = 0; i < size; i++)
+		if (Entity::gameObjects[i]) {
+			if (!Entity::gameObjects[i]->isActive)
+				return;
 
-	for (int i = 0; i < components.size(); i++)
-		components[i]->MouseMoved(x, y);
+			int sizeComponent = Entity::gameObjects[i]->components.size();
+			for (int j = 0; j < sizeComponent; j++)
+				Entity::gameObjects[i]->components[j]->MouseMoved(x, y);
+		}
 }
 
 void Entity::MouseDragged(int x, int y, int button) {
-	if (!isActive)
-		return;
+	int size = Entity::gameObjects.size();
+	for (int i = 0; i < size; i++)
+		if (Entity::gameObjects[i]) {
+			if (!Entity::gameObjects[i]->isActive)
+				return;
 
-	for (int i = 0; i < components.size(); i++)
-		components[i]->MouseDragged(x, y, button);
+			int sizeComponent = Entity::gameObjects[i]->components.size();
+			for (int j = 0; j < sizeComponent; j++)
+				Entity::gameObjects[i]->components[j]->MouseDragged(x, y, button);
+		}
 }
 
 void Entity::MousePressed(int x, int y, int button) {
-	if (!isActive)
-		return;
+	int size = Entity::gameObjects.size();
+	for (int i = 0; i < size; i++)
+		if (Entity::gameObjects[i]) {
+			if (!Entity::gameObjects[i]->isActive)
+				return;
 
-	for (int i = 0; i < components.size(); i++)
-		components[i]->MousePressed(x, y, button);
+			int sizeComponent = Entity::gameObjects[i]->components.size();
+			for (int j = 0; j < sizeComponent; j++)
+				Entity::gameObjects[i]->components[j]->MousePressed(x, y, button);
+		}
 }
 
 void Entity::MouseReleased(int x, int y, int button) {
-	if (!isActive)
-		return;
+	int size = Entity::gameObjects.size();
+	for (int i = 0; i < size; i++)
+		if (Entity::gameObjects[i]) {
+			if (!Entity::gameObjects[i]->isActive)
+				return;
 
-	for (int i = 0; i < components.size(); i++)
-		components[i]->MouseReleased(x, y, button);
+			int sizeComponent = Entity::gameObjects[i]->components.size();
+			for (int j = 0; j < sizeComponent; j++)
+				Entity::gameObjects[i]->components[j]->MouseReleased(x, y, button);
+		}
 }
 
 void Entity::MouseEntered(int x, int y) {
-	if (!isActive)
-		return;
+	int size = Entity::gameObjects.size();
+	for (int i = 0; i < size; i++)
+		if (Entity::gameObjects[i]) {
+			if (!Entity::gameObjects[i]->isActive)
+				return;
 
-	for (int i = 0; i < components.size(); i++)
-		components[i]->MouseEntered(x, y);
+			int sizeComponent = Entity::gameObjects[i]->components.size();
+			for (int j = 0; j < sizeComponent; j++)
+				Entity::gameObjects[i]->components[j]->MouseEntered(x, y);
+		}
 }
 
 void Entity::MouseExited(int x, int y) {
-	if (!isActive)
-		return;
+	int size = Entity::gameObjects.size();
+	for (int i = 0; i < size; i++)
+		if (Entity::gameObjects[i]) {
+			if (!Entity::gameObjects[i]->isActive)
+				return;
 
-	for (int i = 0; i < components.size(); i++)
-		components[i]->MouseExited(x, y);
+			int sizeComponent = Entity::gameObjects[i]->components.size();
+			for (int j = 0; j < sizeComponent; j++)
+				Entity::gameObjects[i]->components[j]->MouseExited(x, y);
+		}
 }
 
 void Entity::WindowResized(int w, int h) {
-	if (!isActive)
-		return;
+	int size = Entity::gameObjects.size();
+	for (int i = 0; i < size; i++)
+		if (Entity::gameObjects[i]) {
+			if (!Entity::gameObjects[i]->isActive)
+				return;
 
-	for (int i = 0; i < components.size(); i++)
-		components[i]->WindowResized(w, h);
+			int sizeComponent = Entity::gameObjects[i]->components.size();
+			for (int j = 0; j < sizeComponent; j++)
+				Entity::gameObjects[i]->components[j]->WindowResized(w, h);
+		}
 }
