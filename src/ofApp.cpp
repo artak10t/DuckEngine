@@ -20,8 +20,6 @@ void ofApp::update() {
 
 void ofApp::draw() {
 	Entity::Draw();
-
-	//inspector.Draw();
 }
 
 void ofApp::keyPressed(int key) {
