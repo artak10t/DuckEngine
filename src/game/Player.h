@@ -10,7 +10,7 @@ public:
     using Component::Component;
 
     float velocity = 500;
-    float rotationVelocity = 200;
+    float rotationVelocity = 300;
 
 	void Start() {
 		static ofImage sprite;
