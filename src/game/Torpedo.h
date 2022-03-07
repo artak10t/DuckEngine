@@ -12,7 +12,7 @@ public:
 
 	Entity* target;
 	State state = State::Idle;
-	float maxLifeTime = 3;
+	float maxLifeTime = 5;
 	float acceleration = 100;
 	float currentVelocity = 0;
 	float maxVelocity = 600;
