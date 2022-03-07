@@ -1,5 +1,4 @@
 #pragma once
-
 #include "ofMain.h"
 #include "engine/editor/Inspector.h"
 #include "engine/Entity.h"

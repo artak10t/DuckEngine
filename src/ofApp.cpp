@@ -1,19 +1,16 @@
 #include "ofApp.h"
 #include "./game/Player.h"
+#include "./game/Smoke.h"
+#include "./game/Torpedo.h"
 #include "./engine/components/Spawner.h"
-#include "./engine/components/SpriteRenderer.h"
 
 void ofApp::setup() {
-	inspector.Setup();
+	//inspector.Setup();
 
 	Entity* player = new Entity();
 	player->name = "Player";
 	player->transform.position = vec3(ofGetWindowWidth() / 2.0, ofGetWindowHeight() / 2.0, 0);
 	player->AddComponent<Player>();
-	SpriteRenderer* playerRenderer = player->AddComponent<SpriteRenderer>();
-	playerRenderer->sprite.load("player.png");
-	playerRenderer->scale = vec2(3, 3);
-	playerRenderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 
 	Entity* spawner = new Entity();
 	spawner->AddComponent<Spawner>()->player = player;

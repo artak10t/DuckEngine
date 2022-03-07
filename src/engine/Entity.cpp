@@ -76,7 +76,8 @@ void Entity::Update() {
 
 			int sizeComponent = Entity::gameObjects[i]->components.size();
 			for (int j = 0; j < sizeComponent; j++)
-				Entity::gameObjects[i]->components[j]->Update();
+				if (Entity::gameObjects[i])
+					Entity::gameObjects[i]->components[j]->Update();
 		}
 }
 
@@ -89,7 +90,8 @@ void Entity::Draw() {
 
 			int sizeComponent = Entity::gameObjects[i]->components.size();
 			for (int j = 0; j < sizeComponent; j++)
-				Entity::gameObjects[i]->components[j]->Draw();
+				if (Entity::gameObjects[i])
+					Entity::gameObjects[i]->components[j]->Draw();
 		}
 }
 
@@ -102,7 +104,8 @@ void Entity::KeyPressed(int key) {
 
 			int sizeComponent = Entity::gameObjects[i]->components.size();
 			for (int j = 0; j < sizeComponent; j++)
-				Entity::gameObjects[i]->components[j]->KeyPressed(key);
+				if (Entity::gameObjects[i])
+					Entity::gameObjects[i]->components[j]->KeyPressed(key);
 		}
 }
 
@@ -115,7 +118,8 @@ void Entity::KeyReleased(int key) {
 
 			int sizeComponent = Entity::gameObjects[i]->components.size();
 			for (int j = 0; j < sizeComponent; j++)
-				Entity::gameObjects[i]->components[j]->KeyReleased(key);
+				if (Entity::gameObjects[i])
+					Entity::gameObjects[i]->components[j]->KeyReleased(key);
 		}
 }
 
@@ -128,7 +132,8 @@ void Entity::MouseMoved(int x, int y) {
 
 			int sizeComponent = Entity::gameObjects[i]->components.size();
 			for (int j = 0; j < sizeComponent; j++)
-				Entity::gameObjects[i]->components[j]->MouseMoved(x, y);
+				if (Entity::gameObjects[i])
+					Entity::gameObjects[i]->components[j]->MouseMoved(x, y);
 		}
 }
 
@@ -141,7 +146,8 @@ void Entity::MouseDragged(int x, int y, int button) {
 
 			int sizeComponent = Entity::gameObjects[i]->components.size();
 			for (int j = 0; j < sizeComponent; j++)
-				Entity::gameObjects[i]->components[j]->MouseDragged(x, y, button);
+				if (Entity::gameObjects[i])
+					Entity::gameObjects[i]->components[j]->MouseDragged(x, y, button);
 		}
 }
 
@@ -154,7 +160,8 @@ void Entity::MousePressed(int x, int y, int button) {
 
 			int sizeComponent = Entity::gameObjects[i]->components.size();
 			for (int j = 0; j < sizeComponent; j++)
-				Entity::gameObjects[i]->components[j]->MousePressed(x, y, button);
+				if (Entity::gameObjects[i])
+					Entity::gameObjects[i]->components[j]->MousePressed(x, y, button);
 		}
 }
 
@@ -167,7 +174,8 @@ void Entity::MouseReleased(int x, int y, int button) {
 
 			int sizeComponent = Entity::gameObjects[i]->components.size();
 			for (int j = 0; j < sizeComponent; j++)
-				Entity::gameObjects[i]->components[j]->MouseReleased(x, y, button);
+				if (Entity::gameObjects[i])
+					Entity::gameObjects[i]->components[j]->MouseReleased(x, y, button);
 		}
 }
 
@@ -180,7 +188,8 @@ void Entity::MouseEntered(int x, int y) {
 
 			int sizeComponent = Entity::gameObjects[i]->components.size();
 			for (int j = 0; j < sizeComponent; j++)
-				Entity::gameObjects[i]->components[j]->MouseEntered(x, y);
+				if (Entity::gameObjects[i])
+					Entity::gameObjects[i]->components[j]->MouseEntered(x, y);
 		}
 }
 
@@ -193,7 +202,8 @@ void Entity::MouseExited(int x, int y) {
 
 			int sizeComponent = Entity::gameObjects[i]->components.size();
 			for (int j = 0; j < sizeComponent; j++)
-				Entity::gameObjects[i]->components[j]->MouseExited(x, y);
+				if (Entity::gameObjects[i])
+					Entity::gameObjects[i]->components[j]->MouseExited(x, y);
 		}
 }
 
@@ -206,6 +216,7 @@ void Entity::WindowResized(int w, int h) {
 
 			int sizeComponent = Entity::gameObjects[i]->components.size();
 			for (int j = 0; j < sizeComponent; j++)
-				Entity::gameObjects[i]->components[j]->WindowResized(w, h);
+				if (Entity::gameObjects[i])
+					Entity::gameObjects[i]->components[j]->WindowResized(w, h);
 		}
 }

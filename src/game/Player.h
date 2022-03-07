@@ -2,6 +2,7 @@
 #include "../engine/Component.h"
 #include "../engine/Entity.h"
 #include <app/ofAppRunner.h>
+#include "../engine/components/SpriteRenderer.h"
 
 class Player : public Component
 {
@@ -10,6 +11,17 @@ public:
 
     float velocity = 500;
     float rotationVelocity = 200;
+
+	void Start() {
+		static ofImage sprite;
+		if (sprite.getWidth() == 0 && sprite.getHeight() == 0)
+			sprite.load("player.png");
+
+		SpriteRenderer* playerRenderer = gameObject->AddComponent<SpriteRenderer>();
+		playerRenderer->sprite = sprite;
+		playerRenderer->scale = vec2(3, 3);
+		playerRenderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
+	}
 
     void Update() {
 		float relativeVelocity = ofGetLastFrameTime() * velocity;

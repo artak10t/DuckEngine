@@ -58,6 +58,9 @@
     <ClCompile Include="src\engine\components\SpriteRenderer.cpp">
       <Filter>src\engine\components</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\Time.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -156,6 +159,12 @@
       <Filter>src\game</Filter>
     </ClInclude>
     <ClInclude Include="src\game\Torpedo.h">
+      <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Time.h">
+      <Filter>src\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\Smoke.h">
       <Filter>src\game</Filter>
     </ClInclude>
   </ItemGroup>

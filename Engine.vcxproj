@@ -199,6 +199,7 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp" />
     <ClCompile Include="src\engine\Transform.cpp" />
+    <ClCompile Include="src\engine\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game\Player.h" />
@@ -210,6 +211,7 @@
     <ClInclude Include="src\engine\components\Mesh.h" />
     <ClInclude Include="src\engine\Entity.h" />
     <ClInclude Include="src\engine\Component.h" />
+    <ClInclude Include="src\game\Smoke.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxButton.h" />
@@ -225,6 +227,7 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h" />
     <ClInclude Include="src\engine\Transform.h" />
     <ClInclude Include="src\game\Torpedo.h" />
+    <ClInclude Include="src\engine\Time.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
