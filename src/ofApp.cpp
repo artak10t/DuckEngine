@@ -5,8 +5,6 @@
 #include "./engine/components/Spawner.h"
 
 void ofApp::setup() {
-	//inspector.Setup();
-
 	Entity* player = new Entity();
 	player->name = "Player";
 	player->transform.position = vec3(ofGetWindowWidth() / 2.0, ofGetWindowHeight() / 2.0, 0);
@@ -14,8 +12,6 @@ void ofApp::setup() {
 
 	Entity* spawner = new Entity();
 	spawner->AddComponent<Spawner>()->player = player;
-
-	//inspector.Inspect(object);
 }
 
 void ofApp::update() {

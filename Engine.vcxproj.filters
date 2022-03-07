@@ -46,9 +46,6 @@
     <ClCompile Include="src\engine\components\Draggable.cpp">
       <Filter>src\engine\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\editor\Inspector.cpp">
-      <Filter>src\engine\editor</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\components\Controller.cpp">
       <Filter>src\engine\components</Filter>
     </ClCompile>
@@ -57,9 +54,6 @@
     </ClCompile>
     <ClCompile Include="src\engine\components\SpriteRenderer.cpp">
       <Filter>src\engine\components</Filter>
-    </ClCompile>
-    <ClCompile Include="src\engine\Time.cpp">
-      <Filter>src\engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,9 +71,6 @@
     </Filter>
     <Filter Include="src\engine">
       <UniqueIdentifier>{cfe5cc34-c5d6-4bb4-8faa-d3d049b43a32}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\engine\editor">
-      <UniqueIdentifier>{03409c2d-56a1-4024-a128-b9b5421abcef}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\engine\components">
       <UniqueIdentifier>{6545ed01-3129-4abc-a426-7c525a212163}</UniqueIdentifier>
@@ -140,9 +131,6 @@
     <ClInclude Include="src\engine\components\Draggable.h">
       <Filter>src\engine\components</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\editor\Inspector.h">
-      <Filter>src\engine\editor</Filter>
-    </ClInclude>
     <ClInclude Include="src\engine\components\Controller.h">
       <Filter>src\engine\components</Filter>
     </ClInclude>
@@ -160,9 +148,6 @@
     </ClInclude>
     <ClInclude Include="src\game\Torpedo.h">
       <Filter>src\game</Filter>
-    </ClInclude>
-    <ClInclude Include="src\engine\Time.h">
-      <Filter>src\engine</Filter>
     </ClInclude>
     <ClInclude Include="src\game\Smoke.h">
       <Filter>src\game</Filter>

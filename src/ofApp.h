@@ -1,6 +1,5 @@
 #pragma once
 #include "ofMain.h"
-#include "engine/editor/Inspector.h"
 #include "engine/Entity.h"
 using namespace glm;
 
@@ -22,8 +21,6 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
-
-	Inspector inspector;
 
 	~ofApp();
 };

@@ -183,7 +183,6 @@
     <ClCompile Include="src\engine\components\SpriteRenderer.cpp" />
     <ClCompile Include="src\engine\components\Controller.cpp" />
     <ClCompile Include="src\engine\components\Draggable.cpp" />
-    <ClCompile Include="src\engine\editor\Inspector.cpp" />
     <ClCompile Include="src\engine\components\Mesh.cpp" />
     <ClCompile Include="src\engine\Entity.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -199,14 +198,12 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp" />
     <ClCompile Include="src\engine\Transform.cpp" />
-    <ClCompile Include="src\engine\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game\Player.h" />
     <ClInclude Include="src\engine\components\SpriteRenderer.h" />
     <ClInclude Include="src\engine\components\Spawner.h" />
     <ClInclude Include="src\engine\components\Controller.h" />
-    <ClInclude Include="src\engine\editor\Inspector.h" />
     <ClInclude Include="src\engine\components\Draggable.h" />
     <ClInclude Include="src\engine\components\Mesh.h" />
     <ClInclude Include="src\engine\Entity.h" />
@@ -227,7 +224,6 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h" />
     <ClInclude Include="src\engine\Transform.h" />
     <ClInclude Include="src\game\Torpedo.h" />
-    <ClInclude Include="src\engine\Time.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
