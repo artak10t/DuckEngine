@@ -10,6 +10,7 @@ public:
     using Component::Component;
 
     ofImage sprite;
+    ofColor color = ofColor::white;
     vec2 scale = vec2(1, 1);
 
     void Update();

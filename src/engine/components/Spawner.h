@@ -2,7 +2,7 @@
 #include "../Component.h"
 #include "../Entity.h"
 #include "../../game/Torpedo.h"
-#include "SpriteRenderer.h"
+#include "../2d/SpriteRenderer.h"
 
 class Spawner : public Component
 {
@@ -16,7 +16,9 @@ public:
 			Entity* torpedo = new Entity();
 			torpedo->name = "Torpedo";
 			torpedo->transform.position = vec3(x, y, 0);
-			torpedo->AddComponent<Torpedo>()->target = player;
+			Torpedo* component = torpedo->AddComponent<Torpedo>();
+            component->target = player;
+            component->targetCollider = player->GetComponent<Collider2D>();
         }
     }
 };

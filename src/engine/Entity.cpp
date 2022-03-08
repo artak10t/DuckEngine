@@ -7,7 +7,7 @@ Entity::Entity() {
 	name = "New Object";
 	isActive = true;
 	instanceId = gameObjects.size();
-	instantiate(this);
+	Instantiate(this);
 }
 
 Entity::Entity(string name) {
@@ -15,7 +15,7 @@ Entity::Entity(string name) {
 	this->name = name;
 	isActive = true;
 	instanceId = gameObjects.size();
-	instantiate(this);
+	Instantiate(this);
 }
 
 Entity::Entity(string name, vec3 position, float rotation, vec3 scale) {
@@ -23,10 +23,10 @@ Entity::Entity(string name, vec3 position, float rotation, vec3 scale) {
 	this->name = name;
 	isActive = true;
 	instanceId = gameObjects.size();
-	instantiate(this);
+	Instantiate(this);
 }
 
-void Entity::instantiate(Entity* entity) {
+void Entity::Instantiate(Entity* entity) {
 	if (Entity::nullPointers.size() == 0) {
 		Entity::gameObjects.push_back(entity);
 		return;

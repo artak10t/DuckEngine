@@ -1,7 +1,8 @@
 #pragma once
 #include "../engine/Component.h"
 #include "../engine/Entity.h"
-#include "../engine/components/SpriteRenderer.h"
+#include "../engine/2d/SpriteRenderer.h"
+#include "../engine/2d/Collider2D.h"
 
 enum class State { Idle, Following };
 
@@ -11,6 +12,7 @@ public:
 	using Component::Component;
 
 	Entity* target;
+	Collider2D* targetCollider;
 	State state = State::Idle;
 	float maxLifeTime = 5;
 	float acceleration = 100;
@@ -23,6 +25,8 @@ public:
 		if (sprite.getWidth() == 0 && sprite.getHeight() == 0)
 			sprite.load("torpedo.png");
 
+		selfCollider = gameObject->AddComponent<Collider2D>();
+
 		SpriteRenderer* torpedoRenderer = gameObject->AddComponent<SpriteRenderer>();
 		torpedoRenderer->sprite = sprite;
 		torpedoRenderer->scale = vec2(3, 3);
@@ -32,6 +36,8 @@ public:
 	}
 
 	void Update() {
+		selfCollider->overlap = Collider2D::CollisionCheck(*selfCollider, *targetCollider);
+
 		currentLifeTime += ofGetLastFrameTime();
 		if (target) {
 			float relativeVelocity = ofGetLastFrameTime() * currentVelocity;
@@ -52,5 +58,6 @@ public:
 	}
 
 private:
+	Collider2D* selfCollider;
 	float currentLifeTime = 0;
 };

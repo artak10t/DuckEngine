@@ -67,8 +67,9 @@ public:
 private:
 	static vector<Entity*> gameObjects;
 	static stack<unsigned int> nullPointers;
+	
+	void Instantiate(Entity* entity);
 
-	void instantiate(Entity* entity);
 	unsigned int instanceId;
 	vector<Component*> components;
 };

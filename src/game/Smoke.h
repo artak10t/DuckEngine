@@ -1,7 +1,7 @@
 #pragma once
 #include "../engine/Component.h"
 #include "../engine/Entity.h"
-#include "../engine/components/SpriteRenderer.h"
+#include "../engine/2d/SpriteRenderer.h"
 
 class Smoke : public Component
 {

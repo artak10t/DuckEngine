@@ -180,7 +180,8 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\engine\components\SpriteRenderer.cpp" />
+    <ClCompile Include="src\engine\2d\Collider2D.cpp" />
+    <ClCompile Include="src\engine\2d\SpriteRenderer.cpp" />
     <ClCompile Include="src\engine\components\Controller.cpp" />
     <ClCompile Include="src\engine\components\Draggable.cpp" />
     <ClCompile Include="src\engine\components\Mesh.cpp" />
@@ -200,8 +201,9 @@
     <ClCompile Include="src\engine\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\2d\Collider2D.h" />
     <ClInclude Include="src\game\Player.h" />
-    <ClInclude Include="src\engine\components\SpriteRenderer.h" />
+    <ClInclude Include="src\engine\2d\SpriteRenderer.h" />
     <ClInclude Include="src\engine\components\Spawner.h" />
     <ClInclude Include="src\engine\components\Controller.h" />
     <ClInclude Include="src\engine\components\Draggable.h" />

@@ -2,13 +2,15 @@
 #include "../engine/Component.h"
 #include "../engine/Entity.h"
 #include <app/ofAppRunner.h>
-#include "../engine/components/SpriteRenderer.h"
+#include "../engine/2d/SpriteRenderer.h"
+#include "../engine/2d/Collider2D.h"
 
 class Player : public Component
 {
 public:
     using Component::Component;
 
+	int health = 5;
     float velocity = 500;
     float rotationVelocity = 300;
 
@@ -21,16 +23,21 @@ public:
 		playerRenderer->sprite = sprite;
 		playerRenderer->scale = vec2(3, 3);
 		playerRenderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
+		gameObject->AddComponent<Collider2D>();
 	}
 
     void Update() {
 		float relativeVelocity = ofGetLastFrameTime() * velocity;
 		float relativeRotationVelocity = ofGetLastFrameTime() * rotationVelocity;
 
+		vec3 pos = gameObject->transform.position;
 		if (forward)
-			gameObject->transform.position += gameObject->transform.Up() * relativeVelocity;
-		else if (backward)
-			gameObject->transform.position -= gameObject->transform.Up() * relativeVelocity;
+			pos += gameObject->transform.Up() * relativeVelocity;
+		else if (backward) 
+			pos -= gameObject->transform.Up() * relativeVelocity;
+
+		if (pos.x > 0 && pos.x < ofGetWindowWidth() && pos.y > 0 && pos.y < ofGetWindowHeight())
+			gameObject->transform.position = pos;
 
 		if (rightTurn)
 			if (backward)

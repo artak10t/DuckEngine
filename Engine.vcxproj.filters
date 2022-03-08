@@ -52,8 +52,11 @@
     <ClCompile Include="src\engine\components\Mesh.cpp">
       <Filter>src\engine\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\components\SpriteRenderer.cpp">
-      <Filter>src\engine\components</Filter>
+    <ClCompile Include="src\engine\2d\SpriteRenderer.cpp">
+      <Filter>src\engine\2d</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\2d\Collider2D.cpp">
+      <Filter>src\engine\2d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +80,9 @@
     </Filter>
     <Filter Include="src\game">
       <UniqueIdentifier>{e598dddc-bc11-423e-88d9-cde9249a6a35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engine\2d">
+      <UniqueIdentifier>{17bab08f-a5ce-418c-9f63-671d53f6c129}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -140,9 +146,6 @@
     <ClInclude Include="src\engine\components\Spawner.h">
       <Filter>src\engine\components</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\components\SpriteRenderer.h">
-      <Filter>src\engine\components</Filter>
-    </ClInclude>
     <ClInclude Include="src\game\Player.h">
       <Filter>src\game</Filter>
     </ClInclude>
@@ -151,6 +154,12 @@
     </ClInclude>
     <ClInclude Include="src\game\Smoke.h">
       <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\2d\SpriteRenderer.h">
+      <Filter>src\engine\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\2d\Collider2D.h">
+      <Filter>src\engine\2d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
