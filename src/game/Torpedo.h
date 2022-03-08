@@ -26,6 +26,11 @@ public:
 			sprite.load("torpedo.png");
 
 		selfCollider = gameObject->AddComponent<Collider2D>();
+		selfCollider->vertices.clear();
+		selfCollider->vertices.push_back(vec2(-8, -24));
+		selfCollider->vertices.push_back(vec2(-8, 24));
+		selfCollider->vertices.push_back(vec2(8, 24));
+		selfCollider->vertices.push_back(vec2(8, -24));
 
 		SpriteRenderer* torpedoRenderer = gameObject->AddComponent<SpriteRenderer>();
 		torpedoRenderer->sprite = sprite;
