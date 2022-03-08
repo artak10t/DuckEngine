@@ -21,7 +21,7 @@ public:
 
 		SpriteRenderer* playerRenderer = gameObject->AddComponent<SpriteRenderer>();
 		playerRenderer->sprite = sprite;
-		playerRenderer->scale = vec2(3, 3);
+		playerRenderer->scale = vec2(2, 2);
 		playerRenderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 		gameObject->AddComponent<Collider2D>();
 	}

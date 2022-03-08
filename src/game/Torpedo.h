@@ -25,17 +25,17 @@ public:
 		if (sprite.getWidth() == 0 && sprite.getHeight() == 0)
 			sprite.load("torpedo.png");
 
+		SpriteRenderer* torpedoRenderer = gameObject->AddComponent<SpriteRenderer>();
+		torpedoRenderer->sprite = sprite;
+		torpedoRenderer->scale = vec2(2, 2);
+		torpedoRenderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
+
 		selfCollider = gameObject->AddComponent<Collider2D>();
 		selfCollider->vertices.clear();
 		selfCollider->vertices.push_back(vec2(-8, -24));
 		selfCollider->vertices.push_back(vec2(-8, 24));
 		selfCollider->vertices.push_back(vec2(8, 24));
 		selfCollider->vertices.push_back(vec2(8, -24));
-
-		SpriteRenderer* torpedoRenderer = gameObject->AddComponent<SpriteRenderer>();
-		torpedoRenderer->sprite = sprite;
-		torpedoRenderer->scale = vec2(3, 3);
-		torpedoRenderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 
 		state = State::Following;
 	}
