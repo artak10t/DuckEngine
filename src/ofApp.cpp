@@ -1,8 +1,4 @@
 #include "ofApp.h"
-#include "./game/Player.h"
-#include "./game/Smoke.h"
-#include "./game/Torpedo.h"
-#include "./engine/components/Spawner.h"
 
 void ofApp::setup() {
 	Entity* player = new Entity();

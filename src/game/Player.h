@@ -1,9 +1,8 @@
 #pragma once
 #include "../engine/Component.h"
 #include "../engine/Entity.h"
-#include <app/ofAppRunner.h>
-#include "../engine/2d/SpriteRenderer.h"
-#include "../engine/2d/Collider2D.h"
+#include "../engine/components/SpriteRenderer.h"
+#include "../engine/components/Collider2D.h"
 
 class Player : public Component
 {

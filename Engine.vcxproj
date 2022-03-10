@@ -180,10 +180,10 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\engine\2d\Collider2D.cpp" />
-    <ClCompile Include="src\engine\2d\SpriteRenderer.cpp" />
-    <ClCompile Include="src\engine\components\Controller.cpp" />
-    <ClCompile Include="src\engine\components\Draggable.cpp" />
+    <ClCompile Include="src\engine\components\Rigidbody.cpp" />
+    <ClCompile Include="src\engine\Physics.cpp" />
+    <ClCompile Include="src\engine\components\Collider2D.cpp" />
+    <ClCompile Include="src\engine\components\SpriteRenderer.cpp" />
     <ClCompile Include="src\engine\components\Mesh.cpp" />
     <ClCompile Include="src\engine\Entity.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -201,16 +201,15 @@
     <ClCompile Include="src\engine\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\engine\2d\Collider2D.h" />
+    <ClInclude Include="src\engine\components\Rigidbody.h" />
+    <ClInclude Include="src\engine\Physics.h" />
+    <ClInclude Include="src\engine\components\Collider2D.h" />
     <ClInclude Include="src\game\Player.h" />
-    <ClInclude Include="src\engine\2d\SpriteRenderer.h" />
-    <ClInclude Include="src\engine\components\Spawner.h" />
-    <ClInclude Include="src\engine\components\Controller.h" />
-    <ClInclude Include="src\engine\components\Draggable.h" />
+    <ClInclude Include="src\engine\components\SpriteRenderer.h" />
+    <ClInclude Include="src\game\Spawner.h" />
     <ClInclude Include="src\engine\components\Mesh.h" />
     <ClInclude Include="src\engine\Entity.h" />
     <ClInclude Include="src\engine\Component.h" />
-    <ClInclude Include="src\game\Smoke.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxButton.h" />

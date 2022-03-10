@@ -3,6 +3,10 @@
 #include "engine/Entity.h"
 using namespace glm;
 
+#include "./game/Player.h"
+#include "./game/Torpedo.h"
+#include "./game/Spawner.h"
+
 class ofApp : public ofBaseApp {
 
 public:

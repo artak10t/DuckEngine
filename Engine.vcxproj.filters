@@ -43,20 +43,20 @@
     <ClCompile Include="src\engine\Transform.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\components\Draggable.cpp">
-      <Filter>src\engine\components</Filter>
-    </ClCompile>
-    <ClCompile Include="src\engine\components\Controller.cpp">
-      <Filter>src\engine\components</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\components\Mesh.cpp">
       <Filter>src\engine\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\2d\SpriteRenderer.cpp">
-      <Filter>src\engine\2d</Filter>
+    <ClCompile Include="src\engine\Physics.cpp">
+      <Filter>src\engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\2d\Collider2D.cpp">
-      <Filter>src\engine\2d</Filter>
+    <ClCompile Include="src\engine\components\Collider2D.cpp">
+      <Filter>src\engine\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\components\SpriteRenderer.cpp">
+      <Filter>src\engine\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\components\Rigidbody.cpp">
+      <Filter>src\engine\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,9 +80,6 @@
     </Filter>
     <Filter Include="src\game">
       <UniqueIdentifier>{e598dddc-bc11-423e-88d9-cde9249a6a35}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\engine\2d">
-      <UniqueIdentifier>{17bab08f-a5ce-418c-9f63-671d53f6c129}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -134,16 +131,7 @@
     <ClInclude Include="src\engine\Transform.h">
       <Filter>src\engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\components\Draggable.h">
-      <Filter>src\engine\components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\engine\components\Controller.h">
-      <Filter>src\engine\components</Filter>
-    </ClInclude>
     <ClInclude Include="src\engine\components\Mesh.h">
-      <Filter>src\engine\components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\engine\components\Spawner.h">
       <Filter>src\engine\components</Filter>
     </ClInclude>
     <ClInclude Include="src\game\Player.h">
@@ -152,14 +140,20 @@
     <ClInclude Include="src\game\Torpedo.h">
       <Filter>src\game</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\Smoke.h">
+    <ClInclude Include="src\engine\Physics.h">
+      <Filter>src\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\Spawner.h">
       <Filter>src\game</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\2d\SpriteRenderer.h">
-      <Filter>src\engine\2d</Filter>
+    <ClInclude Include="src\engine\components\SpriteRenderer.h">
+      <Filter>src\engine\components</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\2d\Collider2D.h">
-      <Filter>src\engine\2d</Filter>
+    <ClInclude Include="src\engine\components\Collider2D.h">
+      <Filter>src\engine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\components\Rigidbody.h">
+      <Filter>src\engine\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
