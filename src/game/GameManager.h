@@ -66,8 +66,7 @@ public:
         Entity* boom = new Entity("Player");
         boom->transform.position = player->transform.position;
         Explosion* explosion = boom->AddComponent<Explosion>();
-        explosion->strength = 5;
-        explosion->maxLifeTime = 3;
+        explosion->strength = 3;
 
         player->Destroy();
         gameStarted = false;
