@@ -43,6 +43,7 @@ void Entity::Clear() {
 		delete Entity::gameObjects[i];
 	}
 
+	Entity::nullPointers = stack<unsigned int>();
 	Entity::gameObjects.clear();
 }
 

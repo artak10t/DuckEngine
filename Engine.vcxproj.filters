@@ -143,9 +143,6 @@
     <ClInclude Include="src\engine\Physics.h">
       <Filter>src\engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\Spawner.h">
-      <Filter>src\game</Filter>
-    </ClInclude>
     <ClInclude Include="src\engine\components\SpriteRenderer.h">
       <Filter>src\engine\components</Filter>
     </ClInclude>
@@ -154,6 +151,15 @@
     </ClInclude>
     <ClInclude Include="src\engine\components\Rigidbody.h">
       <Filter>src\engine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\Smoke.h">
+      <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\Explosion.h">
+      <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\GameManager.h">
+      <Filter>src\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

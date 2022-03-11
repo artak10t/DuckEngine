@@ -9,6 +9,7 @@ class Player : public Component
 public:
     using Component::Component;
 
+	int energy = 5;
 	int health = 5;
     float velocity = 500;
     float rotationVelocity = 300;

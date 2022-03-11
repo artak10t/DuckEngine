@@ -7,8 +7,10 @@ void SpriteRenderer::Update() {
 
 void SpriteRenderer::Draw() {
 	ofPushMatrix();
+	ofEnableAlphaBlending();
 	ofSetColor(color);
 	ofMultMatrix(gameObject->transform.Matrix4());
 	sprite.draw(-scaledWidth / 2, -scaledHeight / 2, scaledWidth, scaledHeight);
+	ofDisableAlphaBlending();
 	ofPopMatrix();
 }

@@ -201,12 +201,14 @@
     <ClCompile Include="src\engine\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\GameManager.h" />
+    <ClInclude Include="src\game\Explosion.h" />
+    <ClInclude Include="src\game\Smoke.h" />
     <ClInclude Include="src\engine\components\Rigidbody.h" />
     <ClInclude Include="src\engine\Physics.h" />
     <ClInclude Include="src\engine\components\Collider2D.h" />
     <ClInclude Include="src\game\Player.h" />
     <ClInclude Include="src\engine\components\SpriteRenderer.h" />
-    <ClInclude Include="src\game\Spawner.h" />
     <ClInclude Include="src\engine\components\Mesh.h" />
     <ClInclude Include="src\engine\Entity.h" />
     <ClInclude Include="src\engine\Component.h" />

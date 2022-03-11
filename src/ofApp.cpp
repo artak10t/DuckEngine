@@ -1,24 +1,28 @@
 #include "ofApp.h"
 
 void ofApp::setup() {
-	Entity* player = new Entity();
-	player->name = "Player";
-	player->transform.position = vec3(ofGetWindowWidth() / 2.0, ofGetWindowHeight() / 2.0, 0);
-	player->AddComponent<Player>();
-
-	Entity* spawner = new Entity();
-	spawner->AddComponent<Spawner>()->player = player;
+	backgroundSprite.load("background.png");
 }
 
 void ofApp::update() {
+	gameManager.Update();
 	Entity::Update();
 }
 
 void ofApp::draw() {
+	for (int i = 0; i < ofGetScreenHeight(); i += backgroundSprite.getHeight()) {
+		for (int j = 0; j < ofGetScreenWidth(); j += backgroundSprite.getWidth()) {
+			backgroundSprite.draw(j, i, backgroundSprite.getWidth(), backgroundSprite.getHeight());
+		}
+	}
+
 	Entity::Draw();
 }
 
 void ofApp::keyPressed(int key) {
+	if (key == ' ')
+		gameManager.Start();
+
 	Entity::KeyPressed(key);
 }
 
