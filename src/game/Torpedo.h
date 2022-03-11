@@ -16,7 +16,7 @@ public:
 	Entity** target;
 	Collider2D* targetCollider;
 	State state = State::Idle;
-	float maxLifeTime = 5;
+	float maxLifeTime = 8;
 	float acceleration = 100;
 	float currentVelocity = 0;
 	float maxVelocity = 600;
