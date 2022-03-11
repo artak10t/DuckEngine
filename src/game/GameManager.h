@@ -17,6 +17,11 @@ public:
         if (gameStarted)
             return;
 
+        totalGameTime = 0;
+        spawnRate = 3;
+        lifeSpan = 10;
+        torpedoAcceleration = 100;
+
         gameStarted = true;
         Entity::Clear();
         player = new Entity("Player");
