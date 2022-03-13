@@ -19,4 +19,6 @@ public:
 
 	ofColor color;
 	std::vector<vec3> vertices;
+
+	static bool showMeshes;
 };

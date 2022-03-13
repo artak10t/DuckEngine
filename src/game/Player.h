@@ -10,7 +10,6 @@ public:
     using Component::Component;
 
 	int energy = 5;
-	int health = 5;
     float velocity = 500;
     float rotationVelocity = 300;
 
@@ -23,7 +22,13 @@ public:
 		playerRenderer->sprite = sprite;
 		playerRenderer->scale = vec2(2, 2);
 		playerRenderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
-		gameObject->AddComponent<Collider2D>();
+		Collider2D* col = gameObject->AddComponent<Collider2D>();
+
+		col->vertices.clear();
+		col->vertices.push_back(vec2(-45, -30));
+		col->vertices.push_back(vec2(-24, 28));
+		col->vertices.push_back(vec2(24, 28));
+		col->vertices.push_back(vec2(45, -30));
 	}
 
     void Update() {

@@ -1,4 +1,5 @@
 #include "SpriteRenderer.h"
+bool SpriteRenderer::showSprites = true;
 
 void SpriteRenderer::Update() {
 	scaledWidth = sprite.getWidth() * scale.x;
@@ -6,6 +7,9 @@ void SpriteRenderer::Update() {
 }
 
 void SpriteRenderer::Draw() {
+	if (!showSprites)
+		return;
+
 	ofPushMatrix();
 	ofEnableAlphaBlending();
 	ofSetColor(color);

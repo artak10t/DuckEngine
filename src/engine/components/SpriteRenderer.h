@@ -15,6 +15,8 @@ public:
 
     void Update();
     void Draw();
+
+    static bool showSprites;
 private:
     float scaledWidth = 0;
     float scaledHeight = 0;
