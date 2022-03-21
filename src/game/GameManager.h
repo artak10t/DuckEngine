@@ -27,6 +27,7 @@ public:
         gui.add(agentLifespanGui.setup("Agent Life Span", 8, 0, 10));
         gui.add(showCollidersGui.setup("Show Colliders", false));
         gui.add(showSpritesGui.setup("Show Sprites", true));
+        gui.add(godModeGui.setup("God mode", false));
     }
 
     void Start() {
@@ -96,7 +97,7 @@ public:
                 }
             }
 
-            if (playerComponent->energy <= 0)
+            if (playerComponent->energy <= 0 && !godModeGui)
                 End();
         }
     }
@@ -144,5 +145,6 @@ private:
     ofxIntSlider agentNumbersGui;
     ofxFloatSlider agentLifespanGui;
     ofxToggle showCollidersGui = false;
+    ofxToggle godModeGui = false;
     ofxToggle showSpritesGui = true;
 };
