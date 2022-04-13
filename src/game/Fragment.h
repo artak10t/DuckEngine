@@ -25,7 +25,7 @@ public:
 		rotation = ofRandomf() * 180;
 		gameObject->transform.rotation = rotation;
 		Rigidbody2D* rigidbody2D = gameObject->AddComponent<Rigidbody2D>();
-		float strRand = ofRandomf() + 1.5;
+		float strRand = ofRandomf() + 2;
 		strength = strRand;
 		strength *= 200;
 		rigidbody2D->gravityForce = vec3(0, 0, 0);
