@@ -55,7 +55,7 @@
     <ClCompile Include="src\engine\components\SpriteRenderer.cpp">
       <Filter>src\engine\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\components\Rigidbody.cpp">
+    <ClCompile Include="src\engine\components\Rigidbody2D.cpp">
       <Filter>src\engine\components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,7 +149,7 @@
     <ClInclude Include="src\engine\components\Collider2D.h">
       <Filter>src\engine\components</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\components\Rigidbody.h">
+    <ClInclude Include="src\engine\components\Rigidbody2D.h">
       <Filter>src\engine\components</Filter>
     </ClInclude>
     <ClInclude Include="src\game\Smoke.h">
@@ -159,6 +159,12 @@
       <Filter>src\game</Filter>
     </ClInclude>
     <ClInclude Include="src\game\GameManager.h">
+      <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\Fragment.h">
+      <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\Bullet.h">
       <Filter>src\game</Filter>
     </ClInclude>
   </ItemGroup>

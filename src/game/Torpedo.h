@@ -15,14 +15,15 @@ public:
 
 	Entity** target;
 	Collider2D* targetCollider;
+	Rigidbody2D* rigidbody2D;
 	State state = State::Idle;
 	float maxLifeTime = 8;
-	float acceleration = 100;
-	float currentVelocity = 0;
-	float maxVelocity = 600;
+	float velocity = 10;
 	float rotationVelocity = 3;
+	float sliping = 20;
 
-	float smokeSpawnTime = 30;
+	float smokeSpawnTime = 1;
+	float launch = 2;
 
 	void Start() {
 		static ofImage sprite;
@@ -40,8 +41,8 @@ public:
 		selfCollider->vertices.push_back(vec2(-8, 24));
 		selfCollider->vertices.push_back(vec2(8, 24));
 		selfCollider->vertices.push_back(vec2(8, -24));
-
-		state = State::Following;
+		rigidbody2D = gameObject->AddComponent<Rigidbody2D>();
+		rigidbody2D->gravityForce = vec3(0, 0, 0);
 	}
 
 	void Update() {
@@ -59,15 +60,16 @@ public:
 				return;
 			}
 
-			float relativeVelocity = ofGetLastFrameTime() * currentVelocity;
 			float relativeRotationVelocity = ofGetLastFrameTime() * rotationVelocity;
-
-			if(currentVelocity < maxVelocity)
-				currentVelocity += acceleration * ofGetLastFrameTime();
+			gameObject->transform.LookAt((*target)->transform.position, ofGetLastFrameTime() * rotationVelocity);
+			if (launch <= 0 && state != State::Following)
+				state = State::Following;
 
 			if (state == State::Following) {
-				gameObject->transform.LookAt((*target)->transform.position, ofGetLastFrameTime() * rotationVelocity);
-				gameObject->transform.position += gameObject->transform.Up() * relativeVelocity;
+				vec3 rightVelocity = length(rigidbody2D->velocity) * gameObject->transform.Up();
+				vec3 delta = (rightVelocity - rigidbody2D->velocity) / sliping;
+				rigidbody2D->velocity = rigidbody2D->velocity + delta;
+				rigidbody2D->AddForce(gameObject->transform.Up() * velocity);
 			}
 		}
 
@@ -79,13 +81,19 @@ public:
 			currentSmokeSpawnTime = 0;
 		}
 
+		if (launch > 0)
+			launch -= ofGetLastFrameTime();
+
 		if (currentLifeTime >= maxLifeTime) {
+			Entity* explosion = new Entity("Explosion");
+			explosion->transform.position = gameObject->transform.position;
+			explosion->AddComponent<Explosion>();
 			gameObject->Destroy();
 			return;
 		}
 
 		currentLifeTime += ofGetLastFrameTime();
-		currentSmokeSpawnTime += ofGetLastFrameTime() * currentVelocity;
+		currentSmokeSpawnTime += ofGetLastFrameTime() * length(rigidbody2D->velocity) * 2;
 	}
 
 private:

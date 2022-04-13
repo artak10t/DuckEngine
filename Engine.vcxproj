@@ -180,7 +180,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\engine\components\Rigidbody.cpp" />
+    <ClCompile Include="src\engine\components\Rigidbody2D.cpp" />
     <ClCompile Include="src\engine\Physics.cpp" />
     <ClCompile Include="src\engine\components\Collider2D.cpp" />
     <ClCompile Include="src\engine\components\SpriteRenderer.cpp" />
@@ -201,10 +201,12 @@
     <ClCompile Include="src\engine\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\Bullet.h" />
+    <ClInclude Include="src\game\Fragment.h" />
     <ClInclude Include="src\game\GameManager.h" />
     <ClInclude Include="src\game\Explosion.h" />
     <ClInclude Include="src\game\Smoke.h" />
-    <ClInclude Include="src\engine\components\Rigidbody.h" />
+    <ClInclude Include="src\engine\components\Rigidbody2D.h" />
     <ClInclude Include="src\engine\Physics.h" />
     <ClInclude Include="src\engine\components\Collider2D.h" />
     <ClInclude Include="src\game\Player.h" />

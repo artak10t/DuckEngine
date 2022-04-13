@@ -4,6 +4,7 @@
 #include "ofxGui.h"
 #include "Player.h"
 #include "Torpedo.h"
+#include "Bullet.h"
 #include "../engine/components/Mesh.h"
 
 class GameManager
@@ -12,7 +13,7 @@ public:
     float totalGameTime = 0;
     float spawnRate = 3;
     int agentNumbers = 1;
-    float lifeSpan = 8;
+    float lifeSpan = 5;
     float torpedoAcceleration = 100;
     bool debug = false;
     Entity* player;
@@ -24,7 +25,7 @@ public:
         gui.add(playerScaleGui.setup("Player Scale", 1, 0.1, 5));
         gui.add(spawnRateGui.setup("Agent Spawn Rate", 2, 0.5, 10));
         gui.add(agentNumbersGui.setup("Agent Spawn Number", 1, 1, 5));
-        gui.add(agentLifespanGui.setup("Agent Life Span", 8, 0, 10));
+        gui.add(agentLifespanGui.setup("Agent Life Span", 5, 0, 10));
         gui.add(showCollidersGui.setup("Show Colliders", false));
         gui.add(showSpritesGui.setup("Show Sprites", true));
         gui.add(godModeGui.setup("God mode", false));
@@ -86,6 +87,11 @@ public:
 
                 for (int i = 0; i < agentNumbers; i++) {
                     vec3 pos = vec3(ofRandom(ofGetWindowWidth()), ofRandom(ofGetWindowHeight()), 0);
+                    if (distance(pos, player->transform.position) < 200) {
+                        i--;
+                        continue;
+                    }
+
                     Entity* torpedo = new Entity("Torpedo");
                     torpedo->transform.position = pos;
                     torpedo->transform.rotation = ofRandom(360);

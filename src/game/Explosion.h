@@ -3,13 +3,15 @@
 #include "../engine/Entity.h"
 #include "../engine/components/SpriteRenderer.h"
 #include <app/ofAppRunner.h>
+#include "../game/Fragment.h"
 
 class Explosion : public Component
 {
 public:
 	using Component::Component;
-	float maxLifeTime = 0.5;
+	float maxLifeTime = 1;
 	float strength = 1;
+	int fragments = 10;
 
 	void Start() {
 		static ofImage sprite;
@@ -22,6 +24,12 @@ public:
 		renderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 		color = &renderer->color;
 		rotation = ofRandomf();
+		for (int i = 0; i < fragments; i++) {
+			Entity* fragment = new Entity("Fragment");
+			fragment->transform.position = gameObject->transform.position;
+			Fragment* f = fragment->AddComponent<Fragment>();
+			f->strength = strength;
+		}
 	}
 
 	void Update() {
