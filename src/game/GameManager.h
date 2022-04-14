@@ -86,34 +86,18 @@ public:
 
             if (totalGameTime > 120) {
                 torpedoAcceleration = 500;
-                agentNumbers = 5;
-                lifeSpan = 10;
-                agentNumbersGui = 5;
-                agentLifespanGui = 10;
                 difficulty = 5;
             }
             else if (totalGameTime > 60) {
                 torpedoAcceleration = 400;
-                agentNumbers = 4;
-                lifeSpan = 8;
-                agentNumbersGui = 4;
-                agentLifespanGui = 8;
                 difficulty = 4;
             }
             else if (totalGameTime > 30) {
                 torpedoAcceleration = 300;
-                agentNumbers = 3;
-                lifeSpan = 7;
-                agentNumbersGui = 3;
-                agentLifespanGui = 7;
                 difficulty = 3;
             }
             else if (totalGameTime > 10) {
                 torpedoAcceleration = 200;
-                agentNumbers = 2;
-                lifeSpan = 6;
-                agentNumbersGui = 2;
-                agentLifespanGui = 6;
                 difficulty = 2;
             }
 
@@ -217,6 +201,7 @@ public:
         torpedos.clear();
         torp.clear();
         endLevelAudio.play();
+        difficulty = 0;
 
         player->Destroy();
         energyGui.removeListener(this, &GameManager::ListenerEnergy);
