@@ -2,10 +2,10 @@
 #include "../engine/Component.h"
 #include "../engine/Entity.h"
 #include "../game/Smoke.h"
-#include "../game/Bullet.h"
 #include "../engine/components/SpriteRenderer.h"
 #include "../engine/components/Collider2D.h"
 #include "../engine/components/Rigidbody2D.h"
+#include <ofSoundPlayer.h>
 
 class Player : public Component
 {
@@ -17,13 +17,13 @@ public:
     float rotationVelocity = 300;
 	float bounciness = 1;
 	float sliping = 20;
-	float fireRate = 0.1;
 	Rigidbody2D* rigidbody2D;
 
 	void Start() {
 		static ofImage sprite;
 		if (sprite.getWidth() == 0 && sprite.getHeight() == 0)
 			sprite.load("player.png");
+
 
 		SpriteRenderer* playerRenderer = gameObject->AddComponent<SpriteRenderer>();
 		playerRenderer->sprite = sprite;
@@ -93,12 +93,6 @@ public:
 		vec3 delta = (rightVelocity - rigidbody2D->velocity) / sliping;
 		rigidbody2D->velocity = rigidbody2D->velocity + delta;
 
-		if (shooting)
-			shoot();
-
-		if (fireTime > 0)
-			fireTime -= ofGetLastFrameTime();
-
 		currentSmokeSpawnTime -= ofGetLastFrameTime() * length(rigidbody2D->velocity) * 2;
     }
 
@@ -112,9 +106,6 @@ public:
 			rightTurn = true;
 		else if (key == 'a')
 			leftTurn = true;
-
-		if (key == ' ')
-			shooting = true;
     }
 
     void KeyReleased(int key) {
@@ -127,9 +118,6 @@ public:
 			rightTurn = false;
 		else if (key == 'a')
 			leftTurn = false;
-
-		if (key == ' ')
-			shooting = false;
     }
 
 private:
@@ -140,19 +128,6 @@ private:
 	bool shooting = false;
 	float smokeTime = 1;
 	float currentSmokeSpawnTime;
-	float fireTime = 0;
-
-	void shoot()
-	{
-		if (fireTime > 0)
-			return;
-
-		Entity* bullet = new Entity("Bullet");
-		bullet->transform.position = gameObject->transform.position + gameObject->transform.Up() * 35;
-		bullet->transform.rotation = gameObject->transform.rotation;
-		Bullet* b = bullet->AddComponent<Bullet>();
-		fireTime = fireRate;
-	}
 
 	void smokeEffect()
 	{

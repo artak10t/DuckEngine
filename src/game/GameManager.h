@@ -13,15 +13,28 @@ public:
     float totalGameTime = 0;
     float spawnRate = 3;
     int agentNumbers = 1;
+    int difficulty = 1;
     float lifeSpan = 5;
     float torpedoAcceleration = 100;
     bool debug = false;
+    bool shooting = false;
+    float fireTime = 0;
+    float fireRate = 0.1;
     Entity* player;
+    vector<Collider2D*> torpedos;
+    vector<Torpedo*> torp;
+
+    GameManager()
+    {
+        startLevelAudio.load("start-level.wav");
+        endLevelAudio.load("end-level.wav");
+    }
 
     void Setup() {
         gui.setup();
         gui.add(energyGui.setup("Player Energy", 5, 0, 10));
         gui.add(playerSpeedGui.setup("Player Speed", 500, 1, 1000));
+        gui.add(fireRateGui.setup("Fire Rate", 0.1, 0.01, 1));
         gui.add(playerScaleGui.setup("Player Scale", 1, 0.1, 5));
         gui.add(spawnRateGui.setup("Agent Spawn Rate", 2, 0.5, 10));
         gui.add(agentNumbersGui.setup("Agent Spawn Number", 1, 1, 5));
@@ -38,6 +51,7 @@ public:
         totalGameTime = 0;
         energyGui = 5;
         torpedoAcceleration = 100;
+        startLevelAudio.play();
 
         gameStarted = true;
         Entity::Clear();
@@ -55,6 +69,7 @@ public:
     }
 
     void Update() {
+        fireRate = fireRateGui;
         spawnRate = spawnRateGui;
         agentNumbers = agentNumbersGui;
         lifeSpan = agentLifespanGui;
@@ -71,15 +86,35 @@ public:
 
             if (totalGameTime > 120) {
                 torpedoAcceleration = 500;
+                agentNumbers = 5;
+                lifeSpan = 10;
+                agentNumbersGui = 5;
+                agentLifespanGui = 10;
+                difficulty = 5;
             }
             else if (totalGameTime > 60) {
                 torpedoAcceleration = 400;
+                agentNumbers = 4;
+                lifeSpan = 8;
+                agentNumbersGui = 4;
+                agentLifespanGui = 8;
+                difficulty = 4;
             }
             else if (totalGameTime > 30) {
                 torpedoAcceleration = 300;
+                agentNumbers = 3;
+                lifeSpan = 7;
+                agentNumbersGui = 3;
+                agentLifespanGui = 7;
+                difficulty = 3;
             }
             else if (totalGameTime > 10) {
                 torpedoAcceleration = 200;
+                agentNumbers = 2;
+                lifeSpan = 6;
+                agentNumbersGui = 2;
+                agentLifespanGui = 6;
+                difficulty = 2;
             }
 
             if (currentSpawnTime >= spawnRate) {
@@ -99,12 +134,53 @@ public:
                     component->maxLifeTime = lifeSpan;
                     component->target = &player;
                     component->targetCollider = player->GetComponent<Collider2D>();
+                    component->i = GameManager::torpedos.size();
+                    torp.push_back(component);
+                    Collider2D* selfCollider = torpedo->AddComponent<Collider2D>();
+                    selfCollider->vertices.clear();
+                    selfCollider->vertices.push_back(vec2(-8, -24));
+                    selfCollider->vertices.push_back(vec2(-8, 24));
+                    selfCollider->vertices.push_back(vec2(8, 24));
+                    selfCollider->vertices.push_back(vec2(8, -24));
+                    component->selfCollider = selfCollider;
+                    GameManager::torpedos.push_back(selfCollider);
                     torpedo->AddComponent<Mesh>();
+                }
+            }
+
+            for (int i = 0; i < torp.size(); i++)
+            {
+                if (torp[i]->destroy)
+                {
+                    Entity* explosion = new Entity("Explosion");
+                    explosion->transform.position = torp[i]->gameObject->transform.position;
+                    explosion->AddComponent<Explosion>();
+                    torp[i]->gameObject->Destroy();
+                    torp.erase(torp.begin() + i);
+                    torpedos.erase(torpedos.begin() + i);
+                    break;
+                }
+            }
+
+            if (shooting)
+            {
+                if (fireTime <= 0) {
+                    Entity* bullet = new Entity("Bullet");
+                    bullet->transform.position = player->transform.position + player->transform.Up() * 35;
+                    bullet->transform.rotation = player->transform.rotation;
+                    Bullet* b = bullet->AddComponent<Bullet>();
+                    b->p = player->GetComponent<Player>();
+                    b->maxEnergy = energyGui;
+                    fireTime = fireRate;
+                    b->torpedos = &torpedos;
                 }
             }
 
             if (playerComponent->energy <= 0 && !godModeGui)
                 End();
+
+            if (fireTime > 0)
+                fireTime -= ofGetLastFrameTime();
         }
     }
 
@@ -115,6 +191,7 @@ public:
         else if(gameStarted && player) {
             ofDrawBitmapString("Total time " + to_string(totalGameTime), ofGetWindowWidth() / 2, 30);
             ofDrawBitmapString("Energy level " + to_string(playerComponent->energy) + "|" + to_string(maxEnergy), ofGetWindowWidth() / 2 - 150, 30);
+            ofDrawBitmapString("Difficulty " + to_string(difficulty), ofGetWindowWidth() / 2 - 270, 30);
             ofDrawBitmapString("Frame rate " + to_string(ofGetFrameRate()), ofGetWindowWidth() - 200, 30);
         }
 
@@ -122,11 +199,24 @@ public:
             gui.draw();
     }
 
+    void KeyPressed(int key) {
+        if (key == ' ')
+            shooting = true;
+    }
+
+    void KeyReleased(int key) {
+        if (key == ' ')
+            shooting = false;
+    }
+
     void End() {
         Entity* boom = new Entity("Player");
         boom->transform.position = player->transform.position;
         Explosion* explosion = boom->AddComponent<Explosion>();
         explosion->strength = 3;
+        torpedos.clear();
+        torp.clear();
+        endLevelAudio.play();
 
         player->Destroy();
         energyGui.removeListener(this, &GameManager::ListenerEnergy);
@@ -146,6 +236,7 @@ private:
     ofxPanel gui;
     ofxIntSlider energyGui;
     ofxFloatSlider playerScaleGui;
+    ofxFloatSlider fireRateGui;
     ofxFloatSlider playerSpeedGui;
     ofxFloatSlider spawnRateGui;
     ofxIntSlider agentNumbersGui;
@@ -153,4 +244,6 @@ private:
     ofxToggle showCollidersGui = false;
     ofxToggle godModeGui = false;
     ofxToggle showSpritesGui = true;
+    ofSoundPlayer startLevelAudio;
+    ofSoundPlayer endLevelAudio;
 };

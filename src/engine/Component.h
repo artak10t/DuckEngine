@@ -23,6 +23,5 @@ public:
 	virtual void WindowResized(int w, int h) {}
 
 	virtual ~Component() {}
-protected:
 	Entity* gameObject;
 };

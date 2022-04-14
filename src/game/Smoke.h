@@ -9,11 +9,16 @@ class Smoke : public Component
 public:
 	using Component::Component;
 	float maxLifeTime = 1;
+	ofSoundPlayer thrustSound;
 
 	void Start() {
 		static ofImage sprite;
+		static ofSoundPlayer sound;
 		if (sprite.getWidth() == 0 && sprite.getHeight() == 0)
 			sprite.load("smoke.png");
+		if (!sound.isLoaded())
+			sound.load("thrust.wav");
+		thrustSound = sound;
 
 		SpriteRenderer* renderer = gameObject->AddComponent<SpriteRenderer>();
 		renderer->sprite = sprite;
@@ -21,6 +26,7 @@ public:
 		renderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 		color = &renderer->color;
 		rotation = ofRandomf();
+		thrustSound.play();
 	}
 
 	void Update() {

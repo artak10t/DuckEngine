@@ -30,10 +30,13 @@ void ofApp::keyPressed(int key) {
 	else if (key == 'h' && gameManager.debug)
 		gameManager.debug = false;
 
+	gameManager.KeyPressed(key);
+
 	Entity::KeyPressed(key);
 }
 
 void ofApp::keyReleased(int key) {
+	gameManager.KeyReleased(key);
 	Entity::KeyReleased(key);
 }
 

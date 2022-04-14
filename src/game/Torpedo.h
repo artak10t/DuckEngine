@@ -21,9 +21,12 @@ public:
 	float velocity = 10;
 	float rotationVelocity = 3;
 	float sliping = 20;
+	Collider2D* selfCollider;
+	bool destroy = false;
 
 	float smokeSpawnTime = 1;
 	float launch = 2;
+	int i = 0;
 
 	void Start() {
 		static ofImage sprite;
@@ -35,12 +38,6 @@ public:
 		torpedoRenderer->scale = vec2(2, 2);
 		torpedoRenderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 
-		selfCollider = gameObject->AddComponent<Collider2D>();
-		selfCollider->vertices.clear();
-		selfCollider->vertices.push_back(vec2(-8, -24));
-		selfCollider->vertices.push_back(vec2(-8, 24));
-		selfCollider->vertices.push_back(vec2(8, 24));
-		selfCollider->vertices.push_back(vec2(8, -24));
 		rigidbody2D = gameObject->AddComponent<Rigidbody2D>();
 		rigidbody2D->gravityForce = vec3(0, 0, 0);
 	}
@@ -53,10 +50,7 @@ public:
 			if (selfCollider->overlap) {
 				Player* p = (*target)->GetComponent<Player>();
 				p->energy--;
-				Entity* explosion = new Entity("Explosion");
-				explosion->transform.position = gameObject->transform.position;
-				explosion->AddComponent<Explosion>();
-				gameObject->Destroy();
+				destroy = true;
 				return;
 			}
 
@@ -84,11 +78,8 @@ public:
 		if (launch > 0)
 			launch -= ofGetLastFrameTime();
 
-		if (currentLifeTime >= maxLifeTime) {
-			Entity* explosion = new Entity("Explosion");
-			explosion->transform.position = gameObject->transform.position;
-			explosion->AddComponent<Explosion>();
-			gameObject->Destroy();
+		if (currentLifeTime >= maxLifeTime || destroy) {
+			destroy = true;
 			return;
 		}
 
@@ -97,7 +88,6 @@ public:
 	}
 
 private:
-	Collider2D* selfCollider;
 	float currentLifeTime = 0;
 	float currentSmokeSpawnTime = 0;
 };

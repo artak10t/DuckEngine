@@ -12,11 +12,16 @@ public:
 	float maxLifeTime = 1;
 	float strength = 1;
 	int fragments = 10;
+	ofSoundPlayer explosionSound;
 
 	void Start() {
 		static ofImage sprite;
+		static ofSoundPlayer sound;
 		if (sprite.getWidth() == 0 && sprite.getHeight() == 0)
 			sprite.load("explosion.png");
+		if (!sound.isLoaded())
+			sound.load("explosion.wav");
+		explosionSound = sound;
 
 		SpriteRenderer* renderer = gameObject->AddComponent<SpriteRenderer>();
 		renderer->sprite = sprite;
@@ -30,6 +35,7 @@ public:
 			Fragment* f = fragment->AddComponent<Fragment>();
 			f->strength = strength;
 		}
+		explosionSound.play();
 	}
 
 	void Update() {
