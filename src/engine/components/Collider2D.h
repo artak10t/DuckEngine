@@ -15,7 +15,6 @@ public:
 
     std::vector<vec2> vertices;
     bool overlap = false;
-    bool debug = true;
 
     void Start();
     void Update();
