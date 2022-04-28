@@ -1,4 +1,4 @@
 # DuckEngine
-DuckEngine is a powerful OpenGL game engine that uses entity component system with newest technologies.
+General purpose data-driven game engine with custom entity component system.
 
 ## [Getting Started](https://github.com/artak10t/DuckEngine/wiki)
