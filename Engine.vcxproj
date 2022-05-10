@@ -184,7 +184,6 @@
     <ClCompile Include="src\engine\Physics.cpp" />
     <ClCompile Include="src\engine\components\Collider2D.cpp" />
     <ClCompile Include="src\engine\components\SpriteRenderer.cpp" />
-    <ClCompile Include="src\engine\components\Mesh.cpp" />
     <ClCompile Include="src\engine\Entity.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
@@ -201,17 +200,10 @@
     <ClCompile Include="src\engine\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\game\Bullet.h" />
-    <ClInclude Include="src\game\Fragment.h" />
-    <ClInclude Include="src\game\GameManager.h" />
-    <ClInclude Include="src\game\Explosion.h" />
-    <ClInclude Include="src\game\Smoke.h" />
     <ClInclude Include="src\engine\components\Rigidbody2D.h" />
     <ClInclude Include="src\engine\Physics.h" />
     <ClInclude Include="src\engine\components\Collider2D.h" />
-    <ClInclude Include="src\game\Player.h" />
     <ClInclude Include="src\engine\components\SpriteRenderer.h" />
-    <ClInclude Include="src\engine\components\Mesh.h" />
     <ClInclude Include="src\engine\Entity.h" />
     <ClInclude Include="src\engine\Component.h" />
     <ClInclude Include="src\ofApp.h" />
@@ -228,7 +220,6 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h" />
     <ClInclude Include="src\engine\Transform.h" />
-    <ClInclude Include="src\game\Torpedo.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

@@ -5,7 +5,6 @@
 #include "Player.h"
 #include "Torpedo.h"
 #include "Bullet.h"
-#include "../engine/components/Mesh.h"
 
 class GameManager
 {
@@ -60,7 +59,6 @@ public:
         playerComponent = player->AddComponent<Player>();
         energyGui.addListener(this, &GameManager::ListenerEnergy);
         maxEnergy = playerComponent->energy;
-        player->AddComponent<Mesh>();
     }
 
     void ListenerEnergy(int& value) {
@@ -74,7 +72,6 @@ public:
         agentNumbers = agentNumbersGui;
         lifeSpan = agentLifespanGui;
         Physics::showColliders = showCollidersGui;
-        Mesh::showMeshes = !showSpritesGui;
         SpriteRenderer::showSprites = showSpritesGui;
 
         if (gameStarted) {
@@ -128,7 +125,6 @@ public:
                     selfCollider->vertices.push_back(vec2(8, -24));
                     component->selfCollider = selfCollider;
                     GameManager::torpedos.push_back(selfCollider);
-                    torpedo->AddComponent<Mesh>();
                 }
             }
 

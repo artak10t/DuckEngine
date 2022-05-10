@@ -3,6 +3,8 @@
 #include "engine/Entity.h"
 using namespace glm;
 
+#include "./game/GameManager.h"
+
 class ofApp : public ofBaseApp {
 
 public:
@@ -23,4 +25,6 @@ public:
 	void gotMessage(ofMessage msg);
 
 	~ofApp();
+	GameManager gameManager;
+	ofImage backgroundSprite;
 };

@@ -43,9 +43,6 @@
     <ClCompile Include="src\engine\Transform.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\components\Mesh.cpp">
-      <Filter>src\engine\components</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\Physics.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
@@ -131,15 +128,6 @@
     <ClInclude Include="src\engine\Transform.h">
       <Filter>src\engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\engine\components\Mesh.h">
-      <Filter>src\engine\components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\Player.h">
-      <Filter>src\game</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\Torpedo.h">
-      <Filter>src\game</Filter>
-    </ClInclude>
     <ClInclude Include="src\engine\Physics.h">
       <Filter>src\engine</Filter>
     </ClInclude>
@@ -151,21 +139,6 @@
     </ClInclude>
     <ClInclude Include="src\engine\components\Rigidbody2D.h">
       <Filter>src\engine\components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\Smoke.h">
-      <Filter>src\game</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\Explosion.h">
-      <Filter>src\game</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\GameManager.h">
-      <Filter>src\game</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\Fragment.h">
-      <Filter>src\game</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\Bullet.h">
-      <Filter>src\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

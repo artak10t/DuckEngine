@@ -1,22 +1,42 @@
 #include "ofApp.h"
 
 void ofApp::setup() {
-
+	backgroundSprite.load("background.png");
+	gameManager.Setup();
 }
 
 void ofApp::update() {
+	gameManager.Update();
 	Entity::Update();
 }
 
 void ofApp::draw() {
+	ofSetColor(ofColor::white);
+	for (int i = 0; i < ofGetScreenHeight(); i += backgroundSprite.getHeight()) {
+		for (int j = 0; j < ofGetScreenWidth(); j += backgroundSprite.getWidth()) {
+			backgroundSprite.draw(j, i, backgroundSprite.getWidth(), backgroundSprite.getHeight());
+		}
+	}
+
 	Entity::Draw();
+	gameManager.Draw();
 }
 
 void ofApp::keyPressed(int key) {
+	if (key == ' ')
+		gameManager.Start();
+	if (key == 'h' && !gameManager.debug)
+		gameManager.debug = true;
+	else if (key == 'h' && gameManager.debug)
+		gameManager.debug = false;
+
+	gameManager.KeyPressed(key);
+
 	Entity::KeyPressed(key);
 }
 
 void ofApp::keyReleased(int key) {
+	gameManager.KeyReleased(key);
 	Entity::KeyReleased(key);
 }
 

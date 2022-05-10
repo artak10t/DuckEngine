@@ -1,7 +1,6 @@
 #pragma once
 #include "../engine/Component.h"
 #include "../engine/Entity.h"
-#include "../engine/components/Mesh.h"
 #include "../engine/components/Rigidbody2D.h"
 #include "../engine/components/SpriteRenderer.h"
 #include "../engine/components/Collider2D.h"
@@ -35,7 +34,6 @@ public:
 		renderer->scale = vec2(4, 4);
 		renderer->sprite.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
 		color = &renderer->color;
-		gameObject->AddComponent<Mesh>();
 		selfCollider = gameObject->AddComponent<Collider2D>();
 		selfCollider->vertices.clear();
 		selfCollider->vertices.push_back(vec2(-8, -20));
