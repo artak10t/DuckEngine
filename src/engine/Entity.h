@@ -16,7 +16,7 @@ public:
 
 	Entity();
 	Entity(string name);
-	Entity(string name, vec3 position, float rotation, vec3 scale);
+	Entity(string name, vec3 position, vec3 rotation, vec3 scale);
 	static void Clear();
 	void Destroy();
 	void OnDestroy();

@@ -5,14 +5,20 @@ void ofApp::setup() {
 
 	// Setup main camera
 	trackingCam.setPosition(0, 0, 0);
-	trackingCam.lookAt(glm::vec3(0, 0, 1));
+	trackingCam.lookAt(glm::vec3(0, 0, -1));
 	trackingCam.setDistance(100);
 	trackingCam.setNearClip(0.1);
 	trackingCam.setFov(65.5);
 	mainCam = &trackingCam;
 
+	// Setup lights
+	ambientLight.setAmbientColor(ofFloatColor::black);
+	directionalLight.setDirectional();
+	directionalLight.rotate(45, 1, 1, 1);
+
 	// Create entity lander
-	Entity* lander = new Entity();
+	lander = new Entity();
+	lander->transform.scale = vec3(5, 5, 5);
 	// Add mesh component and load model
 	lander->AddComponent<Mesh>()->LoadModel("models/cube.obj");
 }
@@ -30,15 +36,33 @@ void ofApp::draw() {
 	ofBackground(backgroundColor);
 	if(mainCam != NULL)
 		mainCam->begin();
+	ambientLight.enable();
+	directionalLight.enable();
 
-	ofEnableLighting();
 	Entity::Draw();
 
+	directionalLight.disable();
+	ambientLight.disable();
 	if (mainCam != NULL)
 		mainCam->end();
 }
 
 void ofApp::keyPressed(int key) {
+	if (key == 'w')
+		lander->transform.rotation += vec3(1, 0, 0);
+	else if (key == 's')
+		lander->transform.rotation += vec3(-1, 0, 0);
+
+	if (key == 'q')
+		lander->transform.rotation += vec3(0, 1, 0);
+	else if (key == 'e')
+		lander->transform.rotation += vec3(0, -1, 0);
+
+	if (key == 'a')
+		lander->transform.rotation += vec3(0, 0, 1);
+	else if (key == 'd')
+		lander->transform.rotation += vec3(0, 0, -1);
+
 	Entity::KeyPressed(key);
 }
 

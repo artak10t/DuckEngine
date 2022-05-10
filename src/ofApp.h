@@ -25,6 +25,10 @@ public:
 
 	ofCamera* mainCam;
 	ofEasyCam trackingCam;
+	ofLight ambientLight;
+	ofLight directionalLight;
+	Entity* lander;
+
 	ofColor backgroundColor = ofColor::black;
 
 	~ofApp();

@@ -18,7 +18,7 @@ Entity::Entity(string name) {
 	Instantiate(this);
 }
 
-Entity::Entity(string name, vec3 position, float rotation, vec3 scale) {
+Entity::Entity(string name, vec3 position, vec3 rotation, vec3 scale) {
 	transform = Transform(position, rotation, scale);
 	this->name = name;
 	isActive = true;
