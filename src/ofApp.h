@@ -1,6 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "engine/Entity.h"
+#include "engine/components/Mesh.h"
 using namespace glm;
 
 class ofApp : public ofBaseApp {
@@ -21,6 +22,10 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
+
+	ofCamera* mainCam;
+	ofEasyCam trackingCam;
+	ofColor backgroundColor = ofColor::black;
 
 	~ofApp();
 };

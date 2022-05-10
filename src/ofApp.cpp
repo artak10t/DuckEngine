@@ -1,15 +1,41 @@
 #include "ofApp.h"
 
 void ofApp::setup() {
+	ofSetVerticalSync(true);
 
+	// Setup main camera
+	trackingCam.setPosition(0, 0, 0);
+	trackingCam.lookAt(glm::vec3(0, 0, 1));
+	trackingCam.setDistance(100);
+	trackingCam.setNearClip(0.1);
+	trackingCam.setFov(65.5);
+	mainCam = &trackingCam;
+
+	// Create entity lander
+	Entity* lander = new Entity();
+	// Add mesh component and load model
+	lander->AddComponent<Mesh>()->LoadModel("models/cube.obj");
 }
 
 void ofApp::update() {
 	Entity::Update();
 }
 
+/* 
+	Some components use draw method, such as Mesh.
+	We draw everything inside camera transformation.
+	GUI drawings also go here.
+*/
 void ofApp::draw() {
+	ofBackground(backgroundColor);
+	if(mainCam != NULL)
+		mainCam->begin();
+
+	ofEnableLighting();
 	Entity::Draw();
+
+	if (mainCam != NULL)
+		mainCam->end();
 }
 
 void ofApp::keyPressed(int key) {
