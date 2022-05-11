@@ -180,6 +180,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\components\Rigidbody.cpp" />
     <ClCompile Include="src\engine\components\Mesh.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
@@ -205,6 +206,7 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\components\Rigidbody.h" />
     <ClInclude Include="src\engine\components\Mesh.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="src\engine\Component.h" />

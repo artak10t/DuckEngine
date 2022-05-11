@@ -1,9 +1,16 @@
 #include "Mesh.h"
-#include <gl/ofLight.cpp>
 
 void Mesh::LoadModel(string path) {
 	assimp.loadModel(path);
 	assimp.setScaleNormalization(false);
+}
+
+void Mesh::LoadTexture(string path) {
+	ofDisableArbTex();
+	ofLoadImage(texture, path);
+	texture.setTextureWrap(GL_REPEAT, GL_REPEAT);
+	texture.generateMipmap();
+	texture.setTextureMinMagFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 }
 
 void Mesh::Draw() {
@@ -30,13 +37,13 @@ void Mesh::Draw() {
 		ofSetColor(ofColor::blue);
 		ofDrawLine(gameObject->transform.position, gameObject->transform.position + gameObject->transform.Forward() * 5 * gameObject->transform.scale);
 	}
-
 	ofEnableLighting();
 	ofPushMatrix();
 	ofMultMatrix(gameObject->transform.Matrix4());
+	texture.bind();
 	assimp.drawFaces();
+	texture.unbind();
 	ofPopMatrix();
-
 	ofDisableDepthTest();
 	ofDisableSmoothing();
 	ofDisableLighting();

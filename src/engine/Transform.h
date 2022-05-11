@@ -28,6 +28,6 @@ public:
 	vec3 localRotation;
 	vec3 localScale;
 
-	DebugAxis debugAxis = DebugAxis::Local;
+	DebugAxis debugAxis = DebugAxis::None;
 };
 

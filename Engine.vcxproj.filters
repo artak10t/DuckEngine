@@ -76,6 +76,9 @@
     <ClCompile Include="src\engine\components\Mesh.cpp">
       <Filter>src\engine\components</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\components\Rigidbody.cpp">
+      <Filter>src\engine\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -330,6 +333,9 @@
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\components\Mesh.h">
+      <Filter>src\engine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\components\Rigidbody.h">
       <Filter>src\engine\components</Filter>
     </ClInclude>
   </ItemGroup>

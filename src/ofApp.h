@@ -2,6 +2,7 @@
 #include "ofMain.h"
 #include "engine/Entity.h"
 #include "engine/components/Mesh.h"
+#include "engine/components/Rigidbody.h"
 using namespace glm;
 
 class ofApp : public ofBaseApp {
@@ -27,7 +28,10 @@ public:
 	ofEasyCam trackingCam;
 	ofLight ambientLight;
 	ofLight directionalLight;
+
 	Entity* lander;
+	Rigidbody* landerRigidbody;
+	Entity* moon;
 
 	ofColor backgroundColor = ofColor::black;
 

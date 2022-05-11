@@ -7,6 +7,7 @@ void ofApp::setup() {
 	trackingCam.setPosition(0, 0, 0);
 	trackingCam.lookAt(glm::vec3(0, 0, -1));
 	trackingCam.setDistance(100);
+	trackingCam.setFarClip(30000);
 	trackingCam.setNearClip(0.1);
 	trackingCam.setFov(65.5);
 	mainCam = &trackingCam;
@@ -18,13 +19,26 @@ void ofApp::setup() {
 
 	// Create entity lander
 	lander = new Entity();
-	lander->transform.scale = vec3(5, 5, 5);
-	// Add mesh component and load model
-	lander->AddComponent<Mesh>()->LoadModel("models/cube.obj");
+	lander->transform.debugAxis = DebugAxis::Local;
+	Mesh* landerMesh = lander->AddComponent<Mesh>();
+	landerMesh->LoadModel("models/lander.obj");
+	landerMesh->LoadTexture("models/moon.png");
+	landerRigidbody = lander->AddComponent<Rigidbody>();
+	landerRigidbody->gravityForce = vec3(0, 0, 0);
+	landerRigidbody->drag = 1;
+
+	// Create entity moon
+	moon = new Entity();
+	moon->transform.scale = vec3(5);
+	Mesh* moonMesh = moon->AddComponent<Mesh>();
+	moonMesh->LoadModel("models/moon.obj");
+	moonMesh->LoadTexture("models/moon.png");
 }
 
 void ofApp::update() {
 	Entity::Update();
+
+	trackingCam.lookAt(lander->transform.position);
 }
 
 /* 
@@ -48,20 +62,13 @@ void ofApp::draw() {
 }
 
 void ofApp::keyPressed(int key) {
-	if (key == 'w')
-		lander->transform.rotation += vec3(1, 0, 0);
-	else if (key == 's')
-		lander->transform.rotation += vec3(-1, 0, 0);
-
 	if (key == 'q')
-		lander->transform.rotation += vec3(0, 1, 0);
+		landerRigidbody->AddTorque(vec3(0, 10, 0));
 	else if (key == 'e')
-		lander->transform.rotation += vec3(0, -1, 0);
+		landerRigidbody->AddTorque(vec3(0, -10, 0));
 
-	if (key == 'a')
-		lander->transform.rotation += vec3(0, 0, 1);
-	else if (key == 'd')
-		lander->transform.rotation += vec3(0, 0, -1);
+	if (key == ' ')
+		landerRigidbody->AddForce(lander->transform.Up() * 10);
 
 	Entity::KeyPressed(key);
 }
