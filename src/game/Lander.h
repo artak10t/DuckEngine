@@ -12,6 +12,7 @@ public:
     Mesh* mesh;
     Rigidbody* rigidbody;
     BoxCollider* collider;
+    float fuel = 100;
 
     void Start() {
         // Show axis
@@ -32,25 +33,46 @@ public:
     }
 
     void Update() {
-        if (left)
-            rigidbody->AddForce(-gameObject->transform.Right() * 1);
-        else if (right)
+        if (fuel <= 0)
+            return;
+
+        float dt = ofGetLastFrameTime();
+
+        if (left) {
             rigidbody->AddForce(gameObject->transform.Right() * 1);
+            fuel -= dt;
+        }
+        else if (right) {
+            rigidbody->AddForce(-gameObject->transform.Right() * 1);
+            fuel -= dt;
+        }
 
-        if (forward)
+        if (forward) {
             rigidbody->AddForce(gameObject->transform.Forward() * 1);
-        else if (backward)
+            fuel -= dt;
+        }
+        else if (backward) {
             rigidbody->AddForce(-gameObject->transform.Forward() * 1);
+            fuel -= dt;
+        }
 
-        if (clockwise)
-            rigidbody->AddTorque(vec3(0, 1, 0));
-        else if (counterClockwise)
+        if (clockwise) {
             rigidbody->AddTorque(vec3(0, -1, 0));
+            fuel -= dt;
+        }
+        else if (counterClockwise) {
+            rigidbody->AddTorque(vec3(0, 1, 0));
+            fuel -= dt;
+        }
 
-        if (up)
+        if (up) {
             rigidbody->AddForce(gameObject->transform.Up() * 1);
-        else if (down)
+            fuel -= dt;
+        }
+        else if (down) {
             rigidbody->AddForce(-gameObject->transform.Up() * 1);
+            fuel -= dt;
+        }
     }
 
     void KeyPressed(int key) {

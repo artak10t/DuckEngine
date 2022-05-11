@@ -73,6 +73,7 @@ void ofApp::draw() {
 		mainCam->end();
 
 	glDepthMask(false);
+	ofDrawBitmapString("Fuel: " + to_string(lander->fuel), ofGetWindowWidth() / 2, 30);
 	if (!guiHide) gui.draw();
 	glDepthMask(true);
 }
