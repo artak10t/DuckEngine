@@ -210,6 +210,7 @@
     <ClCompile Include="src\engine\components\TerrainCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\Moon.h" />
     <ClInclude Include="src\game\Lander.h" />
     <ClInclude Include="src\engine\Ray.h" />
     <ClInclude Include="src\engine\AABB.h" />

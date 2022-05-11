@@ -22,9 +22,13 @@ void ofApp::setup() {
 	directionalLight.setDirectional();
 	directionalLight.rotate(76, 1, 1, 1);
 
+	// Create moon
+	Entity* m = new Entity();
+	moon = m->AddComponent<Moon>();
+
 	// Create lander
 	Entity* l = new Entity();
-	l->AddComponent<Lander>();
+	lander = l->AddComponent<Lander>();
 
 	// TEST PLATFORM
 	platform = new Entity();
@@ -32,27 +36,19 @@ void ofApp::setup() {
 	platformCollider = platform->AddComponent<BoxCollider>();
 	platformCollider->Init(vec3(0, 0, 0), vec3(20, 5, 20));
 	platform->transform.rotation = vec3(10, 34, 32);
-
-	// Create moon
-	moon = new Entity();
-	Mesh* moonMesh = moon->AddComponent<Mesh>();
-	moonMesh->LoadModel("models/moon.obj");
-	moonMesh->LoadTexture("models/moon.png");
-	moonMesh->Material.setShininess(0.01);
-	moonCollider = moon->AddComponent<TerrainCollider>();
-	moonCollider->Init(20);
 }
 
 void ofApp::update() {
-	vec3 origin = trackingCam.getPosition();
-	vec3 mouseWorld = trackingCam.screenToWorld(glm::vec3(mouseX, mouseY, 0));
+	vec3 origin = mainCam->getPosition();
+	vec3 mouseWorld = mainCam->screenToWorld(glm::vec3(mouseX, mouseY, 0));
 	vec3 mouseDir = normalize(mouseWorld - origin);
 
 	//trackingCam.lookAt(lander->transform.position);
 	//landerCollider->debugOverlap = landerCollider->aabb.RayOverlap(Ray(vec3(origin.x, origin.y, origin.z), vec3(mouseDir.x, mouseDir.y, mouseDir.z)), 0, 10000);
 	//landerCollider->debugOverlap = landerCollider->aabb.Overlap(platformCollider->aabb);
 
-	moonCollider->debugLevel = guiTerrainLevel;
+	// Gui Update
+	moon->collider->debugLevel = guiTerrainLevel;
 
 	Entity::Update();
 }

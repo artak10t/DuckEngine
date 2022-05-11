@@ -7,6 +7,7 @@
 #include "engine/components/BoxCollider.h"
 #include "engine/components/TerrainCollider.h"
 #include "game/Lander.h"
+#include "game/Moon.h"
 using namespace glm;
 
 class ofApp : public ofBaseApp {
@@ -34,9 +35,8 @@ public:
 	ofLight directionalLight;
 
 	Lander* lander;
+	Moon* moon;
 
-	Entity* moon;
-	TerrainCollider* moonCollider;
 	Entity* platform;
 	BoxCollider* platformCollider;
 

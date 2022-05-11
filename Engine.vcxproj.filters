@@ -365,6 +365,9 @@
     <ClInclude Include="src\game\Lander.h">
       <Filter>src\game</Filter>
     </ClInclude>
+    <ClInclude Include="src\game\Moon.h">
+      <Filter>src\game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
