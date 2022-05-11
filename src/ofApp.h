@@ -32,6 +32,10 @@ public:
 
 	Entity* lander;
 	Rigidbody* landerRigidbody;
+	BoxCollider* landerCollider;
+	Entity* platform;
+	BoxCollider* platformCollider;
+
 	Entity* moon;
 
 	ofColor backgroundColor = ofColor::black;

@@ -16,8 +16,11 @@ public:
     void Start();
     void Update();
     void Draw();
-private:
+
+    bool overlap = false;
     AABB aabb = AABB(vec3(10), vec3(10));
+
+private:
     ofVec3f p;
     float w;
     float h;

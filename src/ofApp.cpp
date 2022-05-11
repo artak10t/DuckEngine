@@ -26,9 +26,15 @@ void ofApp::setup() {
 	landerRigidbody = lander->AddComponent<Rigidbody>();
 	landerRigidbody->gravityForce = vec3(0, 0, 0);
 	landerRigidbody->drag = 1;
-	BoxCollider* landerCollider = lander->AddComponent<BoxCollider>();
+	landerCollider = lander->AddComponent<BoxCollider>();
 	landerCollider->Init(vec3(-5), vec3(5));
 	Physics::showColliders = true;
+
+	// TEST PLATFORM
+	platform = new Entity();
+	platform->transform.position = vec3(0, 10, 0);
+	platformCollider = platform->AddComponent<BoxCollider>();
+	platformCollider->Init(vec3(0, 0, 0), vec3(20, 5, 20));
 
 	// Create entity moon
 	moon = new Entity();
@@ -42,6 +48,7 @@ void ofApp::update() {
 	Entity::Update();
 
 	trackingCam.lookAt(lander->transform.position);
+	landerCollider->overlap = AABB::Overlap(landerCollider->aabb, lander->transform.Matrix4(), platformCollider->aabb, platform->transform.Matrix4());
 }
 
 /* 

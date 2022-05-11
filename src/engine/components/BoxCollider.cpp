@@ -28,7 +28,10 @@ void BoxCollider::Draw() {
 	ofPushMatrix();
 	ofMultMatrix(gameObject->transform.Matrix4());
 	ofNoFill();
-	ofSetColor(ofColor::green);
+	if (!overlap)
+		ofSetColor(ofColor::green);
+	else
+		ofSetColor(ofColor::red);
 	ofDrawBox(p, w, h, d);
 	ofPopMatrix();
 	ofDisableDepthTest();
