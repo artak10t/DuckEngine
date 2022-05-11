@@ -1,5 +1,6 @@
 #pragma once
 #include <glm/glm.hpp>
+#include "Ray.h"
 using namespace glm;
 
 class AABB
@@ -7,10 +8,12 @@ class AABB
 public:
 	AABB(vec3 min, vec3 max);
 
-	static bool Overlap(AABB collider1, mat4 mat1, AABB collider2, mat4 mat2);
+	bool Overlap(AABB aabb);
+	bool RayOverlap(Ray ray, float t0, float t1);
 
 	vec3 Max();
 	vec3 Min();
 	vec3 Center();
 	vec3 parameters[2];
+	mat4 matrix4;
 };

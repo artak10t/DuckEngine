@@ -17,7 +17,7 @@ public:
     void Update();
     void Draw();
 
-    bool overlap = false;
+    bool debugOverlap = false;
     AABB aabb = AABB(vec3(10), vec3(10));
 
 private:

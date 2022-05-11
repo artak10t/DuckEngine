@@ -5,14 +5,18 @@ AABB::AABB(vec3 min, vec3 max) {
 	parameters[1] = max;
 }
 
-bool AABB::Overlap(AABB collider1, mat4 mat1, AABB collider2, mat4 mat2) {
-	AABB col1 = collider1;
-	col1.parameters[0] = mat1 * vec4(col1.parameters[0], 1);
-	col1.parameters[1] = mat1 * vec4(col1.parameters[1], 1);
+/*
+	We first need to translate from localspace to worldspace,
+	then check if two boxes are inside each other.
+*/
+bool AABB::Overlap(AABB aabb) {
+	AABB col1 = aabb;
+	col1.parameters[0] = col1.matrix4 * vec4(col1.parameters[0], 1);
+	col1.parameters[1] = col1.matrix4 * vec4(col1.parameters[1], 1);
 
-	AABB col2 = collider2;
-	col2.parameters[0] = mat2 * vec4(col2.parameters[0], 1);
-	col2.parameters[1] = mat2 * vec4(col2.parameters[1], 1);
+	AABB col2 = *this;
+	col2.parameters[0] = col2.matrix4 * vec4(col2.parameters[0], 1);
+	col2.parameters[1] = col2.matrix4 * vec4(col2.parameters[1], 1);
 
 	int i = 0;
 	if (col1.parameters[0].x <= col2.parameters[1].x && col1.parameters[1].x >= col2.parameters[0].x)
@@ -25,6 +29,33 @@ bool AABB::Overlap(AABB collider1, mat4 mat1, AABB collider2, mat4 mat2) {
 		return true;
 
 	return false;
+}
+
+bool AABB::RayOverlap(Ray ray, float t0, float t1) {
+	float tmin, tmax, tymin, tymax, tzmin, tzmax;
+	AABB col = *this;
+	col.parameters[0] = col.matrix4 * vec4(col.parameters[0], 1);
+	col.parameters[1] = col.matrix4 * vec4(col.parameters[1], 1);
+
+	tmin = (col.parameters[ray.sign[0]].x - ray.origin.x) * ray.invDirection.x;
+	tmax = (col.parameters[1 - ray.sign[0]].x - ray.origin.x) * ray.invDirection.x;
+	tymin = (col.parameters[ray.sign[1]].y - ray.origin.y) * ray.invDirection.y;
+	tymax = (col.parameters[1 - ray.sign[1]].y - ray.origin.y) * ray.invDirection.y;
+	if ((tmin > tymax) || (tymin > tmax))
+		return false;
+	if (tymin > tmin)
+		tmin = tymin;
+	if (tymax < tmax)
+		tmax = tymax;
+	tzmin = (col.parameters[ray.sign[2]].z - ray.origin.z) * ray.invDirection.z;
+	tzmax = (col.parameters[1 - ray.sign[2]].z - ray.origin.z) * ray.invDirection.z;
+	if ((tmin > tzmax) || (tzmin > tmax))
+		return false;
+	if (tzmin > tmin)
+		tmin = tzmin;
+	if (tzmax < tmax)
+		tmax = tzmax;
+	return ((tmin < t1) && (tmax > t0));
 }
 
 vec3 AABB::Max() {

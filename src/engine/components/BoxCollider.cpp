@@ -16,7 +16,7 @@ void BoxCollider::Start() {
 }
 
 void BoxCollider::Update() {
-
+	aabb.matrix4 = gameObject->transform.Matrix4();
 }
 
 void BoxCollider::Draw() {
@@ -28,7 +28,7 @@ void BoxCollider::Draw() {
 	ofPushMatrix();
 	ofMultMatrix(gameObject->transform.Matrix4());
 	ofNoFill();
-	if (!overlap)
+	if (!debugOverlap)
 		ofSetColor(ofColor::green);
 	else
 		ofSetColor(ofColor::red);

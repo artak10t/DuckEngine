@@ -40,5 +40,8 @@ public:
 
 	ofColor backgroundColor = ofColor::black;
 
+	// KeysPressed
+	bool left = false;
+
 	~ofApp();
 };

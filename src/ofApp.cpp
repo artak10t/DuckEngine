@@ -25,7 +25,6 @@ void ofApp::setup() {
 	landerMesh->LoadTexture("models/moon.png");
 	landerRigidbody = lander->AddComponent<Rigidbody>();
 	landerRigidbody->gravityForce = vec3(0, 0, 0);
-	landerRigidbody->drag = 1;
 	landerCollider = lander->AddComponent<BoxCollider>();
 	landerCollider->Init(vec3(-5), vec3(5));
 	Physics::showColliders = true;
@@ -45,10 +44,18 @@ void ofApp::setup() {
 }
 
 void ofApp::update() {
-	Entity::Update();
+	if(left == true)
+		landerRigidbody->AddForce(-lander->transform.Right() * 10);
+
+	vec3 origin = trackingCam.getPosition();
+	vec3 mouseWorld = trackingCam.screenToWorld(glm::vec3(mouseX, mouseY, 0));
+	vec3 mouseDir = normalize(mouseWorld - origin);
 
 	trackingCam.lookAt(lander->transform.position);
-	landerCollider->overlap = AABB::Overlap(landerCollider->aabb, lander->transform.Matrix4(), platformCollider->aabb, platform->transform.Matrix4());
+	//landerCollider->debugOverlap = landerCollider->aabb.RayOverlap(Ray(vec3(origin.x, origin.y, origin.z), vec3(mouseDir.x, mouseDir.y, mouseDir.z)), 0, 10000);
+	//landerCollider->debugOverlap = landerCollider->aabb.Overlap(platformCollider->aabb);
+
+	Entity::Update();
 }
 
 /* 
@@ -79,11 +86,16 @@ void ofApp::keyPressed(int key) {
 
 	if (key == ' ')
 		landerRigidbody->AddForce(lander->transform.Up() * 10);
+	if (key == 'a')
+		left = true;
 
 	Entity::KeyPressed(key);
 }
 
 void ofApp::keyReleased(int key) {
+	if (key == 'a')
+		left = false;
+
 	Entity::KeyReleased(key);
 }
 
