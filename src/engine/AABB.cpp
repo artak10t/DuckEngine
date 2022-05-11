@@ -6,8 +6,8 @@ AABB::AABB(vec3 min, vec3 max) {
 }
 
 /*
-	We first need to translate from localspace to worldspace,
-	then check if two boxes are inside each other.
+	We translate points by position offset and
+	check if two boxes are inside each other.
 */
 bool AABB::Overlap(AABB aabb) {
 	AABB col1 = aabb;
@@ -31,6 +31,10 @@ bool AABB::Overlap(AABB aabb) {
 	return false;
 }
 
+/*
+	We translate AABB box by position offset and
+	check if ray intersects.
+*/
 bool AABB::RayOverlap(Ray ray, float t0, float t1) {
 	float tmin, tmax, tymin, tymax, tzmin, tzmax;
 	AABB col = *this;
@@ -56,6 +60,43 @@ bool AABB::RayOverlap(Ray ray, float t0, float t1) {
 	if (tzmax < tmax)
 		tmax = tzmax;
 	return ((tmin < t1) && (tmax > t0));
+}
+
+/*
+	Finds if given points is inside the AABB.
+*/
+bool AABB::Inside(vec3 point) {
+	AABB col = *this;
+	col.parameters[0] += col.offset;
+	col.parameters[1] += col.offset;
+
+	return ((point.x >= col.parameters[0].x && point.x <= col.parameters[1].x) &&
+			(point.y >= col.parameters[0].y && point.y <= col.parameters[1].y) &&
+			(point.z >= col.parameters[0].z && point.z <= col.parameters[1].z));
+}
+
+/*
+	Creates AABB box for the given mesh.
+*/
+AABB AABB::MeshBounds(ofMesh mesh) {
+	int n = mesh.getNumVertices();
+	ofVec3f v = mesh.getVertex(0);
+	ofVec3f max = v;
+	ofVec3f min = v;
+	for (int i = 1; i < n; i++) {
+		ofVec3f v = mesh.getVertex(i);
+
+		if (v.x > max.x) max.x = v.x;
+		else if (v.x < min.x) min.x = v.x;
+
+		if (v.y > max.y) max.y = v.y;
+		else if (v.y < min.y) min.y = v.y;
+
+		if (v.z > max.z) max.z = v.z;
+		else if (v.z < min.z) min.z = v.z;
+	}
+	
+	return AABB(vec3(min.x, min.y, min.z), vec3(max.x, max.y, max.z));
 }
 
 vec3 AABB::Max() {

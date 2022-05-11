@@ -1,16 +1,21 @@
 #include "Mesh.h"
 
 void Mesh::LoadModel(string path) {
+	ofxAssimpModelLoader assimp;
 	assimp.loadModel(path);
 	assimp.setScaleNormalization(false);
+	mesh = assimp.getMesh(0);
 }
 
 void Mesh::LoadTexture(string path) {
 	ofDisableArbTex();
 	ofLoadImage(texture, path);
-	texture.setTextureWrap(GL_REPEAT, GL_REPEAT);
 	texture.generateMipmap();
 	texture.setTextureMinMagFilter(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+}
+
+ofMesh Mesh::getMesh() {
+	return mesh;
 }
 
 void Mesh::Draw() {
@@ -37,11 +42,14 @@ void Mesh::Draw() {
 		ofSetColor(ofColor::blue);
 		ofDrawLine(gameObject->transform.position, gameObject->transform.position + gameObject->transform.Forward() * 5 * gameObject->transform.scale);
 	}
+
 	ofEnableLighting();
 	ofPushMatrix();
 	ofMultMatrix(gameObject->transform.Matrix4());
 	texture.bind();
-	assimp.drawFaces();
+	Material.begin();
+	mesh.draw();
+	Material.end();
 	texture.unbind();
 	ofPopMatrix();
 	ofDisableDepthTest();

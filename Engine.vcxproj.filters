@@ -88,6 +88,9 @@
     <ClCompile Include="src\engine\Ray.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\components\TerrainCollider.cpp">
+      <Filter>src\engine\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -355,6 +358,9 @@
     </ClInclude>
     <ClInclude Include="src\engine\Ray.h">
       <Filter>src\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\components\TerrainCollider.h">
+      <Filter>src\engine\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

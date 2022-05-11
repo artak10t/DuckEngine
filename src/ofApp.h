@@ -1,9 +1,11 @@
 #pragma once
 #include "ofMain.h"
+#include "ofxGui.h"
 #include "engine/Entity.h"
 #include "engine/components/Mesh.h"
 #include "engine/components/Rigidbody.h"
 #include "engine/components/BoxCollider.h"
+#include "engine/components/TerrainCollider.h"
 using namespace glm;
 
 class ofApp : public ofBaseApp {
@@ -33,14 +35,19 @@ public:
 	Entity* lander;
 	Rigidbody* landerRigidbody;
 	BoxCollider* landerCollider;
+	Entity* moon;
+	TerrainCollider* moonCollider;
 	Entity* platform;
 	BoxCollider* platformCollider;
 
-	Entity* moon;
-
 	ofColor backgroundColor = ofColor::black;
 
-	// KeysPressed
+	// Gui
+	ofxPanel gui;
+	ofxIntSlider guiTerrainLevel;
+
+	// Keys
+	bool guiHide = true;
 	bool left = false;
 
 	~ofApp();

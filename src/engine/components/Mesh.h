@@ -9,12 +9,14 @@ class Mesh : public Component
 {
 public:
     using Component::Component;
+    ofMaterial Material;
+
     void LoadModel(string path);
     void LoadTexture(string path);
+    ofMesh getMesh();
 
     void Draw();
 private:
-    ofxAssimpModelLoader assimp;
     ofMesh mesh;
     ofTexture texture;
 };

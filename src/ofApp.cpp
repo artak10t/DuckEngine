@@ -3,6 +3,10 @@
 void ofApp::setup() {
 	ofSetVerticalSync(true);
 
+	// Setup Gui
+	gui.setup();
+	gui.add(guiTerrainLevel.setup("Number of Terrain Levels", 20, 15, 20));
+
 	// Setup main camera
 	trackingCam.setPosition(0, 0, 0);
 	trackingCam.lookAt(glm::vec3(0, 0, -1));
@@ -15,9 +19,9 @@ void ofApp::setup() {
 	// Setup lights
 	ambientLight.setAmbientColor(ofFloatColor::black);
 	directionalLight.setDirectional();
-	directionalLight.rotate(45, 1, 1, 1);
+	directionalLight.rotate(76, 1, 1, 1);
 
-	// Create entity lander
+	// Create lander
 	lander = new Entity();
 	lander->transform.debugAxis = DebugAxis::Local;
 	Mesh* landerMesh = lander->AddComponent<Mesh>();
@@ -36,12 +40,14 @@ void ofApp::setup() {
 	platformCollider->Init(vec3(0, 0, 0), vec3(20, 5, 20));
 	platform->transform.rotation = vec3(10, 34, 32);
 
-	// Create entity moon
+	// Create moon
 	moon = new Entity();
-	moon->transform.scale = vec3(5);
 	Mesh* moonMesh = moon->AddComponent<Mesh>();
 	moonMesh->LoadModel("models/moon.obj");
 	moonMesh->LoadTexture("models/moon.png");
+	moonMesh->Material.setShininess(0.01);
+	moonCollider = moon->AddComponent<TerrainCollider>();
+	moonCollider->Init(20);
 }
 
 void ofApp::update() {
@@ -52,9 +58,11 @@ void ofApp::update() {
 	vec3 mouseWorld = trackingCam.screenToWorld(glm::vec3(mouseX, mouseY, 0));
 	vec3 mouseDir = normalize(mouseWorld - origin);
 
-	trackingCam.lookAt(lander->transform.position);
+	//trackingCam.lookAt(lander->transform.position);
 	landerCollider->debugOverlap = landerCollider->aabb.RayOverlap(Ray(vec3(origin.x, origin.y, origin.z), vec3(mouseDir.x, mouseDir.y, mouseDir.z)), 0, 10000);
 	//landerCollider->debugOverlap = landerCollider->aabb.Overlap(platformCollider->aabb);
+
+	moonCollider->debugLevel = guiTerrainLevel;
 
 	Entity::Update();
 }
@@ -77,9 +85,16 @@ void ofApp::draw() {
 	ambientLight.disable();
 	if (mainCam != NULL)
 		mainCam->end();
+
+	glDepthMask(false);
+	if (!guiHide) gui.draw();
+	glDepthMask(true);
 }
 
 void ofApp::keyPressed(int key) {
+	if (key == 'h')
+		guiHide = !guiHide;
+
 	if (key == 'q')
 		landerRigidbody->AddTorque(vec3(0, 10, 0));
 	else if (key == 'e')
