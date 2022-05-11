@@ -3,6 +3,7 @@
 #include "engine/Entity.h"
 #include "engine/components/Mesh.h"
 #include "engine/components/Rigidbody.h"
+#include "engine/components/BoxCollider.h"
 using namespace glm;
 
 class ofApp : public ofBaseApp {

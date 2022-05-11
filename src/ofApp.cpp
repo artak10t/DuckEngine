@@ -26,6 +26,9 @@ void ofApp::setup() {
 	landerRigidbody = lander->AddComponent<Rigidbody>();
 	landerRigidbody->gravityForce = vec3(0, 0, 0);
 	landerRigidbody->drag = 1;
+	BoxCollider* landerCollider = lander->AddComponent<BoxCollider>();
+	landerCollider->Init(vec3(-5), vec3(5));
+	Physics::showColliders = true;
 
 	// Create entity moon
 	moon = new Entity();

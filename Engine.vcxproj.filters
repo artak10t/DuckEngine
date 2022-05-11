@@ -79,6 +79,12 @@
     <ClCompile Include="src\engine\components\Rigidbody.cpp">
       <Filter>src\engine\components</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\components\BoxCollider.cpp">
+      <Filter>src\engine\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\AABB.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -337,6 +343,12 @@
     </ClInclude>
     <ClInclude Include="src\engine\components\Rigidbody.h">
       <Filter>src\engine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\components\BoxCollider.h">
+      <Filter>src\engine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\AABB.h">
+      <Filter>src\engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
