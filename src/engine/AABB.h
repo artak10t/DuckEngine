@@ -15,5 +15,5 @@ public:
 	vec3 Min();
 	vec3 Center();
 	vec3 parameters[2];
-	mat4 matrix4;
+	vec3 offset;
 };

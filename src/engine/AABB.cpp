@@ -11,12 +11,12 @@ AABB::AABB(vec3 min, vec3 max) {
 */
 bool AABB::Overlap(AABB aabb) {
 	AABB col1 = aabb;
-	col1.parameters[0] = col1.matrix4 * vec4(col1.parameters[0], 1);
-	col1.parameters[1] = col1.matrix4 * vec4(col1.parameters[1], 1);
+	col1.parameters[0] += col1.offset;
+	col1.parameters[1] += col1.offset;
 
 	AABB col2 = *this;
-	col2.parameters[0] = col2.matrix4 * vec4(col2.parameters[0], 1);
-	col2.parameters[1] = col2.matrix4 * vec4(col2.parameters[1], 1);
+	col2.parameters[0] += col2.offset;
+	col2.parameters[1] += col2.offset;
 
 	int i = 0;
 	if (col1.parameters[0].x <= col2.parameters[1].x && col1.parameters[1].x >= col2.parameters[0].x)
@@ -34,8 +34,8 @@ bool AABB::Overlap(AABB aabb) {
 bool AABB::RayOverlap(Ray ray, float t0, float t1) {
 	float tmin, tmax, tymin, tymax, tzmin, tzmax;
 	AABB col = *this;
-	col.parameters[0] = col.matrix4 * vec4(col.parameters[0], 1);
-	col.parameters[1] = col.matrix4 * vec4(col.parameters[1], 1);
+	col.parameters[0] += col.offset;
+	col.parameters[1] += col.offset;
 
 	tmin = (col.parameters[ray.sign[0]].x - ray.origin.x) * ray.invDirection.x;
 	tmax = (col.parameters[1 - ray.sign[0]].x - ray.origin.x) * ray.invDirection.x;

@@ -16,7 +16,7 @@ void BoxCollider::Start() {
 }
 
 void BoxCollider::Update() {
-	aabb.matrix4 = gameObject->transform.Matrix4();
+	aabb.offset = gameObject->transform.position;
 }
 
 void BoxCollider::Draw() {
@@ -26,13 +26,12 @@ void BoxCollider::Draw() {
 	ofDisableLighting();
 	ofEnableDepthTest();
 	ofPushMatrix();
-	ofMultMatrix(gameObject->transform.Matrix4());
 	ofNoFill();
 	if (!debugOverlap)
 		ofSetColor(ofColor::green);
 	else
 		ofSetColor(ofColor::red);
-	ofDrawBox(p, w, h, d);
+	ofDrawBox(aabb.offset + p, w, h, d);
 	ofPopMatrix();
 	ofDisableDepthTest();
 	ofEnableLighting();

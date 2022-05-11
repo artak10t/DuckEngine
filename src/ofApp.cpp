@@ -34,6 +34,7 @@ void ofApp::setup() {
 	platform->transform.position = vec3(0, 10, 0);
 	platformCollider = platform->AddComponent<BoxCollider>();
 	platformCollider->Init(vec3(0, 0, 0), vec3(20, 5, 20));
+	platform->transform.rotation = vec3(10, 34, 32);
 
 	// Create entity moon
 	moon = new Entity();
@@ -52,7 +53,7 @@ void ofApp::update() {
 	vec3 mouseDir = normalize(mouseWorld - origin);
 
 	trackingCam.lookAt(lander->transform.position);
-	//landerCollider->debugOverlap = landerCollider->aabb.RayOverlap(Ray(vec3(origin.x, origin.y, origin.z), vec3(mouseDir.x, mouseDir.y, mouseDir.z)), 0, 10000);
+	landerCollider->debugOverlap = landerCollider->aabb.RayOverlap(Ray(vec3(origin.x, origin.y, origin.z), vec3(mouseDir.x, mouseDir.y, mouseDir.z)), 0, 10000);
 	//landerCollider->debugOverlap = landerCollider->aabb.Overlap(platformCollider->aabb);
 
 	Entity::Update();
@@ -82,7 +83,7 @@ void ofApp::keyPressed(int key) {
 	if (key == 'q')
 		landerRigidbody->AddTorque(vec3(0, 10, 0));
 	else if (key == 'e')
-		landerRigidbody->AddTorque(vec3(0, -10, 0));
+		landerRigidbody->AddTorque(vec3(-10, 0, 0));
 
 	if (key == ' ')
 		landerRigidbody->AddForce(lander->transform.Up() * 10);
