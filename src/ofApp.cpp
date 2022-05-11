@@ -6,6 +6,7 @@ void ofApp::setup() {
 	// Setup Gui
 	gui.setup();
 	gui.add(guiTerrainLevel.setup("Number of Terrain Levels", 20, 15, 20));
+	Physics::showColliders = true;
 
 	// Setup main camera
 	trackingCam.setPosition(0, 0, 0);
@@ -22,16 +23,8 @@ void ofApp::setup() {
 	directionalLight.rotate(76, 1, 1, 1);
 
 	// Create lander
-	lander = new Entity();
-	lander->transform.debugAxis = DebugAxis::Local;
-	Mesh* landerMesh = lander->AddComponent<Mesh>();
-	landerMesh->LoadModel("models/lander.obj");
-	landerMesh->LoadTexture("models/moon.png");
-	landerRigidbody = lander->AddComponent<Rigidbody>();
-	landerRigidbody->gravityForce = vec3(0, 0, 0);
-	landerCollider = lander->AddComponent<BoxCollider>();
-	landerCollider->Init(vec3(-5), vec3(5));
-	Physics::showColliders = true;
+	Entity* l = new Entity();
+	l->AddComponent<Lander>();
 
 	// TEST PLATFORM
 	platform = new Entity();
@@ -51,15 +44,12 @@ void ofApp::setup() {
 }
 
 void ofApp::update() {
-	if(left == true)
-		landerRigidbody->AddForce(-lander->transform.Right() * 10);
-
 	vec3 origin = trackingCam.getPosition();
 	vec3 mouseWorld = trackingCam.screenToWorld(glm::vec3(mouseX, mouseY, 0));
 	vec3 mouseDir = normalize(mouseWorld - origin);
 
 	//trackingCam.lookAt(lander->transform.position);
-	landerCollider->debugOverlap = landerCollider->aabb.RayOverlap(Ray(vec3(origin.x, origin.y, origin.z), vec3(mouseDir.x, mouseDir.y, mouseDir.z)), 0, 10000);
+	//landerCollider->debugOverlap = landerCollider->aabb.RayOverlap(Ray(vec3(origin.x, origin.y, origin.z), vec3(mouseDir.x, mouseDir.y, mouseDir.z)), 0, 10000);
 	//landerCollider->debugOverlap = landerCollider->aabb.Overlap(platformCollider->aabb);
 
 	moonCollider->debugLevel = guiTerrainLevel;
@@ -95,23 +85,10 @@ void ofApp::keyPressed(int key) {
 	if (key == 'h')
 		guiHide = !guiHide;
 
-	if (key == 'q')
-		landerRigidbody->AddTorque(vec3(0, 10, 0));
-	else if (key == 'e')
-		landerRigidbody->AddTorque(vec3(-10, 0, 0));
-
-	if (key == ' ')
-		landerRigidbody->AddForce(lander->transform.Up() * 10);
-	if (key == 'a')
-		left = true;
-
 	Entity::KeyPressed(key);
 }
 
 void ofApp::keyReleased(int key) {
-	if (key == 'a')
-		left = false;
-
 	Entity::KeyReleased(key);
 }
 

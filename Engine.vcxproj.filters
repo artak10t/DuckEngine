@@ -362,6 +362,9 @@
     <ClInclude Include="src\engine\components\TerrainCollider.h">
       <Filter>src\engine\components</Filter>
     </ClInclude>
+    <ClInclude Include="src\game\Lander.h">
+      <Filter>src\game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
