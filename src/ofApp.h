@@ -8,6 +8,7 @@
 #include "engine/components/TerrainCollider.h"
 #include "game/Lander.h"
 #include "game/Moon.h"
+#include "game/LandingZone.h"
 using namespace glm;
 
 class ofApp : public ofBaseApp {
@@ -29,13 +30,16 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
-	ofCamera* mainCam;
+	void dragLander();
+
+	ofEasyCam* mainCam;
 	ofEasyCam trackingCam;
 	ofLight ambientLight;
 	ofLight directionalLight;
 
 	Lander* lander;
 	Moon* moon;
+	LandingZone* landingZone1;
 
 	Entity* platform;
 	BoxCollider* platformCollider;
@@ -48,6 +52,7 @@ public:
 
 	// Keys
 	bool guiHide = true;
+	bool drag = false;
 
 	~ofApp();
 };

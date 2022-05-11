@@ -13,6 +13,7 @@ public:
     Rigidbody* rigidbody;
     BoxCollider* collider;
     float fuel = 100;
+    float currentSpeed;
 
     void Start() {
         // Show axis
@@ -21,7 +22,7 @@ public:
         // Add mesh
         mesh = gameObject->AddComponent<Mesh>();
         mesh->LoadModel("models/lander.obj");
-        mesh->LoadTexture("models/moon.png");
+        mesh->LoadTexture("models/moon.jpg");
 
         // Add physics
         rigidbody = gameObject->AddComponent<Rigidbody>();
@@ -33,6 +34,8 @@ public:
     }
 
     void Update() {
+        currentSpeed = length(rigidbody->velocity);
+
         if (fuel <= 0)
             return;
 

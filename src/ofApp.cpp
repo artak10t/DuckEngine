@@ -30,27 +30,43 @@ void ofApp::setup() {
 	Entity* l = new Entity();
 	lander = l->AddComponent<Lander>();
 
-	// TEST PLATFORM
-	platform = new Entity();
-	platform->transform.position = vec3(0, 10, 0);
-	platformCollider = platform->AddComponent<BoxCollider>();
-	platformCollider->Init(vec3(0, 0, 0), vec3(20, 5, 20));
-	platform->transform.rotation = vec3(10, 34, 32);
+	// Create Landing Zones
+	Entity* land1 = new Entity();
+	land1->transform.position = vec3(0, -20, 0);
+	landingZone1 = land1->AddComponent<LandingZone>();
 }
 
 void ofApp::update() {
-	vec3 origin = mainCam->getPosition();
-	vec3 mouseWorld = mainCam->screenToWorld(glm::vec3(mouseX, mouseY, 0));
-	vec3 mouseDir = normalize(mouseWorld - origin);
+	dragLander();
 
 	//trackingCam.lookAt(lander->transform.position);
-	//landerCollider->debugOverlap = landerCollider->aabb.RayOverlap(Ray(vec3(origin.x, origin.y, origin.z), vec3(mouseDir.x, mouseDir.y, mouseDir.z)), 0, 10000);
 	//landerCollider->debugOverlap = landerCollider->aabb.Overlap(platformCollider->aabb);
 
 	// Gui Update
 	moon->collider->debugLevel = guiTerrainLevel;
 
+	// Landing Zones Update
+	landingZone1->collider->debugOverlap = landingZone1->collider->aabb.Overlap(lander->collider->aabb);
+	if (landingZone1->collider->debugOverlap && landingZone1->CheckSpeed(lander->currentSpeed))
+		cout << "Landed Successfully" << endl;
+
 	Entity::Update();
+}
+
+vec3 delta = vec3(0);
+void ofApp::dragLander() {
+	vec3 origin = mainCam->getPosition();
+	vec3 mouseWorld = mainCam->screenToWorld(glm::vec3(mouseX, mouseY, 0));
+	vec3 mouseDir = normalize(mouseWorld - origin);
+
+	lander->collider->debugOverlap = lander->collider->aabb.RayOverlap(Ray(vec3(origin.x, origin.y, origin.z), vec3(mouseDir.x, mouseDir.y, mouseDir.z)), 0, 10000);
+	if (drag)
+	{
+		vec3 mousePos = Ray::GetMousePointOnPlane(*mainCam, vec3(ofGetMouseX(), ofGetMouseY(), 0), lander->gameObject->transform.position, mainCam->getZAxis());
+		lander->rigidbody->velocity = vec3(0);
+		lander->rigidbody->angularVelocity = vec3(0);
+		lander->gameObject->transform.position = mousePos - delta;
+	}
 }
 
 /* 
@@ -74,13 +90,17 @@ void ofApp::draw() {
 
 	glDepthMask(false);
 	ofDrawBitmapString("Fuel: " + to_string(lander->fuel), ofGetWindowWidth() / 2, 30);
+	ofDrawBitmapString("Speed: " + to_string(lander->currentSpeed), ofGetWindowWidth() / 2, 60);
 	if (!guiHide) gui.draw();
 	glDepthMask(true);
 }
 
 void ofApp::keyPressed(int key) {
-	if (key == 'h')
+	if (key == 'h') {
+		if (mainCam->getMouseInputEnabled()) mainCam->disableMouseInput();
+		else mainCam->enableMouseInput();
 		guiHide = !guiHide;
+	}
 
 	Entity::KeyPressed(key);
 }
@@ -98,10 +118,19 @@ void ofApp::mouseDragged(int x, int y, int button) {
 }
 
 void ofApp::mousePressed(int x, int y, int button) {
+	if (button == 0 && lander->collider->debugOverlap) {
+		vec3 mousePos = Ray::GetMousePointOnPlane(*mainCam, vec3(ofGetMouseX(), ofGetMouseY(), 0), lander->gameObject->transform.position, mainCam->getZAxis());
+		delta = mousePos - lander->gameObject->transform.position;
+		drag = true;
+	}
+
 	Entity::MousePressed(x, y, button);
 }
 
 void ofApp::mouseReleased(int x, int y, int button) {
+	if (button == 0)
+		drag = false;
+
 	Entity::MouseReleased(x, y, button);
 }
 

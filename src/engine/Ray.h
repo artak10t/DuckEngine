@@ -1,5 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
+#include <glm/gtx/intersect.hpp>
+#include <3d/ofEasyCam.h>
 using namespace glm;
 
 class Ray
@@ -7,6 +9,7 @@ class Ray
 public:
 	Ray(vec3 origin, vec3 direction);
 	Ray(const Ray &ray);
+	static vec3 GetMousePointOnPlane(ofCamera camera, vec3 mousePosition, vec3 planePoint, vec3 planeNorm);
 
 	vec3 origin;
 	vec3 direction;

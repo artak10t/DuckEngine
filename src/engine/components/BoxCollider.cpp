@@ -1,6 +1,7 @@
 #include "BoxCollider.h"
 
 void BoxCollider::Init(vec3 min, vec3 max) {
+	aabb.offset = gameObject->transform.position;
 	aabb.parameters[0] = min;
 	aabb.parameters[1] = max;
 	vec3 size = aabb.Max() - aabb.Min();
