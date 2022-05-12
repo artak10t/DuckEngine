@@ -35,7 +35,7 @@ bool AABB::Intersect(AABB aabb) {
 	We translate AABB box by position offset and
 	check if ray intersects.
 */
-bool AABB::RayIntersect(Ray ray, float t0, float t1) {
+bool AABB::IntersectRay(Ray ray, float t0, float t1) {
 	float tmin, tmax, tymin, tymax, tzmin, tzmax;
 	AABB col = *this;
 	col.parameters[0] += col.offset;

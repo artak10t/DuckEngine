@@ -113,6 +113,25 @@ bool TerrainCollider::IntersectAABB(const AABB& aabb, TreeNode& node, vector<AAB
 	return intersects;
 }
 
+bool TerrainCollider::IntersectRay(const Ray& ray, TreeNode& node, TreeNode& nodeRtn) {
+	bool intersects = false;
+	if (node.aabb.IntersectRay(ray, 0, 100000)) {
+		if (node.children.size() == 0) {
+			nodeRtn = node;
+			intersects = true;
+		}
+		else {
+			for (int i = 0; i < node.children.size(); i++) {
+				if (IntersectRay(ray, node.children[i], nodeRtn)) {
+					intersects = true;
+				}
+			}
+		}
+	}
+
+	return intersects;
+}
+
 void TerrainCollider::DrawNode(TreeNode& node, int level) {
 	if (level >= levels) return;
 

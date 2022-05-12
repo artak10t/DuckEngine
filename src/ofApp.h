@@ -31,6 +31,7 @@ public:
 	void gotMessage(ofMessage msg);
 
 	void dragLander();
+	vec3 landerRay();
 
 	ofEasyCam* mainCam;
 	ofEasyCam trackingCam;
@@ -41,6 +42,8 @@ public:
 	Lander* lander;
 	Moon* moon;
 	LandingZone* landingZone1;
+	vec3 altitudePoint = vec3(0);
+	float altitude = 0;
 
 	ofColor backgroundColor = ofColor::black;
 
@@ -48,6 +51,7 @@ public:
 	ofxPanel gui;
 	ofxIntSlider guiTerrainLevel;
 	ofxToggle guiShowColliders = false;
+	ofxToggle guiShowAltimeter = false;
 	ofxToggle guiShowAxis = false;
 
 	// Keys

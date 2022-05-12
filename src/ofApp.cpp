@@ -7,6 +7,7 @@ void ofApp::setup() {
 	gui.setup();
 	gui.add(guiTerrainLevel.setup("Number of Terrain Levels", 20, 15, 20));
 	gui.add(guiShowColliders.setup("Show Colliders", false));
+	gui.add(guiShowAltimeter.setup("Show Altimeter", false));
 	gui.add(guiShowAxis.setup("Show Axis", false));
 
 	// Setup main camera
@@ -29,6 +30,7 @@ void ofApp::setup() {
 
 	// Create lander
 	Entity* l = new Entity();
+	l->transform.position = vec3(-10, 0, 10);
 	lander = l->AddComponent<Lander>();
 
 	// Create Landing Zones
@@ -37,12 +39,10 @@ void ofApp::setup() {
 	landingZone1 = land1->AddComponent<LandingZone>();
 }
 
-vec3 oldPos = vec3(0);
 void ofApp::update() {
 	dragLander();
 
 	//trackingCam.lookAt(lander->transform.position);
-	//landerCollider->debugOverlap = landerCollider->aabb.Overlap(platformCollider->aabb);
 
 	// Gui Update
 	moon->collider->debugLevel = guiTerrainLevel;
@@ -52,6 +52,10 @@ void ofApp::update() {
 	else
 		Physics::showAxis = Axis::None;
 
+	// Altitude
+	altitudePoint = landerRay();
+	altitude = abs(lander->gameObject->transform.position.y - altitudePoint.y);
+
 	// Landing Zones Update
 	landingZone1->collider->debugOverlap = landingZone1->collider->aabb.Intersect(lander->collider->aabb);
 	if (landingZone1->collider->debugOverlap && landingZone1->CheckSpeed(lander->currentSpeed))
@@ -59,16 +63,13 @@ void ofApp::update() {
 
 	// Moon and lander collision
 	moonCollisions.clear();
-	bool col = moon->collider->IntersectAABB(lander->collider->aabb, moon->collider->root, moonCollisions);
-	if (!drag && moonCollisions.size() > 5)
-	{
-		//lander->gameObject->transform.position = moonCollisions[moonCollisions.size() - 1].Min() + moon->gameObject->transform.position;
-		//lander->rigidbody->velocity = lander->rigidbody->velocity * vec3(1, -1, 1);
-		//vec3 normal = vec3(0, 1, 0);
-		//vec3 force = 100 * (dot(-lander->rigidbody->velocity, normal) * normal);
-		//lander->rigidbody->AddForce(normal);
+	moon->collider->IntersectAABB(lander->collider->aabb, moon->collider->root, moonCollisions);
+	if (altitude < 1) {
+		lander->gameObject->transform.position = vec3(lander->gameObject->transform.position.x, altitudePoint.y + 1, lander->gameObject->transform.position.z);
+		vec3 force = 1 * (dot(-lander->rigidbody->velocity, vec3(0, 1, 0)) * vec3(0, 1, 0));
+		lander->rigidbody->velocity = lander->rigidbody->velocity * vec3(1, -0.5, 1);
+		lander->rigidbody->AddForce(force);
 	}
-	//oldPos = lander->gameObject->transform.position;
 
 	Entity::Update();
 }
@@ -79,14 +80,31 @@ void ofApp::dragLander() {
 	vec3 mouseWorld = mainCam->screenToWorld(glm::vec3(mouseX, mouseY, 0));
 	vec3 mouseDir = normalize(mouseWorld - origin);
 
-	lander->collider->debugOverlap = lander->collider->aabb.RayIntersect(Ray(vec3(origin.x, origin.y, origin.z), vec3(mouseDir.x, mouseDir.y, mouseDir.z)), 0, 10000);
-	if (drag)
+	lander->collider->debugOverlap = lander->collider->aabb.IntersectRay(Ray(vec3(origin.x, origin.y, origin.z), vec3(mouseDir.x, mouseDir.y, mouseDir.z)), 0, 10000);
+	if (drag && !guiHide)
 	{
 		vec3 mousePos = Ray::GetMousePointOnPlane(*mainCam, vec3(ofGetMouseX(), ofGetMouseY(), 0), lander->gameObject->transform.position, mainCam->getZAxis());
 		lander->rigidbody->velocity = vec3(0);
 		lander->rigidbody->angularVelocity = vec3(0);
 		lander->gameObject->transform.position = mousePos - delta;
 	}
+}
+
+vec3 ofApp::landerRay() {
+	vec3 rayPoint = lander->gameObject->transform.position;
+	vec3 rayDir = -lander->gameObject->transform.Up();
+	normalize(rayDir);
+	Ray ray = Ray(vec3(rayPoint.x, rayPoint.y, rayPoint.z), vec3(rayDir.x, rayDir.y, rayDir.z));
+
+	TreeNode selectedNode;
+	bool pointSelected = moon->collider->IntersectRay(ray, moon->collider->root, selectedNode);
+
+	if (pointSelected) {
+		vec3 pointRet = moon->mesh->getMesh().getVertex(selectedNode.points[0]);
+		return pointRet;
+	}
+	else
+		return vec3(0);
 }
 
 /* 
@@ -124,6 +142,13 @@ void ofApp::draw() {
 		ofEnableLighting();
 	}
 
+	if (guiShowAltimeter) {
+		ofEnableDepthTest();
+		ofSetColor(ofColor::red);
+		ofDrawSphere(altitudePoint, 1);
+		ofDisableDepthTest();
+	}
+
 	Entity::Draw();
 
 	directionalLight.disable();
@@ -135,6 +160,7 @@ void ofApp::draw() {
 	ofSetColor(ofColor::white);
 	ofDrawBitmapString("Fuel: " + to_string(lander->fuel), ofGetWindowWidth() / 2, 30);
 	ofDrawBitmapString("Speed: " + to_string(lander->currentSpeed), ofGetWindowWidth() / 2, 60);
+	ofDrawBitmapString("Altitude: " + to_string(altitude), ofGetWindowWidth() / 2, 90);
 	if (!guiHide) gui.draw();
 	glDepthMask(true);
 }

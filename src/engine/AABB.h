@@ -12,7 +12,7 @@ public:
 	static AABB MeshBounds(ofMesh mesh);
 
 	bool Intersect(AABB aabb);
-	bool RayIntersect(Ray ray, float t0, float t1);
+	bool IntersectRay(Ray ray, float t0, float t1);
 	bool Inside(vec3 point);
 
 	vec3 Max();
