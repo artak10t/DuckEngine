@@ -11,8 +11,8 @@ public:
 	AABB(vec3 min, vec3 max);
 	static AABB MeshBounds(ofMesh mesh);
 
-	bool Overlap(AABB aabb);
-	bool RayOverlap(Ray ray, float t0, float t1);
+	bool Intersect(AABB aabb);
+	bool RayIntersect(Ray ray, float t0, float t1);
 	bool Inside(vec3 point);
 
 	vec3 Max();

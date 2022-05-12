@@ -21,9 +21,11 @@ class TerrainCollider : public Component
 {
 public:
     using Component::Component;
+    TreeNode root;
     bool bUseFaces = false;
     int debugLevel = 0;
 
+    bool IntersectAABB(const AABB& aabb, TreeNode& node, vector<AABB>& aabbList);
     void Init(int levels);
     void Draw();
 
@@ -36,7 +38,6 @@ private:
     void DrawAABB(const AABB& aabb);
 
     int levels;
-    TreeNode root;
     ofMesh mesh;
 };
 

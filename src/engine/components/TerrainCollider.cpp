@@ -89,6 +89,30 @@ int TerrainCollider::GetMeshPointsInBox(const ofMesh& mesh, const vector<int>& p
 	return count;
 }
 
+/*
+	Takes AABB, the starting node, and a list of AABB.
+	Finds collision for the node and modifies list of AABB's by 
+	adding colliders of terrain that intersected.
+*/
+bool TerrainCollider::IntersectAABB(const AABB& aabb, TreeNode& node, vector<AABB>& aabbList) {
+	bool intersects = false;
+	if (node.aabb.Intersect(aabb)) {
+		if (node.children.size() == 0) {
+			aabbList.push_back(node.aabb);
+			intersects = true;
+		}
+		else {
+			for (int i = 0; i < node.children.size(); i++) {
+				if (IntersectAABB(aabb, node.children[i], aabbList)) {
+					intersects = true;
+				}
+			}
+		}
+	}
+
+	return intersects;
+}
+
 void TerrainCollider::DrawNode(TreeNode& node, int level) {
 	if (level >= levels) return;
 

@@ -6,8 +6,6 @@
 #include <glm/gtx/quaternion.hpp>
 using namespace glm;
 
-enum class DebugAxis { None, Local, Global };
-
 class Transform
 {
 public:
@@ -27,7 +25,5 @@ public:
 	vec3 localPosition;
 	vec3 localRotation;
 	vec3 localScale;
-
-	DebugAxis debugAxis = DebugAxis::None;
 };
 

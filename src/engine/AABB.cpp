@@ -9,7 +9,7 @@ AABB::AABB(vec3 min, vec3 max) {
 	We translate points by position offset and
 	check if two boxes are inside each other.
 */
-bool AABB::Overlap(AABB aabb) {
+bool AABB::Intersect(AABB aabb) {
 	AABB col1 = aabb;
 	col1.parameters[0] += col1.offset;
 	col1.parameters[1] += col1.offset;
@@ -35,7 +35,7 @@ bool AABB::Overlap(AABB aabb) {
 	We translate AABB box by position offset and
 	check if ray intersects.
 */
-bool AABB::RayOverlap(Ray ray, float t0, float t1) {
+bool AABB::RayIntersect(Ray ray, float t0, float t1) {
 	float tmin, tmax, tymin, tymax, tzmin, tzmax;
 	AABB col = *this;
 	col.parameters[0] += col.offset;

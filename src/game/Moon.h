@@ -17,9 +17,9 @@ public:
         mesh->LoadTexture("models/moon.jpg");
         mesh->Material.setShininess(0.01);
         collider = gameObject->AddComponent<TerrainCollider>();
-        collider->Init(levels);
+        collider->Init(colliderLevels);
     }
 
 private:
-    int levels = 20;
+    int colliderLevels = 20;
 };

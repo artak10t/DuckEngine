@@ -23,7 +23,7 @@ void Mesh::Draw() {
 	ofEnableSmoothing();
 	ofDisableLighting();
 
-	if (gameObject->transform.debugAxis == DebugAxis::Global)
+	if (Physics::showAxis == Axis::Global)
 	{
 		ofSetLineWidth(5);
 		ofSetColor(ofColor::red);
@@ -33,7 +33,7 @@ void Mesh::Draw() {
 		ofSetColor(ofColor::blue);
 		ofDrawLine(gameObject->transform.position, gameObject->transform.position + vec3(0, 0, 5) * gameObject->transform.scale);
 	}
-	else if (gameObject->transform.debugAxis == DebugAxis::Local) {
+	else if (Physics::showAxis == Axis::Local) {
 		ofSetLineWidth(5);
 		ofSetColor(ofColor::red);
 		ofDrawLine(gameObject->transform.position, gameObject->transform.position + gameObject->transform.Right() * 5 * gameObject->transform.scale);

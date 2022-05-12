@@ -1,6 +1,7 @@
 #pragma once
 #include "../Component.h"
 #include "../Entity.h"
+#include "../engine/Physics.h"
 #include "ofxAssimpModelLoader.h"
 #include <gl/ofLight.h>
 #include <graphics/ofImage.h>

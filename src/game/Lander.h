@@ -16,13 +16,10 @@ public:
     float currentSpeed;
 
     void Start() {
-        // Show axis
-        gameObject->transform.debugAxis = DebugAxis::Local;
-
         // Add mesh
         mesh = gameObject->AddComponent<Mesh>();
         mesh->LoadModel("models/lander.obj");
-        mesh->LoadTexture("models/moon.jpg");
+        mesh->LoadTexture("models/lander.png");
 
         // Add physics
         rigidbody = gameObject->AddComponent<Rigidbody>();
@@ -30,7 +27,8 @@ public:
 
         // Add collider
         collider = gameObject->AddComponent<BoxCollider>();
-        collider->Init(vec3(-5), vec3(5));
+        AABB aabb = AABB::MeshBounds(mesh->getMesh());
+        collider->Init(aabb.Min(), aabb.Max());
     }
 
     void Update() {

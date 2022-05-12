@@ -37,18 +37,18 @@ public:
 	ofLight ambientLight;
 	ofLight directionalLight;
 
+	vector<AABB> moonCollisions;
 	Lander* lander;
 	Moon* moon;
 	LandingZone* landingZone1;
-
-	Entity* platform;
-	BoxCollider* platformCollider;
 
 	ofColor backgroundColor = ofColor::black;
 
 	// Gui
 	ofxPanel gui;
 	ofxIntSlider guiTerrainLevel;
+	ofxToggle guiShowColliders = false;
+	ofxToggle guiShowAxis = false;
 
 	// Keys
 	bool guiHide = true;

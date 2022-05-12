@@ -6,7 +6,8 @@ void ofApp::setup() {
 	// Setup Gui
 	gui.setup();
 	gui.add(guiTerrainLevel.setup("Number of Terrain Levels", 20, 15, 20));
-	Physics::showColliders = true;
+	gui.add(guiShowColliders.setup("Show Colliders", false));
+	gui.add(guiShowAxis.setup("Show Axis", false));
 
 	// Setup main camera
 	trackingCam.setPosition(0, 0, 0);
@@ -36,6 +37,7 @@ void ofApp::setup() {
 	landingZone1 = land1->AddComponent<LandingZone>();
 }
 
+vec3 oldPos = vec3(0);
 void ofApp::update() {
 	dragLander();
 
@@ -44,11 +46,30 @@ void ofApp::update() {
 
 	// Gui Update
 	moon->collider->debugLevel = guiTerrainLevel;
+	Physics::showColliders = guiShowColliders;
+	if (guiShowAxis)
+		Physics::showAxis = Axis::Local;
+	else
+		Physics::showAxis = Axis::None;
 
 	// Landing Zones Update
-	landingZone1->collider->debugOverlap = landingZone1->collider->aabb.Overlap(lander->collider->aabb);
+	landingZone1->collider->debugOverlap = landingZone1->collider->aabb.Intersect(lander->collider->aabb);
 	if (landingZone1->collider->debugOverlap && landingZone1->CheckSpeed(lander->currentSpeed))
 		cout << "Landed Successfully" << endl;
+
+	// Moon and lander collision
+	moonCollisions.clear();
+	bool col = moon->collider->IntersectAABB(lander->collider->aabb, moon->collider->root, moonCollisions);
+	if (!drag && col)
+	{
+		vec3 oldVel = lander->rigidbody->velocity;
+		lander->rigidbody->velocity = vec3(0);
+		lander->rigidbody->acceleration = vec3(0);
+		vec3 force = 10 * (dot(-oldVel, vec3(0, 1, 0))) * vec3(0, 1, 0);
+		lander->rigidbody->AddForce(force);
+		lander->gameObject->transform.position = oldPos;
+	}
+	oldPos = lander->gameObject->transform.position;
 
 	Entity::Update();
 }
@@ -59,7 +80,7 @@ void ofApp::dragLander() {
 	vec3 mouseWorld = mainCam->screenToWorld(glm::vec3(mouseX, mouseY, 0));
 	vec3 mouseDir = normalize(mouseWorld - origin);
 
-	lander->collider->debugOverlap = lander->collider->aabb.RayOverlap(Ray(vec3(origin.x, origin.y, origin.z), vec3(mouseDir.x, mouseDir.y, mouseDir.z)), 0, 10000);
+	lander->collider->debugOverlap = lander->collider->aabb.RayIntersect(Ray(vec3(origin.x, origin.y, origin.z), vec3(mouseDir.x, mouseDir.y, mouseDir.z)), 0, 10000);
 	if (drag)
 	{
 		vec3 mousePos = Ray::GetMousePointOnPlane(*mainCam, vec3(ofGetMouseX(), ofGetMouseY(), 0), lander->gameObject->transform.position, mainCam->getZAxis());
@@ -81,6 +102,29 @@ void ofApp::draw() {
 	ambientLight.enable();
 	directionalLight.enable();
 
+	// Moon collisions
+	if (Physics::showColliders) {
+		ofDisableLighting();
+		ofEnableDepthTest();
+		ofPushMatrix();
+		ofNoFill();
+		ofSetColor(ofColor::lightBlue);
+		for (int i = 0; i < moonCollisions.size(); i++) {
+			vec3 min = moonCollisions[i].parameters[0];
+			vec3 max = moonCollisions[i].parameters[1];
+			vec3 size = max - min;
+			vec3 center = size / 2 + min;
+			ofVec3f p = ofVec3f(center.x, center.y, center.z);
+			float w = size.x;
+			float h = size.y;
+			float d = size.z;
+			ofDrawBox(p, w, h, d);
+		}
+		ofPopMatrix();
+		ofDisableDepthTest();
+		ofEnableLighting();
+	}
+
 	Entity::Draw();
 
 	directionalLight.disable();
@@ -89,6 +133,7 @@ void ofApp::draw() {
 		mainCam->end();
 
 	glDepthMask(false);
+	ofSetColor(ofColor::white);
 	ofDrawBitmapString("Fuel: " + to_string(lander->fuel), ofGetWindowWidth() / 2, 30);
 	ofDrawBitmapString("Speed: " + to_string(lander->currentSpeed), ofGetWindowWidth() / 2, 60);
 	if (!guiHide) gui.draw();
