@@ -60,16 +60,15 @@ void ofApp::update() {
 	// Moon and lander collision
 	moonCollisions.clear();
 	bool col = moon->collider->IntersectAABB(lander->collider->aabb, moon->collider->root, moonCollisions);
-	if (!drag && col)
+	if (!drag && moonCollisions.size() > 5)
 	{
-		vec3 oldVel = lander->rigidbody->velocity;
-		lander->rigidbody->velocity = vec3(0);
-		lander->rigidbody->acceleration = vec3(0);
-		vec3 force = 10 * (dot(-oldVel, vec3(0, 1, 0))) * vec3(0, 1, 0);
-		lander->rigidbody->AddForce(force);
-		lander->gameObject->transform.position = oldPos;
+		//lander->gameObject->transform.position = moonCollisions[moonCollisions.size() - 1].Min() + moon->gameObject->transform.position;
+		//lander->rigidbody->velocity = lander->rigidbody->velocity * vec3(1, -1, 1);
+		//vec3 normal = vec3(0, 1, 0);
+		//vec3 force = 100 * (dot(-lander->rigidbody->velocity, normal) * normal);
+		//lander->rigidbody->AddForce(normal);
 	}
-	oldPos = lander->gameObject->transform.position;
+	//oldPos = lander->gameObject->transform.position;
 
 	Entity::Update();
 }
@@ -102,7 +101,7 @@ void ofApp::draw() {
 	ambientLight.enable();
 	directionalLight.enable();
 
-	// Moon collisions
+	// Moon collisions show
 	if (Physics::showColliders) {
 		ofDisableLighting();
 		ofEnableDepthTest();
