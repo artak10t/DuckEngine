@@ -26,7 +26,7 @@ public:
     int debugLevel = 0;
 
     bool IntersectAABB(const AABB& aabb, TreeNode& node, vector<AABB>& aabbList);
-    bool IntersectRay(const Ray& ray, TreeNode& node, TreeNode& nodeRtn);
+    bool IntersectRay(const Ray& ray, TreeNode& node, vector<TreeNode>& nodeList);
     void Init(int levels);
     void Draw();
 

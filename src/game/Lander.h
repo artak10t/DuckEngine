@@ -92,31 +92,31 @@ public:
         else if (key == 'q')
             counterClockwise = true;
 
-        if (key == OF_KEY_LEFT_SHIFT)
+        if (key == 'x')
             up = true;
-        else if (key == OF_KEY_LEFT_CONTROL)
+        else if (key == 'z')
             down = true;
     }
 
     void KeyReleased(int key) {
         if (key == 'a')
             left = false;
-        else if (key == 'd')
+        if (key == 'd')
             right = false;
 
         if (key == 'w')
             forward = false;
-        else if (key == 's')
+        if (key == 's')
             backward = false;
 
         if (key == 'e')
             clockwise = false;
-        else if (key == 'q')
+        if (key == 'q')
             counterClockwise = false;
 
-        if (key == OF_KEY_LEFT_SHIFT)
+        if (key == 'x')
             up = false;
-        else if (key == OF_KEY_LEFT_CONTROL)
+        if (key == 'z')
             down = false;
     }
 

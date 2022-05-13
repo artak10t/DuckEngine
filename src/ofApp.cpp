@@ -67,7 +67,7 @@ void ofApp::update() {
 	if (altitude < 1) {
 		lander->gameObject->transform.position = vec3(lander->gameObject->transform.position.x, altitudePoint.y + 1, lander->gameObject->transform.position.z);
 		vec3 force = 1 * (dot(-lander->rigidbody->velocity, vec3(0, 1, 0)) * vec3(0, 1, 0));
-		lander->rigidbody->velocity = lander->rigidbody->velocity * vec3(1, -0.5, 1);
+		lander->rigidbody->velocity = lander->rigidbody->velocity * vec3(1, -0.8, 1);
 		lander->rigidbody->AddForce(force);
 	}
 
@@ -90,6 +90,9 @@ void ofApp::dragLander() {
 	}
 }
 
+/*
+	Uses raycasting to find altitude.
+*/
 vec3 ofApp::landerRay() {
 	vec3 rayPoint = lander->gameObject->transform.position;
 	vec3 rayDir = -lander->gameObject->transform.Up();
@@ -161,6 +164,7 @@ void ofApp::draw() {
 	ofDrawBitmapString("Fuel: " + to_string(lander->fuel), ofGetWindowWidth() / 2, 30);
 	ofDrawBitmapString("Speed: " + to_string(lander->currentSpeed), ofGetWindowWidth() / 2, 60);
 	ofDrawBitmapString("Altitude: " + to_string(altitude), ofGetWindowWidth() / 2, 90);
+	ofDrawBitmapString("Fps: " + to_string(ofGetFrameRate()), ofGetWindowWidth() - 180, 30);
 	if (!guiHide) gui.draw();
 	glDepthMask(true);
 }
