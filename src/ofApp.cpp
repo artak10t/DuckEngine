@@ -10,9 +10,16 @@ void ofApp::setup() {
 	gui.add(guiShowAltimeter.setup("Show Altimeter", false));
 	gui.add(guiShowAxis.setup("Show Axis", false));
 
-	// Setup main camera
+	// Setup cameras
+	downCam.lookAt(vec3(0, -1, 0));
+	downCam.rotate(180, vec3(0, 1, 0));
+	downCam.setDistance(10);
+	downCam.setFarClip(30000);
+	downCam.setNearClip(0.1);
+	downCam.setFov(90);
+
 	trackingCam.setPosition(0, 0, 0);
-	trackingCam.lookAt(glm::vec3(0, 0, -1));
+	trackingCam.lookAt(vec3(0, 0, -1));
 	trackingCam.setDistance(100);
 	trackingCam.setFarClip(30000);
 	trackingCam.setNearClip(0.1);
@@ -20,13 +27,17 @@ void ofApp::setup() {
 	mainCam = &trackingCam;
 
 	// Setup lights
-	ambientLight.setAmbientColor(ofFloatColor::black);
+	ambientLight.setAmbientColor(ofFloatColor::dimGray);
 	directionalLight.setDirectional();
 	directionalLight.rotate(76, 1, 1, 1);
 
 	// Create moon
 	Entity* m = new Entity();
 	moon = m->AddComponent<Moon>();
+
+	// Create sky
+	Entity* s = new Entity();
+	s->AddComponent<Sky>();
 
 	// Create lander
 	Entity* l = new Entity();
@@ -71,7 +82,14 @@ void ofApp::update() {
 		lander->rigidbody->AddForce(force);
 	}
 
+	// Calculate delta rotation for camera to rotate
+	float oldY = lander->gameObject->transform.rotation.y;
 	Entity::Update();
+	float delta = lander->gameObject->transform.rotation.y - oldY;
+
+	// Cameras updates
+	downCam.setPosition(lander->gameObject->transform.position + vec3(0, -0.5, 0));
+	downCam.rotate(delta, vec3(0, 1, 0));
 }
 
 vec3 delta = vec3(0);
@@ -175,6 +193,12 @@ void ofApp::keyPressed(int key) {
 		else mainCam->enableMouseInput();
 		guiHide = !guiHide;
 	}
+
+	if (key == OF_KEY_F1)
+		mainCam = &downCam;
+
+	if (key == OF_KEY_F2)
+		mainCam = &sideCam;
 
 	Entity::KeyPressed(key);
 }

@@ -9,6 +9,7 @@
 #include "game/Lander.h"
 #include "game/Moon.h"
 #include "game/LandingZone.h"
+#include "game/Sky.h"
 using namespace glm;
 
 class ofApp : public ofBaseApp {
@@ -35,6 +36,8 @@ public:
 
 	ofEasyCam* mainCam;
 	ofEasyCam trackingCam;
+	ofEasyCam downCam;
+	ofEasyCam sideCam;
 	ofLight ambientLight;
 	ofLight directionalLight;
 
