@@ -1,7 +1,7 @@
 #include "Rigidbody2D.h"
 
 void Rigidbody2D::Update() {
-    if (!Physics::enablePhysics)
+    if (!Physics::enablePhysics || ofGetLastFrameTime() > 1)
         return;
 
     if (mass == 0)
@@ -13,7 +13,8 @@ void Rigidbody2D::Update() {
     accel += (forces * (1 / mass));
     velocity += accel * dt;
     velocity *= drag;
-    forces = gravityForce;
+    forces = vec3(0, 0, 0);
+    AddForce(Physics::gravity);
 }
 
 void Rigidbody2D::AddForce(vec3 force) {

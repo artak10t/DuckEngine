@@ -23,7 +23,6 @@ public:
 
         // Add physics
         rigidbody = gameObject->AddComponent<Rigidbody>();
-        rigidbody->gravityForce = vec3(0, 0, 0);
 
         // Add collider
         collider = gameObject->AddComponent<BoxCollider>();

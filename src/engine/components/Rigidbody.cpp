@@ -1,7 +1,7 @@
 #include "Rigidbody.h"
 
 void Rigidbody::Update() {
-    if (!Physics::enablePhysics)
+    if (!Physics::enablePhysics || ofGetLastFrameTime() > 1)
         return;
 
     if (mass == 0)
@@ -23,8 +23,9 @@ void Rigidbody::Update() {
     velocity *= drag;
     angularVelocity *= angularDrag;
 
-    forces = gravityForce;
+    forces = vec3(0, 0, 0);
     torques = vec3(0, 0, 0);
+    AddForce(Physics::gravity);
 }
 
 void Rigidbody::AddForce(vec3 force) {

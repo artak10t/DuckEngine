@@ -34,6 +34,7 @@ void ofApp::setup() {
 	// Create moon
 	Entity* m = new Entity();
 	moon = m->AddComponent<Moon>();
+	Physics::gravity = vec3(0, -0.1, 0);
 
 	// Create sky
 	Entity* s = new Entity();
@@ -166,7 +167,7 @@ void ofApp::draw() {
 	if (guiShowAltimeter) {
 		ofEnableDepthTest();
 		ofSetColor(ofColor::red);
-		ofDrawSphere(altitudePoint, 1);
+		ofDrawSphere(altitudePoint, 0.25);
 		ofDisableDepthTest();
 	}
 
