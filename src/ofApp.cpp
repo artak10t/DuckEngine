@@ -47,7 +47,7 @@ void ofApp::setup() {
 
 	// Create Landing Zones
 	Entity* land1 = new Entity();
-	land1->transform.position = vec3(-50, -28, -30);
+	land1->transform.position = vec3(-53, -28, -35);
 	landingZone1 = land1->AddComponent<LandingZone>();
 }
 
@@ -70,8 +70,8 @@ void ofApp::update() {
 
 	// Landing Zones Update
 	landingZone1->collider->debugOverlap = landingZone1->collider->aabb.Intersect(lander->collider->aabb);
-	if (landingZone1->collider->debugOverlap)
-		landingZone1->VerifyLanding(lander->currentSpeed);
+	if (landingZone1->collider->debugOverlap && landingZone1->VerifyLanding(lander->currentSpeed))
+		lander->fuel += 10;
 
 	// Moon and lander collision
 	moonCollisions.clear();

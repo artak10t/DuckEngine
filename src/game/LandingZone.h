@@ -52,6 +52,9 @@ public:
         float h = size.y;
         float d = size.z;
         ofDrawBox(p, w, h, d);
+        ofSetColor(255, 0, 0, 50);
+        ofSetLineWidth(3);
+        ofDrawArrow(vec3(15, 25, 15), vec3(15, 5, 15), 1);
         ofPopMatrix();
         ofDisableDepthTest();
     }

@@ -12,7 +12,7 @@ public:
     Mesh* mesh;
     Rigidbody* rigidbody;
     BoxCollider* collider;
-    float fuel = 100;
+    float fuel = 10;
     float currentSpeed;
 
     void Start() {
