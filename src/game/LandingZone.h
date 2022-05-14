@@ -3,6 +3,20 @@
 #include "../Entity.h"
 #include "../engine/components/BoxCollider.h"
 
+class LandingScore {
+public:
+    LandingScore()
+    {
+        softLanding = false;
+        heavyLanding = false;
+        score = 0;
+    }
+
+    bool softLanding = false;
+    bool heavyLanding = false;
+    float score = 0;
+};
+
 class LandingZone : public Component
 {
 public:
@@ -17,21 +31,22 @@ public:
     }
 
     // For landing score we take 1 and divide by speed
-    bool VerifyLanding(float speed) {
+    LandingScore VerifyLanding(float speed) {
+        LandingScore landingResult;
+
         if (speed <= 0.3 && !landed) {
+            landed = true;
             float score = 1;
             score /= speed;
+            landingResult.score = score;
 
-            if(speed <= 0.1)
-                cout << "Soft landing, your score is: " << score << endl;
+            if (speed <= 0.1)
+                landingResult.softLanding = true;
             else
-                cout << "Heavy landing, your score is: " << score << endl;
-
-            landed = true;
-            return true;
+                landingResult.heavyLanding = true;
         }
 
-        return false;
+        return landingResult;
     }
 
     // Draw landing zone

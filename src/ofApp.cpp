@@ -68,10 +68,18 @@ void ofApp::update() {
 	altitudePoint = landerRay();
 	altitude = abs(lander->gameObject->transform.position.y - altitudePoint.y);
 
-	// Landing Zones Update
-	landingZone1->collider->debugOverlap = landingZone1->collider->aabb.Intersect(lander->collider->aabb);
-	if (landingZone1->collider->debugOverlap && landingZone1->VerifyLanding(lander->currentSpeed))
-		lander->fuel += 10;
+	// Landing Zones Checks
+	if (landingZone1->collider->aabb.Intersect(lander->collider->aabb)) {
+		LandingScore score = landingZone1->VerifyLanding(lander->currentSpeed);
+		if (score.heavyLanding) {
+			lander->fuel += 5;
+			score1 = "Heavy Landing " + to_string(score.score);
+		}
+		else if (score.softLanding) {
+			lander->fuel += 10;
+			score1 = "Soft Landing " + to_string(score.score);
+		}
+	}
 
 	// Moon and lander collision
 	moonCollisions.clear();
@@ -179,11 +187,15 @@ void ofApp::draw() {
 		mainCam->end();
 
 	glDepthMask(false);
-	ofSetColor(ofColor::white);
+	ofSetColor(ofColor::aliceBlue);
 	ofDrawBitmapString("Fuel: " + to_string(lander->fuel), ofGetWindowWidth() / 2, 30);
 	ofDrawBitmapString("Speed: " + to_string(lander->currentSpeed), ofGetWindowWidth() / 2, 60);
 	ofDrawBitmapString("Altitude: " + to_string(altitude), ofGetWindowWidth() / 2, 90);
 	ofDrawBitmapString("Fps: " + to_string(ofGetFrameRate()), ofGetWindowWidth() - 180, 30);
+
+	ofDrawBitmapString("Landing Zone 1: " + score1, 30, 30);
+	ofDrawBitmapString("Landing Zone 2: " + score2, 30, 60);
+	ofDrawBitmapString("Landing Zone 3: " + score3, 30, 90);
 	if (!guiHide) gui.draw();
 	glDepthMask(true);
 }
