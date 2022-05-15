@@ -45,6 +45,8 @@ public:
 	Lander* lander;
 	Moon* moon;
 	LandingZone* landingZone1;
+	LandingZone* landingZone2;
+	LandingZone* landingZone3;
 	vec3 altitudePoint = vec3(0);
 	float altitude = 0;
 

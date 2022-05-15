@@ -49,6 +49,14 @@ void ofApp::setup() {
 	Entity* land1 = new Entity();
 	land1->transform.position = vec3(-53, -28, -35);
 	landingZone1 = land1->AddComponent<LandingZone>();
+
+	Entity* land2 = new Entity();
+	land2->transform.position = vec3(6, -28, -68);
+	landingZone2 = land2->AddComponent<LandingZone>();
+
+	Entity* land3 = new Entity();
+	land3->transform.position = vec3(83, -28, 20);
+	landingZone3 = land3->AddComponent<LandingZone>();
 }
 
 void ofApp::update() {
@@ -78,6 +86,30 @@ void ofApp::update() {
 		else if (score.softLanding) {
 			lander->fuel += 10;
 			score1 = "Soft Landing " + to_string(score.score);
+		}
+	}
+
+	if (landingZone2->collider->aabb.Intersect(lander->collider->aabb)) {
+		LandingScore score = landingZone2->VerifyLanding(lander->currentSpeed);
+		if (score.heavyLanding) {
+			lander->fuel += 5;
+			score2 = "Heavy Landing " + to_string(score.score);
+		}
+		else if (score.softLanding) {
+			lander->fuel += 10;
+			score2 = "Soft Landing " + to_string(score.score);
+		}
+	}
+
+	if (landingZone3->collider->aabb.Intersect(lander->collider->aabb)) {
+		LandingScore score = landingZone3->VerifyLanding(lander->currentSpeed);
+		if (score.heavyLanding) {
+			lander->fuel += 5;
+			score3 = "Heavy Landing " + to_string(score.score);
+		}
+		else if (score.softLanding) {
+			lander->fuel += 10;
+			score3 = "Soft Landing " + to_string(score.score);
 		}
 	}
 

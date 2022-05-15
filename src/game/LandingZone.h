@@ -34,13 +34,13 @@ public:
     LandingScore VerifyLanding(float speed) {
         LandingScore landingResult;
 
-        if (speed <= 0.3 && !landed) {
+        if (speed <= 0.15 && !landed) {
             landed = true;
             float score = 1;
             score /= speed;
             landingResult.score = score;
 
-            if (speed <= 0.1)
+            if (speed <= 0.08)
                 landingResult.softLanding = true;
             else
                 landingResult.heavyLanding = true;
