@@ -10,22 +10,6 @@ void ofApp::setup() {
 	gui.add(guiShowAltimeter.setup("Show Altimeter", false));
 	gui.add(guiShowAxis.setup("Show Axis", false));
 
-	// Setup cameras
-	downCam.lookAt(vec3(0, -1, 0));
-	downCam.rotate(180, vec3(0, 1, 0));
-	downCam.setDistance(10);
-	downCam.setFarClip(30000);
-	downCam.setNearClip(0.1);
-	downCam.setFov(90);
-
-	trackingCam.setPosition(0, 0, 0);
-	trackingCam.lookAt(vec3(0, 0, -1));
-	trackingCam.setDistance(100);
-	trackingCam.setFarClip(30000);
-	trackingCam.setNearClip(0.1);
-	trackingCam.setFov(65.5);
-	mainCam = &trackingCam;
-
 	// Setup lights
 	ambientLight.setAmbientColor(ofFloatColor::dimGray);
 	directionalLight.setDirectional();
@@ -47,22 +31,45 @@ void ofApp::setup() {
 
 	// Create Landing Zones
 	Entity* land1 = new Entity();
-	land1->transform.position = vec3(-53, -28, -35);
+	land1->transform.position = vec3(-43, -28, -25);
 	landingZone1 = land1->AddComponent<LandingZone>();
 
 	Entity* land2 = new Entity();
-	land2->transform.position = vec3(6, -28, -68);
+	land2->transform.position = vec3(16, -28, -58);
 	landingZone2 = land2->AddComponent<LandingZone>();
 
 	Entity* land3 = new Entity();
-	land3->transform.position = vec3(83, -28, 20);
+	land3->transform.position = vec3(93, -28, 30);
 	landingZone3 = land3->AddComponent<LandingZone>();
+
+	// Setup cameras
+	downCam.lookAt(vec3(0, -1, 0));
+	downCam.rotate(180, vec3(0, 1, 0));
+	downCam.setDistance(10);
+	downCam.setFarClip(30000);
+	downCam.setNearClip(0.1);
+	downCam.setFov(90);
+
+	trackingCam.setPosition(vec3(20));
+	trackingCam.rotate(180, vec3(0, 1, 0));
+	trackingCam.setDistance(10);
+	trackingCam.setFarClip(30000);
+	trackingCam.setNearClip(0.1);
+	trackingCam.setFov(70);
+
+	freeCam.setPosition(lander->gameObject->transform.position);
+	freeCam.lookAt(vec3(0, 0, -1));
+	freeCam.setDistance(50);
+	freeCam.setFarClip(30000);
+	freeCam.setNearClip(0.1);
+	freeCam.setFov(70);
+	mainCam = &freeCam;
 }
 
 void ofApp::update() {
 	dragLander();
 
-	//trackingCam.lookAt(lander->transform.position);
+	trackingCam.lookAt(lander->gameObject->transform.position);
 
 	// Gui Update
 	moon->collider->debugLevel = guiTerrainLevel;
@@ -239,11 +246,59 @@ void ofApp::keyPressed(int key) {
 		guiHide = !guiHide;
 	}
 
-	if (key == OF_KEY_F1)
-		mainCam = &downCam;
+	if (key == OF_KEY_F1) {
+		freeCam.lookAt(lander->gameObject->transform.position + vec3(0, 0, -1));
+		freeCam.setDistance(50);
+		freeCam.setFarClip(30000);
+		freeCam.setNearClip(0.1);
+		freeCam.setFov(70);
+		mainCam = &freeCam;
+	}
 
-	if (key == OF_KEY_F2)
-		mainCam = &sideCam;
+	if (key == OF_KEY_F2) {
+		downCam.lookAt(lander->gameObject->transform.position + vec3(0, -1, 0));
+		downCam.rotate(180, vec3(0, 1, 0));
+		downCam.setDistance(10);
+		downCam.setFarClip(30000);
+		downCam.setNearClip(0.1);
+		downCam.setFov(90);
+		mainCam = &downCam;
+	}
+
+	if (key == OF_KEY_F3) {
+		trackingCam.setPosition(vec3(20));
+		trackingCam.rotate(180, vec3(0, 1, 0));
+		trackingCam.setDistance(10);
+		trackingCam.setFarClip(30000);
+		trackingCam.setNearClip(0.1);
+		trackingCam.setFov(70);
+		mainCam = &trackingCam;
+	}
+
+	if (key == 'r') {
+		lander->gameObject->Destroy();
+		landingZone1->gameObject->Destroy();
+		landingZone2->gameObject->Destroy();
+		landingZone3->gameObject->Destroy();
+
+		// Create lander
+		Entity* l = new Entity();
+		l->transform.position = vec3(-10, 0, 10);
+		lander = l->AddComponent<Lander>();
+
+		// Create Landing Zones
+		Entity* land1 = new Entity();
+		land1->transform.position = vec3(-53, -28, -35);
+		landingZone1 = land1->AddComponent<LandingZone>();
+
+		Entity* land2 = new Entity();
+		land2->transform.position = vec3(6, -28, -68);
+		landingZone2 = land2->AddComponent<LandingZone>();
+
+		Entity* land3 = new Entity();
+		land3->transform.position = vec3(83, -28, 20);
+		landingZone3 = land3->AddComponent<LandingZone>();
+	}
 
 	Entity::KeyPressed(key);
 }

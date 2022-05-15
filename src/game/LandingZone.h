@@ -27,14 +27,14 @@ public:
     void Start() {
         // Use boxCollider as trigger.
         collider = gameObject->AddComponent<BoxCollider>();
-        collider->Init(vec3(0, 0, 0), vec3(30, 3, 30));
+        collider->Init(vec3(0, 0, 0), vec3(10, 3, 10));
     }
 
     // For landing score we take 1 and divide by speed
     LandingScore VerifyLanding(float speed) {
         LandingScore landingResult;
 
-        if (speed <= 0.15 && !landed) {
+        if (speed <= 0.2 && !landed) {
             landed = true;
             float score = 1;
             score /= speed;
@@ -56,20 +56,11 @@ public:
 
         ofEnableDepthTest();
         ofPushMatrix();
+        ofFill();
         ofMultMatrix(gameObject->transform.Matrix4());
-        ofSetColor(0, 255, 0, 50);
-        vec3 min = collider->aabb.parameters[0];
-        vec3 max = collider->aabb.parameters[1];
-        vec3 size = max - min;
-        vec3 center = size / 2 + min;
-        ofVec3f p = ofVec3f(center.x, center.y, center.z);
-        float w = size.x;
-        float h = size.y;
-        float d = size.z;
-        ofDrawBox(p, w, h, d);
         ofSetColor(255, 0, 0, 50);
         ofSetLineWidth(3);
-        ofDrawArrow(vec3(15, 25, 15), vec3(15, 5, 15), 1);
+        ofDrawArrow(vec3(5, 25, 5), vec3(5, 5, 5), 1);
         ofPopMatrix();
         ofDisableDepthTest();
     }

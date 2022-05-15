@@ -35,9 +35,9 @@ public:
 	vec3 landerRay();
 
 	ofEasyCam* mainCam;
-	ofEasyCam trackingCam;
+	ofEasyCam freeCam;
 	ofEasyCam downCam;
-	ofEasyCam sideCam;
+	ofEasyCam trackingCam;
 	ofLight ambientLight;
 	ofLight directionalLight;
 
