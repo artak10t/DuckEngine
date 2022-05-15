@@ -12,10 +12,16 @@ public:
     Mesh* mesh;
     Rigidbody* rigidbody;
     BoxCollider* collider;
+    ofSoundPlayer thrustSound1;
+    ofSoundPlayer thrustSound2;
     float fuel = 10;
     float currentSpeed;
 
     void Start() {
+        // Add sound
+        thrustSound1.load("sounds/thrustSound1.wav");
+        thrustSound2.load("sounds/thrustSound2.wav");
+
         // Add mesh
         mesh = gameObject->AddComponent<Mesh>();
         mesh->LoadModel("models/lander.obj");
@@ -33,43 +39,65 @@ public:
     void Update() {
         currentSpeed = length(rigidbody->velocity);
 
+        if (!up && thrustSound1.isPlaying())
+            thrustSound1.stop();
+
+        if (!down && !left && !right && !forward && !backward && !clockwise && !counterClockwise && thrustSound2.isPlaying())
+            thrustSound2.stop();
+
         if (fuel <= 0)
             return;
 
         float dt = ofGetLastFrameTime();
 
         if (left) {
+            if (!thrustSound2.isPlaying())
+                thrustSound2.play();
             rigidbody->AddForce(gameObject->transform.Right() * 1);
             fuel -= dt;
         }
         else if (right) {
+            if (!thrustSound2.isPlaying())
+                thrustSound2.play();
             rigidbody->AddForce(-gameObject->transform.Right() * 1);
             fuel -= dt;
         }
 
         if (forward) {
+            if (!thrustSound2.isPlaying())
+                thrustSound2.play();
             rigidbody->AddForce(gameObject->transform.Forward() * 1);
             fuel -= dt;
         }
         else if (backward) {
+            if (!thrustSound2.isPlaying())
+                thrustSound2.play();
             rigidbody->AddForce(-gameObject->transform.Forward() * 1);
             fuel -= dt;
         }
 
         if (clockwise) {
+            if (!thrustSound2.isPlaying())
+                thrustSound2.play();
             rigidbody->AddTorque(vec3(0, -1, 0));
             fuel -= dt;
         }
         else if (counterClockwise) {
+            if (!thrustSound2.isPlaying())
+                thrustSound2.play();
             rigidbody->AddTorque(vec3(0, 1, 0));
             fuel -= dt;
         }
 
         if (up) {
+            if(!thrustSound1.isPlaying())
+                thrustSound1.play();
             rigidbody->AddForce(gameObject->transform.Up() * 1);
             fuel -= dt;
         }
         else if (down) {
+            if (!thrustSound2.isPlaying())
+                thrustSound2.play();
             rigidbody->AddForce(-gameObject->transform.Up() * 1);
             fuel -= dt;
         }
