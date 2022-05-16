@@ -13,9 +13,8 @@ public:
         mesh = gameObject->AddComponent<Mesh>();
         mesh->LoadModel("models/sky.obj");
         mesh->LoadTexture("models/sky.png");
-        gameObject->transform.scale = vec3(2);
-        gameObject->transform.position = vec3(0, -200, 0);
-        gameObject->transform.rotation = vec3(90, 0, 0);
+        gameObject->transform.scale = vec3(30);
+        gameObject->transform.position = vec3(0, -100, 0);
     }
 
 private:

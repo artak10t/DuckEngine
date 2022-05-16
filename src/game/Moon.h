@@ -14,7 +14,7 @@ public:
     void Start() {
         mesh = gameObject->AddComponent<Mesh>();
         mesh->LoadModel("models/moon.obj");
-        mesh->LoadTexture("models/moon.jpg");
+        mesh->LoadTexture("models/moon.png");
         mesh->Material.setShininess(0.01);
         collider = gameObject->AddComponent<TerrainCollider>();
         collider->Init(colliderLevels);
