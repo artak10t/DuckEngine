@@ -91,6 +91,12 @@
     <ClCompile Include="src\engine\components\TerrainCollider.cpp">
       <Filter>src\engine\components</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\components\ParticleSystem.cpp">
+      <Filter>src\engine\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\Particle.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -373,6 +379,12 @@
     </ClInclude>
     <ClInclude Include="src\game\Sky.h">
       <Filter>src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\components\ParticleSystem.h">
+      <Filter>src\engine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Particle.h">
+      <Filter>src\engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

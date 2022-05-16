@@ -40,6 +40,7 @@ public:
 	ofEasyCam trackingCam;
 	ofLight ambientLight;
 	ofLight directionalLight;
+	ofLight landerLight;
 
 	vector<AABB> moonCollisions;
 	Lander* lander;

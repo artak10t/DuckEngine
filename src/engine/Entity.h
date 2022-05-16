@@ -23,10 +23,6 @@ public:
 
 	template<typename T> T* AddComponent() {
 		T* component = new T(this);
-		for (int i = 0; i < components.size(); i++) {
-			if (typeid(*components[i]) == typeid(*component))
-				return nullptr;
-		}
 
 		components.push_back(component);
 		components[components.size() - 1]->Start();

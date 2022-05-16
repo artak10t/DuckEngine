@@ -14,6 +14,9 @@ void ofApp::setup() {
 	ambientLight.setAmbientColor(ofFloatColor::dimGray);
 	directionalLight.setDirectional();
 	directionalLight.rotate(76, 1, 1, 1);
+	landerLight.rotate(-90, 1, 0, 0);
+	landerLight.setSpotlight(45, 10);
+	landerLight.setDiffuseColor(ofColor::orangeRed);
 
 	// Create moon
 	Entity* m = new Entity();
@@ -69,7 +72,7 @@ void ofApp::setup() {
 void ofApp::update() {
 	dragLander();
 
-	trackingCam.lookAt(lander->gameObject->transform.position);
+	landerLight.setPosition(lander->gameObject->transform.position);
 
 	// Gui Update
 	moon->collider->debugLevel = guiTerrainLevel;
@@ -88,7 +91,7 @@ void ofApp::update() {
 		LandingScore score = landingZone1->VerifyLanding(lander->currentSpeed);
 		if (score.heavyLanding) {
 			lander->fuel += 5;
-			score1 = "Heavy Landing " + to_string(score.score);
+			score1 = "Hard Landing " + to_string(score.score);
 		}
 		else if (score.softLanding) {
 			lander->fuel += 10;
@@ -100,7 +103,7 @@ void ofApp::update() {
 		LandingScore score = landingZone2->VerifyLanding(lander->currentSpeed);
 		if (score.heavyLanding) {
 			lander->fuel += 5;
-			score2 = "Heavy Landing " + to_string(score.score);
+			score2 = "Hard Landing " + to_string(score.score);
 		}
 		else if (score.softLanding) {
 			lander->fuel += 10;
@@ -112,7 +115,7 @@ void ofApp::update() {
 		LandingScore score = landingZone3->VerifyLanding(lander->currentSpeed);
 		if (score.heavyLanding) {
 			lander->fuel += 5;
-			score3 = "Heavy Landing " + to_string(score.score);
+			score3 = "Hard Landing " + to_string(score.score);
 		}
 		else if (score.softLanding) {
 			lander->fuel += 10;
@@ -138,6 +141,7 @@ void ofApp::update() {
 	// Cameras updates
 	downCam.setPosition(lander->gameObject->transform.position + vec3(0, -0.5, 0));
 	downCam.rotate(delta, vec3(0, 1, 0));
+	trackingCam.lookAt(lander->gameObject->transform.position);
 }
 
 vec3 delta = vec3(0);
@@ -188,6 +192,9 @@ void ofApp::draw() {
 	ambientLight.enable();
 	directionalLight.enable();
 
+	if(lander->fuel > 0 && lander->up)
+		landerLight.enable();
+
 	// Moon collisions show
 	if (Physics::showColliders) {
 		ofDisableLighting();
@@ -220,6 +227,7 @@ void ofApp::draw() {
 
 	Entity::Draw();
 
+	landerLight.disable();
 	directionalLight.disable();
 	ambientLight.disable();
 	if (mainCam != NULL)
@@ -235,6 +243,10 @@ void ofApp::draw() {
 	ofDrawBitmapString("Landing Zone 1: " + score1, 30, 30);
 	ofDrawBitmapString("Landing Zone 2: " + score2, 30, 60);
 	ofDrawBitmapString("Landing Zone 3: " + score3, 30, 90);
+
+	ofDrawBitmapString("Horizontal: left(a), right(d), forward(w), backward(s)", 30, ofGetWindowHeight() - 70);
+	ofDrawBitmapString("Vertical: up(x), down(z), clockwise(e), counter-clockwise(q)", 30, ofGetWindowHeight() - 50);
+	ofDrawBitmapString("Other: restart(r), debug(h)", 30, ofGetWindowHeight() - 30);
 	if (!guiHide) gui.draw();
 	glDepthMask(true);
 }

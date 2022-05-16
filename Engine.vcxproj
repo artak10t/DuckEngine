@@ -180,6 +180,8 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\Particle.cpp" />
+    <ClCompile Include="src\engine\components\ParticleSystem.cpp" />
     <ClCompile Include="src\engine\Ray.cpp" />
     <ClCompile Include="src\engine\AABB.cpp" />
     <ClCompile Include="src\engine\components\BoxCollider.cpp" />
@@ -210,6 +212,8 @@
     <ClCompile Include="src\engine\components\TerrainCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\Particle.h" />
+    <ClInclude Include="src\engine\components\ParticleSystem.h" />
     <ClInclude Include="src\game\Sky.h" />
     <ClInclude Include="src\game\LandingZone.h" />
     <ClInclude Include="src\game\Moon.h" />

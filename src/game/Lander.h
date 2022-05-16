@@ -4,14 +4,17 @@
 #include "../engine/components/Mesh.h"
 #include "../engine/components/Rigidbody.h"
 #include "../engine/components/BoxCollider.h"
+#include "../engine/components/ParticleSystem.h"
 
 class Lander : public Component
 {
 public:
     using Component::Component;
+    bool up = false;
     Mesh* mesh;
     Rigidbody* rigidbody;
     BoxCollider* collider;
+    ParticleSystem* thrustParticles;
     ofSoundPlayer thrustSound1;
     ofSoundPlayer thrustSound2;
     float fuel = 10;
@@ -34,15 +37,26 @@ public:
         collider = gameObject->AddComponent<BoxCollider>();
         AABB aabb = AABB::MeshBounds(mesh->getMesh());
         collider->Init(aabb.Min(), aabb.Max());
+
+        // Add Particle System
+        thrustParticles = gameObject->AddComponent<ParticleSystem>();
+        thrustParticles->InitialScale = 0.5;
+        thrustParticles->Enable = false;
+        thrustParticles->Shader.load("shaders/shaderFire");
+        thrustParticles->Origin = vec3(0, -1, 0);
+        thrustParticles->InitialForces = vec3(0, -10, 0);
     }
 
     void Update() {
         currentSpeed = length(rigidbody->velocity);
 
-        if (!up && thrustSound1.isPlaying())
+        if ((!up || fuel <= 0) && thrustParticles->Enable)
+            thrustParticles->Enable = false;
+
+        if ((!up || fuel <= 0) && thrustSound1.isPlaying())
             thrustSound1.stop();
 
-        if (!down && !left && !right && !forward && !backward && !clockwise && !counterClockwise && thrustSound2.isPlaying())
+        if ((!down && !left && !right && !forward && !backward && !clockwise && !counterClockwise) || fuel <= 0 && thrustSound2.isPlaying())
             thrustSound2.stop();
 
         if (fuel <= 0)
@@ -92,6 +106,8 @@ public:
         if (up) {
             if(!thrustSound1.isPlaying())
                 thrustSound1.play();
+            if (!thrustParticles->Enable)
+                thrustParticles->Enable = true;
             rigidbody->AddForce(gameObject->transform.Up() * 1);
             fuel -= dt;
         }
@@ -152,7 +168,6 @@ private:
     bool right = false;
     bool forward = false;
     bool backward = false;
-    bool up = false;
     bool down = false;
     bool clockwise = false;
     bool counterClockwise = false;
