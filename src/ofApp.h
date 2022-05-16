@@ -59,6 +59,7 @@ public:
 	ofxToggle guiShowColliders = false;
 	ofxToggle guiShowAltimeter = false;
 	ofxToggle guiShowAxis = false;
+	ofxToggle guiGodMode = false;
 	string score1 = "";
 	string score2 = "";
 	string score3 = "";

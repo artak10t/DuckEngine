@@ -14,4 +14,5 @@ public:
     vec3 acceleration = vec3(0);
 	vec3 position = vec3(0);
     vec3 forces = vec3(0);
+    float currentLifeTime = 0;
 };

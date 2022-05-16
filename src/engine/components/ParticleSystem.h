@@ -27,6 +27,7 @@ public:
     bool WorldSpace = true;
     bool Enable = true;
 
+    void ShotAll();
     void Update();
     void Draw();
 
@@ -34,7 +35,6 @@ private:
     void spawnParticle();
     void destroyParticle();
     float currentSpawnRate = 0;
-    float currentLifeTime = 0;
     vector<Particle> particles;
     mat4 matrix4(int particle);
 };

@@ -19,6 +19,9 @@ ofMesh Mesh::getMesh() {
 }
 
 void Mesh::Draw() {
+	if (!visible)
+		return;
+
 	ofEnableDepthTest();
 	ofEnableSmoothing();
 	ofDisableLighting();

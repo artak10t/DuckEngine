@@ -1,7 +1,7 @@
 #include "Rigidbody.h"
 
 void Rigidbody::Update() {
-    if (!Physics::enablePhysics || ofGetLastFrameTime() > 1)
+    if (!Physics::enablePhysics || ofGetLastFrameTime() > 1 || freeze)
         return;
 
     if (mass == 0)

@@ -11,24 +11,49 @@ class Lander : public Component
 public:
     using Component::Component;
     bool up = false;
+    bool dead = false;
+    bool godMode = false;
     Mesh* mesh;
+    Mesh* meshDestructed;
     Rigidbody* rigidbody;
     BoxCollider* collider;
     ParticleSystem* thrustParticles;
+    ParticleSystem* explosionParticles;
     ofSoundPlayer thrustSound1;
     ofSoundPlayer thrustSound2;
+    ofSoundPlayer explosion;
     float fuel = 10;
     float currentSpeed;
+
+    void Explode() {
+        if (godMode)
+            return;
+
+        fuel = 0;
+        dead = true;
+        explosionParticles->ShotAll();
+        explosion.play();
+        rigidbody->freeze = true;
+        mesh->visible = false;
+        meshDestructed->visible = true;
+    }
 
     void Start() {
         // Add sound
         thrustSound1.load("sounds/thrustSound1.wav");
         thrustSound2.load("sounds/thrustSound2.wav");
+        explosion.load("sounds/explosion.wav");
 
         // Add mesh
         mesh = gameObject->AddComponent<Mesh>();
         mesh->LoadModel("models/lander.obj");
         mesh->LoadTexture("models/lander.png");
+
+        // Add destructed mesh
+        meshDestructed = gameObject->AddComponent<Mesh>();
+        meshDestructed->LoadModel("models/landerDestructed.obj");
+        meshDestructed->LoadTexture("models/lander.png");
+        meshDestructed->visible = false;
 
         // Add physics
         rigidbody = gameObject->AddComponent<Rigidbody>();
@@ -42,13 +67,27 @@ public:
         thrustParticles = gameObject->AddComponent<ParticleSystem>();
         thrustParticles->InitialScale = 0.5;
         thrustParticles->Enable = false;
-        thrustParticles->Shader.load("shaders/shaderFire");
+        thrustParticles->Shader.load("shaders/shader");
         thrustParticles->Origin = vec3(0, -1, 0);
         thrustParticles->InitialForces = vec3(0, -10, 0);
+        thrustParticles->RandomForces = vec3(1, 0, 1);
+        thrustParticles->LifeTime = 2;
+
+        explosionParticles = gameObject->AddComponent<ParticleSystem>();
+        explosionParticles->InitialScale = 1;
+        explosionParticles->Enable = false;
+        explosionParticles->Shader.load("shaders/shader");
+        explosionParticles->InitialForces = vec3(0, 0, 0);
+        explosionParticles->Turbulence = vec3(0, 0.1, 0);
+        explosionParticles->RandomForces = vec3(10, 5, 10);
+        explosionParticles->Limit = 300;
+        explosionParticles->LifeTime = 5;
     }
 
     void Update() {
         currentSpeed = length(rigidbody->velocity);
+        if (godMode)
+            fuel = 10;
 
         if ((!up || fuel <= 0) && thrustParticles->Enable)
             thrustParticles->Enable = false;

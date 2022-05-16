@@ -1,20 +1,22 @@
 #include "ParticleSystem.h"
 
+void ParticleSystem::ShotAll() {
+	for (int i = 0; i < Limit; i++)
+		spawnParticle();
+}
+
 void ParticleSystem::Update() {
 	float dt = ofGetLastFrameTime();
 	currentSpawnRate += dt;
-	currentLifeTime += dt;
-
-	if (currentLifeTime >= LifeTime && particles.size() > 0) {
-		currentLifeTime = 0;
-		destroyParticle();
-	}
 
 	for (int i = 0; i < particles.size(); i++) {
 		particles[i].forces += Turbulence;
 		particles[i].scale = ofNormalize(particles[i].scale, 0, FinalScale);
 		particles[i].scale += dt;
 		particles[i].Update();
+
+		if (particles[i].currentLifeTime >= LifeTime)
+			destroyParticle();
 	}
 
 	if (ofGetLastFrameTime() > 1 || !Enable)

@@ -9,6 +9,7 @@ void ofApp::setup() {
 	gui.add(guiShowColliders.setup("Show Colliders", false));
 	gui.add(guiShowAltimeter.setup("Show Altimeter", false));
 	gui.add(guiShowAxis.setup("Show Axis", false));
+	gui.add(guiGodMode.setup("God Mode", false));
 
 	// Setup lights
 	ambientLight.setAmbientColor(ofFloatColor::dimGray);
@@ -76,6 +77,7 @@ void ofApp::update() {
 
 	// Gui Update
 	moon->collider->debugLevel = guiTerrainLevel;
+	lander->godMode = guiGodMode;
 	Physics::showColliders = guiShowColliders;
 	if (guiShowAxis)
 		Physics::showAxis = Axis::Local;
@@ -131,6 +133,9 @@ void ofApp::update() {
 		vec3 force = 1 * (dot(-lander->rigidbody->velocity, vec3(0, 1, 0)) * vec3(0, 1, 0));
 		lander->rigidbody->velocity = lander->rigidbody->velocity * vec3(1, -0.8, 1);
 		lander->rigidbody->AddForce(force);
+
+		if (lander->currentSpeed > 0.15 && !lander->dead)
+			lander->Explode();
 	}
 
 	// Calculate delta rotation for camera to rotate

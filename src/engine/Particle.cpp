@@ -8,4 +8,6 @@ void Particle::Update() {
     velocity += accel * dt;
     velocity *= drag;
     forces = vec3(0);
+
+    currentLifeTime += dt;
 }

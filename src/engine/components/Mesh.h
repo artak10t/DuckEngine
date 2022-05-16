@@ -11,6 +11,7 @@ class Mesh : public Component
 public:
     using Component::Component;
     ofMaterial Material;
+    bool visible = true;
 
     void LoadModel(string path);
     void LoadTexture(string path);
