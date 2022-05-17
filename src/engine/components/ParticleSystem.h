@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <gl/ofShader.h>
+#include <gl/ofVbo.h>
 #include <graphics/ofGraphics.h>
 #include <graphics/of3dGraphics.h>
 #include <app/ofAppRunner.h>
@@ -34,6 +35,8 @@ public:
 private:
     void spawnParticle();
     void destroyParticle();
+    void loadVBO();
+    ofVbo vbo;
     float currentSpawnRate = 0;
     vector<Particle> particles;
     mat4 matrix4(int particle);

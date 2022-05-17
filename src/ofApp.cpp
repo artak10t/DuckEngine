@@ -258,15 +258,22 @@ void ofApp::draw() {
 
 void ofApp::keyPressed(int key) {
 	if (key == 'h') {
-		if (mainCam->getMouseInputEnabled()) mainCam->disableMouseInput();
-		else mainCam->enableMouseInput();
 		guiHide = !guiHide;
+		if (guiHide)
+			mainCam->enableMouseInput();
+		else
+			mainCam->disableMouseInput();
 	}
 
 	if (key == OF_KEY_F1) {
 		freeCam.lookAt(lander->gameObject->transform.position + vec3(0, 0, -1));
 		freeCam.setDistance(50);
 		mainCam = &freeCam;
+
+		if (guiHide)
+			mainCam->enableMouseInput();
+		else
+			mainCam->disableMouseInput();
 	}
 
 	if (key == OF_KEY_F2) {
@@ -274,12 +281,22 @@ void ofApp::keyPressed(int key) {
 		downCam.rotate(lander->gameObject->transform.rotation.y - 180, vec3(0, 1, 0));
 		downCam.setDistance(10);
 		mainCam = &downCam;
+
+		if (guiHide)
+			mainCam->enableMouseInput();
+		else
+			mainCam->disableMouseInput();
 	}
 
 	if (key == OF_KEY_F3) {
 		trackingCam.setPosition(vec3(20));
 		trackingCam.setDistance(10);
 		mainCam = &trackingCam;
+
+		if (guiHide)
+			mainCam->enableMouseInput();
+		else
+			mainCam->disableMouseInput();
 	}
 
 	if (key == 'r') {
