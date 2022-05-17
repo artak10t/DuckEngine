@@ -26,6 +26,8 @@ void Mesh::Draw() {
 	ofEnableSmoothing();
 	ofDisableLighting();
 
+	// Depeding if physics show axis is set
+	// draw local or global axis.
 	if (Physics::showAxis == Axis::Global)
 	{
 		ofSetLineWidth(5);

@@ -3,6 +3,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <app/ofAppRunner.h>
 using namespace glm;
+
+/*
+    Individual particle class. 
+    Used with particle system for position calculation of
+    the particle using a physics.
+*/
 class Particle
 {
 public:

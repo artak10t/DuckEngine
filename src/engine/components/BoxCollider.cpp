@@ -12,10 +12,6 @@ void BoxCollider::Init(vec3 min, vec3 max) {
 	d = size.z;
 }
 
-void BoxCollider::Start() {
-	
-}
-
 void BoxCollider::Update() {
 	aabb.offset = gameObject->transform.position;
 }

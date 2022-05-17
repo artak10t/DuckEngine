@@ -7,13 +7,17 @@
 #include <gl/ofLight.h>
 #include <graphics/of3dGraphics.h>
 
+/*
+    BoxCollider component for entites.
+    To check if two box collider collider
+    gameObject1->boxCollider->aabb.Intersect(gameObject2->boxCollider->aabb)
+*/
 class BoxCollider : public Component
 {
 public:
     using Component::Component;
 
     void Init(vec3 min, vec3 max);
-    void Start();
     void Update();
     void Draw();
 

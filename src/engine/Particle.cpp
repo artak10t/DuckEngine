@@ -1,5 +1,6 @@
 #include "Particle.h"
 
+// Integrates particle physics
 void Particle::Update() {
     float dt = ofGetLastFrameTime();
     position += velocity;

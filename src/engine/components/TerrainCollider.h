@@ -8,6 +8,10 @@
 #include <gl/ofLight.h>
 #include <graphics/of3dGraphics.h>
 
+/*
+    Terrain is divide into octree nodes where each
+    node has a child.
+*/
 class TreeNode {
 public:
     TreeNode() {}
