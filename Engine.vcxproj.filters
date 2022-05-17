@@ -368,18 +368,6 @@
     <ClInclude Include="src\engine\components\TerrainCollider.h">
       <Filter>src\engine\components</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\Lander.h">
-      <Filter>src\game</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\Moon.h">
-      <Filter>src\game</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\LandingZone.h">
-      <Filter>src\game</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\Sky.h">
-      <Filter>src\game</Filter>
-    </ClInclude>
     <ClInclude Include="src\engine\components\ParticleSystem.h">
       <Filter>src\engine\components</Filter>
     </ClInclude>
