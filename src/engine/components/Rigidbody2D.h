@@ -10,7 +10,6 @@ public:
     using Component::Component;
     float drag = 0.99;
     float mass = 1;
-    vec3 gravityForce = vec3(0, 9.8, 0);
     vec3 velocity = vec3(0, 0, 0);
     vec3 acceleration = vec3(0, 0, 0);
 
