@@ -113,6 +113,11 @@ bool TerrainCollider::IntersectAABB(const AABB& aabb, TreeNode& node, vector<AAB
 	return intersects;
 }
 
+/*
+	Takes ray, the starting node, and an empty node reference 
+	that will be used as return node. Finds collision and 
+	returns true or false. For collider itself use nodeReturn.
+*/
 bool TerrainCollider::IntersectRay(const Ray& ray, TreeNode& node, TreeNode& nodeReturn) {
 	bool intersects = false;
 	if (node.aabb.IntersectRay(ray, 0, INFINITE)) {

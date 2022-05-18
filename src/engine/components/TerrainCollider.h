@@ -27,10 +27,16 @@ public:
     using Component::Component;
     TreeNode root;
     bool bUseFaces = false;
+    // Show octree level
     int debugLevel = 0;
 
+    // Check if intersected with AABB
     bool IntersectAABB(const AABB& aabb, TreeNode& node, vector<AABB>& aabbList);
+
+    // Check if intersected with Ray
     bool IntersectRay(const Ray& ray, TreeNode& node, TreeNode& nodeList);
+
+    // Creates octree with the given levels
     void Init(int levels);
     void Draw();
 
