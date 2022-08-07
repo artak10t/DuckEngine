@@ -6,7 +6,7 @@ General purpose data-driven game engine with custom entity component system.
 * Integrated real-world physics and used axis aligned bounding boxes to detect collision between objects.
 * Terrain mesh collision detection by using subdivided octree data structure.
 
-## [Getting Started](https://github.com/artak10t/DuckEngine/wiki)
+## [Documentation](https://github.com/artak10t/DuckEngine/wiki)
 
 ## Example: 2D Game
 
